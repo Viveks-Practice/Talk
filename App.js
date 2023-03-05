@@ -10,6 +10,7 @@ import {
   StatusBar,
   Image,
 } from "react-native";
+import { API_KEY } from "@env";
 
 export default function App() {
   const [message, setMessage] = useState("");
@@ -27,8 +28,7 @@ export default function App() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            Authorization: "Bearer " + API_KEY,
           },
           body: JSON.stringify({
             prompt: `User: ${message}\nAI:`,
