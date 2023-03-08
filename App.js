@@ -41,12 +41,18 @@ export default function App() {
           text: message,
           sender: "user",
         },
-        {
-          id: Math.random().toString(),
-          text: "Thinking...",
-          sender: "ai",
-        },
       ]);
+
+      setTimeout(() => {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            id: Math.random().toString(),
+            text: "Thinking...",
+            sender: "ai",
+          },
+        ]);
+      }, 200);
 
       setMessage("");
 
