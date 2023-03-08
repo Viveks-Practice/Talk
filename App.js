@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,12 +9,23 @@ import {
   SafeAreaView,
   StatusBar,
   Image,
+  TouchableOpacity,
 } from "react-native";
-import { API_KEY } from "@env";
+import { Ionicons } from "@expo/vector-icons";
+import { Header } from "react-native-elements";
+import { OPENAI_API_KEY } from "@env";
 
 export default function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const flatListRef = useRef(null); // Create a reference to the FlatList component
+
+  const url = "https://api.openai.com/v1/chat/completions";
+
+  const requestData = {
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: message }],
+  };
 
   const sendMessage = async () => {
     if (message.trim().length === 0) {
@@ -22,24 +33,14 @@ export default function App() {
     }
 
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/engines/davinci-codex/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + API_KEY,
-          },
-          body: JSON.stringify({
-            prompt: `User: ${message}\nAI:`,
-            max_tokens: 50,
-            temperature: 0.7,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-          }),
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify(requestData),
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -47,7 +48,7 @@ export default function App() {
 
       const data = await response.json();
 
-      const aiMessage = data.choices[0].text.trim();
+      const aiMessage = data.choices[0].message.content.trim();
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -69,84 +70,123 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToEnd({ animated: true }); // Scroll to the end of the list after a new message is received
+    }
+  }, [messages]);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.titleBar}>
-        <Image
-          source={{ uri: "https://via.placeholder.com/50" }}
-          style={styles.titleBarImage}
-        />
-        <Text style={styles.titleBarText}>Chat Title</Text>
-      </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: "#161d27" }]}>
+      <Header
+        placement="center"
+        centerComponent={{
+          text: "ChatGPT Mobile",
+          style: styles.toolbarTitle,
+        }}
+        rightComponent={{
+          icon: "more",
+          color: "#fff",
+          onPress: () => console.log("Pressed"),
+        }}
+        leftComponent={{
+          icon: "menu",
+          color: "#fff",
+          onPress: () => console.log("Pressed"),
+        }}
+        containerStyle={{ backgroundColor: "#202d3a" }}
+      />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="#1a252f"
+        style={styles.statusBar}
+      />
+
       <View style={styles.messages}>
-        <FlatList
-          data={messages}
-          renderItem={({ item }) => (
-            <View
-              style={[styles.message, item.sender === "ai" && styles.aiMessage]}
-            >
-              <Text style={styles.messageText}>{item.text}</Text>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
+        {messages.length > 0 && (
+          <FlatList
+            data={messages}
+            renderItem={({ item }) => (
+              <View
+                style={[
+                  styles.message,
+                  item.sender === "ai" && styles.aiMessage,
+                ]}
+              >
+                <Text style={styles.messageText}>{item.text}</Text>
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+            ref={flatListRef} // Pass the reference to the FlatList component
+            onContentSizeChange={() =>
+              flatListRef.current.scrollToEnd({ animated: true })
+            } // Scroll to the end of the list when the content size changes
+            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })} // Scroll to the end of the list when the layout changes
+          />
+        )}
       </View>
+
       <View style={styles.input}>
         <TextInput
           style={styles.inputText}
           value={message}
           onChangeText={setMessage}
           placeholder="Type your message..."
+          placeholderTextColor="#657284"
         />
-        <Button title="Send" onPress={sendMessage} />
+        <TouchableOpacity onPress={sendMessage}>
+          <Ionicons name="send" size={24} color="#fff" />
+        </TouchableOpacity>
+        {/* <Button title="Send" onPress={sendMessage} /> */}
       </View>
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-end",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, // add padding top to handle status bar on android
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: "#111923",
   },
   titleBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#075e54",
-    height: 60,
-    paddingHorizontal: 10,
-  },
-  titleBarImage: {
-    width: 40,
+    backgroundColor: "#075E54",
     height: 40,
-    borderRadius: 20,
-    marginRight: 10,
+    paddingHorizontal: 10,
+    paddingTop: 0,
   },
-  titleBarText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  titleBarIcons: {
+  titleBarLeft: {
     flexDirection: "row",
     alignItems: "center",
   },
-  icon: {
-    width: 50,
-    height: 50,
-    marginLeft: 10,
+  titleBarRight: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  titleBarIcon: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 10,
+    tintColor: "#fff",
+  },
+  titleBarText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   messages: {
     flex: 1,
     padding: 10,
-    marginBottom: Platform.OS === "ios" ? 20 : 0, // add margin bottom to handle bottom safe area on ios
+    marginBottom: Platform.OS === "ios" ? 20 : 0,
+    backgroundColor: "#13293D",
   },
   message: {
     padding: 10,
-    backgroundColor: "#ccc",
+    backgroundColor: "#232e3b",
     borderRadius: 10,
     marginBottom: 10,
     alignSelf: "flex-start",
@@ -154,7 +194,7 @@ const styles = StyleSheet.create({
   },
   aiMessage: {
     alignSelf: "flex-end",
-    backgroundColor: "#007AFF",
+    backgroundColor: "#3e6088",
   },
   messageText: {
     fontSize: 16,
@@ -164,13 +204,40 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
+    backgroundColor: "#202d3a",
   },
   inputText: {
     flex: 1,
     marginRight: 10,
     padding: 10,
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 10,
     borderColor: "#ccc",
+    color: "#fff",
+    fontSize: 18,
+  },
+  scrollToEndButton: {
+    backgroundColor: "#007AFF",
+    borderRadius: 10,
+    padding: 10,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+  },
+  scrollToEndButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  statusBar: {
+    backgroundColor: "#075E54",
+    color: "#fff",
+    height: 30,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+  },
+  toolbarTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#fff",
   },
 });
