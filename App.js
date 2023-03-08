@@ -19,7 +19,6 @@ import { OPENAI_API_KEY } from "@env";
 export default function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // New state variable
   const flatListRef = useRef(null); // Create a reference to the FlatList component
 
   const url = "https://api.openai.com/v1/chat/completions";
@@ -42,10 +41,14 @@ export default function App() {
           text: message,
           sender: "user",
         },
+        {
+          id: Math.random().toString(),
+          text: "Thinking...",
+          sender: "ai",
+        },
       ]);
 
       setMessage("");
-      setIsLoading(true); // Set isLoading to true before making the API call
 
       const response = await fetch(url, {
         method: "POST",
@@ -65,15 +68,23 @@ export default function App() {
       const aiMessage = data.choices[0].message.content.trim();
 
       setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            id: Math.random().toString(),
-            text: aiMessage,
-            sender: "ai",
-          },
-        ]);
-        setIsLoading(false); // Set isLoading to false after receiving the response
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+
+          const index = updatedMessages.findIndex(
+            (msg) => msg.text === "Thinking..."
+          );
+
+          if (index !== -1) {
+            updatedMessages[index] = {
+              id: Math.random().toString(),
+              text: aiMessage,
+              sender: "ai",
+            };
+          }
+
+          return updatedMessages;
+        });
       }, 1000); // Simulate a delay for the API response
     } catch (error) {
       console.error("Error:", error);
@@ -151,12 +162,6 @@ export default function App() {
             } // Scroll to the end of the list when the content size changes
             onLayout={() => flatListRef.current.scrollToEnd({ animated: true })} // Scroll to the end of the list when the layout changes
           />
-        )}
-
-        {isLoading && (
-          <View style={[styles.message, styles.aiMessage]}>
-            <Text style={styles.messageText}>Thinking...</Text>
-          </View>
         )}
       </View>
 
@@ -273,18 +278,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: "#fff",
-  },
-  thinkingMessage: {
-    alignSelf: "flex-end",
-    backgroundColor: "#3e6088",
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
-    maxWidth: "80%",
-  },
-  thinkingText: {
-    fontSize: 16,
-    color: "#fff",
-    fontStyle: "italic",
   },
 });
