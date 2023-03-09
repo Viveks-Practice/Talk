@@ -109,16 +109,6 @@ export default function App() {
           text: "ChatGPT Mobile",
           style: styles.toolbarTitle,
         }}
-        // rightComponent={{
-        //   icon: "more",
-        //   color: "#fff",
-        //   onPress: () => console.log("Pressed"),
-        // }}
-        // leftComponent={{
-        //   icon: "menu",
-        //   color: "#fff",
-        //   onPress: () => console.log("Pressed"),
-        // }}
         containerStyle={{
           backgroundColor: "#202d3a",
           borderBottomColor: "#202d3a",
@@ -139,9 +129,17 @@ export default function App() {
               <View
                 style={[
                   styles.message,
-                  item.role === "assistant" && styles.assistantMessage,
+                  item.role === "assistant"
+                    ? styles.assistantMessage
+                    : styles.userMessage,
                 ]}
               >
+                {item.role === "assistant" && (
+                  <Text style={styles.assistantTitle}>ChatGPT</Text>
+                )}
+                {item.role === "user" && (
+                  <Text style={styles.userTitle}>You</Text>
+                )}
                 <Text style={styles.messageText}>{item.content}</Text>
               </View>
             )}
@@ -207,6 +205,18 @@ const styles = StyleSheet.create({
   assistantMessage: {
     alignSelf: "flex-end",
     backgroundColor: "#3e6088",
+  },
+  userTitle: {
+    color: "#8375ff",
+    fontSize: 10,
+    fontWeight: "bold",
+    marginBottom: 0,
+  },
+  assistantTitle: {
+    color: "#a1ffd6",
+    fontSize: 10,
+    fontWeight: "bold",
+    marginBottom: 0,
   },
   messageText: {
     fontSize: 16,
