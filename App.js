@@ -18,44 +18,39 @@ import { OPENAI_API_KEY } from "@env";
 
 export default function App() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      content: "Hi there, how can I help?",
+      id: Math.random().toString(),
+    },
+  ]);
   const flatListRef = useRef(null); // Create a reference to the FlatList component
 
   const url = "https://api.openai.com/v1/chat/completions";
-
-  const requestData = {
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: message }],
-  };
 
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
       return;
     }
 
+    const newMessage = {
+      id: Math.random().toString(),
+      content: message,
+      role: "user",
+    };
+
+    const updatedMessages = [...messages, newMessage];
+
+    setMessages(updatedMessages);
+    setMessage("");
+
+    const requestData = {
+      model: "gpt-3.5-turbo",
+      messages: updatedMessages.map(({ id, ...rest }) => ({ ...rest })),
+    };
+
     try {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Math.random().toString(),
-          text: message,
-          sender: "user",
-        },
-      ]);
-
-      setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            id: Math.random().toString(),
-            text: "Thinking...",
-            sender: "ai",
-          },
-        ]);
-      }, 200);
-
-      setMessage("");
-
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -73,25 +68,14 @@ export default function App() {
 
       const aiMessage = data.choices[0].message.content.trim();
 
-      setTimeout(() => {
-        setMessages((prevMessages) => {
-          const updatedMessages = [...prevMessages];
-
-          const index = updatedMessages.findIndex(
-            (msg) => msg.text === "Thinking..."
-          );
-
-          if (index !== -1) {
-            updatedMessages[index] = {
-              id: Math.random().toString(),
-              text: aiMessage,
-              sender: "ai",
-            };
-          }
-
-          return updatedMessages;
-        });
-      }, 1000); // Simulate a delay for the API response
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Math.random().toString(),
+          content: aiMessage,
+          role: "assistant",
+        },
+      ]);
     } catch (error) {
       console.error("Error:", error);
 
@@ -125,16 +109,16 @@ export default function App() {
           text: "ChatGPT Mobile",
           style: styles.toolbarTitle,
         }}
-        rightComponent={{
-          icon: "more",
-          color: "#fff",
-          onPress: () => console.log("Pressed"),
-        }}
-        leftComponent={{
-          icon: "menu",
-          color: "#fff",
-          onPress: () => console.log("Pressed"),
-        }}
+        // rightComponent={{
+        //   icon: "more",
+        //   color: "#fff",
+        //   onPress: () => console.log("Pressed"),
+        // }}
+        // leftComponent={{
+        //   icon: "menu",
+        //   color: "#fff",
+        //   onPress: () => console.log("Pressed"),
+        // }}
         containerStyle={{
           backgroundColor: "#202d3a",
           borderBottomColor: "#202d3a",
@@ -155,18 +139,18 @@ export default function App() {
               <View
                 style={[
                   styles.message,
-                  item.sender === "ai" && styles.aiMessage,
+                  item.role === "assistant" && styles.assistantMessage,
                 ]}
               >
-                <Text style={styles.messageText}>{item.text}</Text>
+                <Text style={styles.messageText}>{item.content}</Text>
               </View>
             )}
             keyExtractor={(item) => item.id}
-            ref={flatListRef} // Pass the reference to the FlatList component
+            ref={flatListRef}
             onContentSizeChange={() =>
               flatListRef.current.scrollToEnd({ animated: true })
-            } // Scroll to the end of the list when the content size changes
-            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })} // Scroll to the end of the list when the layout changes
+            }
+            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
           />
         )}
       </View>
@@ -182,7 +166,6 @@ export default function App() {
         <TouchableOpacity onPress={sendMessage}>
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
-        {/* <Button title="Send" onPress={sendMessage} /> */}
       </View>
     </SafeAreaView>
   );
@@ -195,33 +178,17 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: "#111923",
   },
-  titleBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#075E54",
-    height: 40,
-    paddingHorizontal: 10,
-    paddingTop: 0,
-  },
-  titleBarLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  titleBarRight: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  titleBarIcon: {
-    width: 30,
-    height: 30,
-    marginHorizontal: 10,
-    tintColor: "#fff",
-  },
-  titleBarText: {
-    color: "#fff",
-    fontSize: 20,
+  toolbarTitle: {
     fontWeight: "bold",
+    fontSize: 20,
+    color: "#fff",
+  },
+  statusBar: {
+    backgroundColor: "#075E54",
+    color: "#fff",
+    height: 30,
+    paddingHorizontal: 10,
+    justifyContent: "center",
   },
   messages: {
     flex: 1,
@@ -237,7 +204,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     maxWidth: "80%",
   },
-  aiMessage: {
+  assistantMessage: {
     alignSelf: "flex-end",
     backgroundColor: "#3e6088",
   },
@@ -272,17 +239,5 @@ const styles = StyleSheet.create({
   scrollToEndButtonText: {
     color: "#fff",
     fontWeight: "bold",
-  },
-  statusBar: {
-    backgroundColor: "#075E54",
-    color: "#fff",
-    height: 30,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-  },
-  toolbarTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#fff",
   },
 });
