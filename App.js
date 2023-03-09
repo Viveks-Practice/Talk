@@ -67,6 +67,7 @@ export default function App() {
       const data = await response.json();
 
       const aiMessage = data.choices[0].message.content.trim();
+      const tokenCount = data.usage.total_tokens;
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -76,6 +77,16 @@ export default function App() {
           role: "assistant",
         },
       ]);
+
+      if (tokenCount > 4090) {
+        if (updatedMessages.length == 1) {
+          setMessages([]);
+        }
+        const halfIndex = Math.ceil(updatedMessages.length / 2);
+        const secondHalfMessages = updatedMessages.slice(halfIndex);
+
+        setMessages(secondHalfMessages);
+      }
     } catch (error) {
       console.error("Error:", error);
 
