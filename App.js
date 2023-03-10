@@ -11,6 +11,7 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
@@ -113,7 +114,10 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: "#161d27" }]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={[styles.container, { backgroundColor: "#161d27" }]}
+    >
       <Header
         placement="center"
         centerComponent={{
@@ -176,7 +180,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
