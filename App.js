@@ -13,6 +13,7 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
 } from "react-native";
+import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
@@ -116,7 +117,7 @@ export default function App() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={[styles.container, { backgroundColor: "#161d27" }]}
+      style={styles.container}
     >
       <Header
         placement="center"
@@ -128,6 +129,7 @@ export default function App() {
           backgroundColor: "#202d3a",
           borderBottomColor: "#202d3a",
           borderBottomWidth: 1,
+          marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
         }}
       />
       <StatusBar
@@ -186,10 +188,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    backgroundColor: "#111923",
+    backgroundColor: "#161d27",
   },
   toolbarTitle: {
     fontWeight: "bold",
@@ -206,7 +205,6 @@ const styles = StyleSheet.create({
   messages: {
     flex: 1,
     padding: 10,
-    marginBottom: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "#13293D",
   },
   message: {
