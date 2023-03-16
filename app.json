@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "talk",
-    "slug": "talk",
-    "version": "2.0.6",
+    "name": "ChatGPT Mobile",
+    "slug": "ChatGPT Mobile",
+    "version": "2.0.7",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/smallicon-chatgpt-mobile.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/smallicon-chatgpt-mobile.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
       "bundleIdentifier": "talk"
     },
     "android": {
-      "versionCode": 7,
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
