@@ -12,6 +12,7 @@
     "@react-native-clipboard/clipboard": "^1.11.2",
     "axios": "^1.3.4",
     "expo": "~48.0.5",
+    "expo-dev-client": "~2.1.5",
     "expo-status-bar": "~1.4.4",
     "openai": "^3.2.1",
     "react": "18.2.0",
@@ -20,9 +21,9 @@
     "react-native-elements": "^3.4.3",
     "react-native-gifted-chat": "^1.1.1",
     "react-native-paper": "^5.3.1",
+    "react-native-safe-area-context": "^4.5.0",
     "react-native-vector-icons": "^9.2.0",
-    "url-polyfill": "^1.1.12",
-    "expo-dev-client": "~2.1.5"
+    "url-polyfill": "^1.1.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
