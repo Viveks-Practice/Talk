@@ -4,18 +4,13 @@ import {
   Text,
   TextInput,
   View,
-  Button,
   FlatList,
-  SafeAreaView,
   StatusBar,
-  Image,
   TouchableOpacity,
-  ImageBackground,
   KeyboardAvoidingView,
 } from "react-native";
 import Constants from "expo-constants";
-import { Ionicons } from "@expo/vector-icons";
-import { Header } from "react-native-elements";
+import { Icon, Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
 
 export default function App() {
@@ -179,7 +174,7 @@ export default function App() {
           placeholderTextColor="#657284"
         />
         <TouchableOpacity onPress={sendMessage}>
-          <Ionicons name="send" size={24} color="#fff" />
+          <Icon name="send" type="ionicon" color="#fff" />
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
