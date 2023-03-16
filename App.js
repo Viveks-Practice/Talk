@@ -27,7 +27,7 @@ export default function App() {
       id: Math.random().toString(),
     },
   ]);
-  const flatListRef = useRef(null); // Create a reference to the FlatList component
+  const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
   const url = "https://api.openai.com/v1/chat/completions";
 
