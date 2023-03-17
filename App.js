@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import Constants from "expo-constants";
 import { Icon, Header } from "react-native-elements";
@@ -86,7 +87,9 @@ export default function App() {
       }
     } catch (error) {
       console.error("Error:", error);
-
+      Alert.alert("Error", error, [
+        { text: "OK", onPress: () => console.log("OK pressed") },
+      ]);
       if (error instanceof TypeError) {
         alert(
           "There was an error processing your message. Please try again later."
