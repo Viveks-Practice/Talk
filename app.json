@@ -2,7 +2,7 @@
   "expo": {
     "name": "ChatGPT Mobile",
     "slug": "talk",
-    "version": "2.0.12",
+    "version": "2.0.13",
     "orientation": "portrait",
     "icon": "./assets/smallicon-chatgpt-mobile.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
       "bundleIdentifier": "talk"
     },
     "android": {
-      "versionCode": 13,
+      "versionCode": 14,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
