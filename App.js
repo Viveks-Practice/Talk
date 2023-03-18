@@ -69,26 +69,26 @@ export default function App() {
       // ]);
 
       const aiMessage = data.choices[0].message.content.trim();
-      const tokenCount = data.usage.total_tokens;
+      // const tokenCount = data.usage.total_tokens;
 
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   {
-      //     id: Math.random().toString(),
-      //     content: aiMessage,
-      //     role: "assistant",
-      //   },
-      // ]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Math.random().toString(),
+          content: aiMessage,
+          role: "assistant",
+        },
+      ]);
 
-      if (tokenCount > 4090) {
-        if (updatedMessages.length == 1) {
-          setMessages([]);
-        }
-        const halfIndex = Math.ceil(updatedMessages.length / 2);
-        const secondHalfMessages = updatedMessages.slice(halfIndex);
+      // if (tokenCount > 4090) {
+      //   if (updatedMessages.length == 1) {
+      //     setMessages([]);
+      //   }
+      //   const halfIndex = Math.ceil(updatedMessages.length / 2);
+      //   const secondHalfMessages = updatedMessages.slice(halfIndex);
 
-        setMessages(secondHalfMessages);
-      }
+      //   setMessages(secondHalfMessages);
+      // }
     } catch (error) {
       console.error("Error:", error);
       ToastAndroid.showWithGravity(
