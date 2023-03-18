@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import Constants from "expo-constants";
 import { Icon, Header } from "react-native-elements";
@@ -63,28 +64,31 @@ export default function App() {
       }
 
       const data = await response.json();
-
-      const aiMessage = data.choices[0].message.content.trim();
-      const tokenCount = data.usage.total_tokens;
-
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Math.random().toString(),
-          content: aiMessage,
-          role: "assistant",
-        },
+      Alert.alert("Error", data, [
+        { text: "OK", onPress: () => console.log("OK pressed") },
       ]);
 
-      if (tokenCount > 4090) {
-        if (updatedMessages.length == 1) {
-          setMessages([]);
-        }
-        const halfIndex = Math.ceil(updatedMessages.length / 2);
-        const secondHalfMessages = updatedMessages.slice(halfIndex);
+      // const aiMessage = data.choices[0].message.content.trim();
+      // const tokenCount = data.usage.total_tokens;
 
-        setMessages(secondHalfMessages);
-      }
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   {
+      //     id: Math.random().toString(),
+      //     content: aiMessage,
+      //     role: "assistant",
+      //   },
+      // ]);
+
+      // if (tokenCount > 4090) {
+      //   if (updatedMessages.length == 1) {
+      //     setMessages([]);
+      //   }
+      //   const halfIndex = Math.ceil(updatedMessages.length / 2);
+      //   const secondHalfMessages = updatedMessages.slice(halfIndex);
+
+      //   setMessages(secondHalfMessages);
+      // }
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("Error", error, [
