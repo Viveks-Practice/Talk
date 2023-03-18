@@ -59,26 +59,26 @@ export default function App() {
         body: JSON.stringify(requestData),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // if (!response.ok) {
+      //   throw new Error("Network response was not ok");
+      // }
 
       const data = await response.json();
-      Alert.alert("Error", data, [
-        { text: "OK", onPress: () => console.log("OK pressed") },
-      ]);
-
-      // const aiMessage = data.choices[0].message.content.trim();
-      // const tokenCount = data.usage.total_tokens;
-
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   {
-      //     id: Math.random().toString(),
-      //     content: aiMessage,
-      //     role: "assistant",
-      //   },
+      // Alert.alert("Error", data, [
+      //   { text: "OK", onPress: () => console.log("OK pressed") },
       // ]);
+
+      const aiMessage = data.choices[0].message.content;
+      const tokenCount = data.usage.total_tokens;
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Math.random().toString(),
+          content: aiMessage,
+          role: "assistant",
+        },
+      ]);
 
       // if (tokenCount > 4090) {
       //   if (updatedMessages.length == 1) {
@@ -91,22 +91,24 @@ export default function App() {
       // }
     } catch (error) {
       console.error("Error:", error);
-      Alert.alert("Error", error, [
-        { text: "OK", onPress: () => console.log("OK pressed") },
-      ]);
-      if (error instanceof TypeError) {
-        alert(
-          "There was an error processing your message. Please try again later."
-        );
-      } else if (error instanceof NetworkError) {
-        alert(
-          "Network error. Please check your internet connection and try again later."
-        );
-      } else {
-        alert(
-          "There was an error sending your message. Please try again later."
-        );
-      }
+      ToastAndroid.showWithGravity(
+        error,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      // if (error instanceof TypeError) {
+      //   alert(
+      //     "There was an error processing your message. Please try again later."
+      //   );
+      // } else if (error instanceof NetworkError) {
+      //   alert(
+      //     "Network error. Please check your internet connection and try again later."
+      //   );
+      // } else {
+      //   alert(
+      //     "There was an error sending your message. Please try again later."
+      //   );
+      // }
     }
   };
 
