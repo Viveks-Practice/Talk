@@ -8,11 +8,10 @@ import {
   StatusBar,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Alert,
   ToastAndroid,
 } from "react-native";
 import Constants from "expo-constants";
-import { Icon, Header } from "react-native-elements";
+import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
 
 export default function App() {
@@ -59,9 +58,9 @@ export default function App() {
         body: JSON.stringify(requestData),
       });
 
-      // if (!response.ok) {
-      //   throw new Error("Network response was not ok");
-      // }
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
       const data = await response.json();
       // Alert.alert("Error", data, [
@@ -69,7 +68,7 @@ export default function App() {
       // ]);
 
       const aiMessage = data.choices[0].message.content.trim();
-      // const tokenCount = data.usage.total_tokens;
+      const tokenCount = data.usage.total_tokens;
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -80,15 +79,15 @@ export default function App() {
         },
       ]);
 
-      // if (tokenCount > 4090) {
-      //   if (updatedMessages.length == 1) {
-      //     setMessages([]);
-      //   }
-      //   const halfIndex = Math.ceil(updatedMessages.length / 2);
-      //   const secondHalfMessages = updatedMessages.slice(halfIndex);
+      if (tokenCount > 4090) {
+        if (updatedMessages.length == 1) {
+          setMessages([]);
+        }
+        const halfIndex = Math.ceil(updatedMessages.length / 2);
+        const secondHalfMessages = updatedMessages.slice(halfIndex);
 
-      //   setMessages(secondHalfMessages);
-      // }
+        setMessages(secondHalfMessages);
+      }
     } catch (error) {
       console.error("Error:", error);
       ToastAndroid.showWithGravity(
@@ -96,19 +95,19 @@ export default function App() {
         ToastAndroid.SHORT,
         ToastAndroid.CENTER
       );
-      // if (error instanceof TypeError) {
-      //   alert(
-      //     "There was an error processing your message. Please try again later."
-      //   );
-      // } else if (error instanceof NetworkError) {
-      //   alert(
-      //     "Network error. Please check your internet connection and try again later."
-      //   );
-      // } else {
-      //   alert(
-      //     "There was an error sending your message. Please try again later."
-      //   );
-      // }
+      if (error instanceof TypeError) {
+        alert(
+          "There was an error processing your message. Please try again later."
+        );
+      } else if (error instanceof NetworkError) {
+        alert(
+          "Network error. Please check your internet connection and try again later."
+        );
+      } else {
+        alert(
+          "There was an error sending your message. Please try again later."
+        );
+      }
     }
   };
 
@@ -183,7 +182,8 @@ export default function App() {
           placeholderTextColor="#657284"
         />
         <TouchableOpacity onPress={sendMessage}>
-          <Icon name="send" type="ionicon" color="#fff" />
+          {/* <Icon name="send" type="ionicon" color="#fff" /> */}
+          <Text>Send</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
