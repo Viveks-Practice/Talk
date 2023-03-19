@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ToastAndroid,
+  SafeAreaView,
 } from "react-native";
 import Constants from "expo-constants";
 import { Header } from "react-native-elements";
@@ -118,7 +119,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <KeyboardAvoidingView
+    <SafeAreaView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
@@ -186,7 +187,7 @@ export default function App() {
           Send
         </Text>
       </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
