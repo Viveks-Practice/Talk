@@ -181,10 +181,10 @@ export default function App() {
           placeholder="Type your message..."
           placeholderTextColor="#657284"
         />
-        <TouchableOpacity onPress={sendMessage}>
+        <Text onPress={sendMessage}>
           {/* <Icon name="send" type="ionicon" color="#fff" /> */}
-          <Text>Send</Text>
-        </TouchableOpacity>
+          Send
+        </Text>
       </View>
     </KeyboardAvoidingView>
   );
