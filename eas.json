@@ -3,6 +3,9 @@
     "version": ">= 3.7.2"
   },
   "build": {
+    "env": {
+      "OPENAI_API_KEY": "abcdefg"
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
