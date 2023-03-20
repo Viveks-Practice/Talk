@@ -26,7 +26,6 @@ export default function App() {
     },
   ]);
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
-  const openAIapiKey = process.env.OPENAI_API_KEY;
 
   const url = "https://api.openai.com/v1/chat/completions";
 
@@ -51,20 +50,12 @@ export default function App() {
       messages: updatedMessages.map(({ id, ...rest }) => ({ ...rest })),
     };
 
-    let authorizationHeader;
-    if (process.env.EAS_BUILD) {
-      authorizationHeader = `Bearer ${process.env.OPENAI_API_KEY}`;
-    } else {
-      authorizationHeader = `Bearer ` + OPENAI_API_KEY;
-    }
-
-
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: authorizationHeader,
+          Authorization: `Bearer ` + process.env.OPENAI_API_KEY,
         },
         body: JSON.stringify(requestData),
       });
