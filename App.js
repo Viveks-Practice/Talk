@@ -12,6 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
 
@@ -182,10 +183,9 @@ export default function App() {
           placeholder="Type your message..."
           placeholderTextColor="#657284"
         />
-        <Text onPress={sendMessage}>
-          {/* <Icon name="send" type="ionicon" color="#fff" /> */}
-          Send
-        </Text>
+        <TouchableOpacity onPress={sendMessage}>
+          <Ionicons name="send" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
