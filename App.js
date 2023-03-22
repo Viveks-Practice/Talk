@@ -40,14 +40,24 @@ export default function App() {
       role: "user",
     };
 
-    const updatedMessages = [...messages, newMessage];
+    const emptyResponseMessage = {
+      id: Math.random().toString(),
+      content: "Thinking...",
+      role: "assistant",
+    };
 
-    setMessages(updatedMessages);
+    const updatedMessage = [...messages, newMessage]; //setting the new message for the API call to GPT
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
     setMessage("");
+    setTimeout(async () => {
+      setMessages((prevMessages) => [...prevMessages, emptyResponseMessage]); // adding the Thinking... element to the array at the end, after a delay, so that the user see's the thinking bubble
+                                                                              //before GPT's response
+    },400);
 
     const requestData = {
       model: "gpt-3.5-turbo",
-      messages: updatedMessages.map(({ id, ...rest }) => ({ ...rest })),
+      messages: updatedMessage
+      .map(({ id, ...rest }) => ({ ...rest })),
     };
 
     try {
@@ -65,21 +75,21 @@ export default function App() {
       }
 
       const data = await response.json();
-      // Alert.alert("Error", data, [
-      //   { text: "OK", onPress: () => console.log("OK pressed") },
-      // ]);
 
       const aiMessage = data.choices[0].message.content.trim();
       const tokenCount = data.usage.total_tokens;
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Math.random().toString(),
+      //setting the messages array to the old array plus the response from GPT
+      //but the response is removing the Thinking... element that was added to the array, to have the thinking effect.
+      setMessages((prevMessages) => {
+        const lastIndex = prevMessages.length - 1;
+        const updatedPrevMessages = [...prevMessages];
+        updatedPrevMessages[lastIndex] = {
+          ...updatedPrevMessages[lastIndex],
           content: aiMessage,
-          role: "assistant",
-        },
-      ]);
+        };
+        return updatedPrevMessages;
+      });
 
       if (tokenCount > 4090) {
         if (updatedMessages.length == 1) {
