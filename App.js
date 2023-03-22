@@ -130,6 +130,7 @@ export default function App() {
           borderBottomColor: "#202d3a",
           borderBottomWidth: 1,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
+          paddingTop: Platform.OS == "android" ? 38 : null
         }}
       />
       <StatusBar
