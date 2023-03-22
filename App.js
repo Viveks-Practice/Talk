@@ -92,24 +92,9 @@ export default function App() {
       }
     } catch (error) {
       console.error("Error:", error);
-      ToastAndroid.showWithGravity(
-        error,
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
+      alert(
+        "There was an error processing your message. Please try again."
       );
-      if (error instanceof TypeError) {
-        alert(
-          "There was an error processing your message. Please try again later."
-        );
-      } else if (error instanceof NetworkError) {
-        alert(
-          "Network error. Please check your internet connection and try again later."
-        );
-      } else {
-        alert(
-          "There was an error sending your message. Please try again later."
-        );
-      }
     }
   };
 
