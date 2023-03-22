@@ -15,7 +15,7 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
-
+//iOS-release v2
 export default function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
