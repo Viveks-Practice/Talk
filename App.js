@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   ToastAndroid,
   SafeAreaView,
+  ImageBackground
 } from "react-native";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
@@ -141,6 +142,7 @@ export default function App() {
 
       <View style={styles.messages}>
         {messages.length > 0 && (
+
           <FlatList
             data={messages}
             renderItem={({ item }) => (
@@ -168,6 +170,7 @@ export default function App() {
             }
             onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
           />
+
         )}
       </View>
 
@@ -183,6 +186,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
+      
     </KeyboardAvoidingView>
   );
 }
@@ -241,6 +245,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     backgroundColor: "#202d3a",
+    marginBottom: Platform.OS === "ios" ? 5 : 0, // Add a 10px marginBottom for iOS devices
   },
   inputText: {
     flex: 1,
