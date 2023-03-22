@@ -157,7 +157,7 @@ export default function App() {
                 {item.role === "user" && (
                   <Text style={styles.userTitle}>You</Text>
                 )}
-                <Text style={styles.messageText}>{item.content}</Text>
+                <Text style={styles.messageText} selectable>{item.content}</Text>
               </View>
             )}
             keyExtractor={(item) => item.id}
