@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "talk"
+      "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
       "versionCode": 22,
