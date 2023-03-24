@@ -116,7 +116,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <KeyboardAvoidingView
+    <SafeAreaView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
@@ -131,12 +131,12 @@ export default function App() {
           borderBottomColor: "#202d3a",
           borderBottomWidth: 1,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
-          paddingTop: Platform.OS == "android" ? 38 : null
+          paddingTop: Platform.OS == "android" ? 35 : null
         }}
       />
       <StatusBar
         barStyle="light-content"
-        backgroundColor="#1a252f"
+        backgroundColor="#202d3a"
         style={styles.statusBar}
       />
 
@@ -187,7 +187,7 @@ export default function App() {
         </TouchableOpacity>
       </View>
       
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   statusBar: {
-    backgroundColor: "#075E54",
+    backgroundColor: "#202d3a",
     color: "#fff",
     height: 30,
     paddingHorizontal: 10,
