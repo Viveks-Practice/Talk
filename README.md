@@ -8,7 +8,6 @@ The app also features context retention, so ChatGPT will remember your earlier m
 
 Here are some examples below, to illustrate what is possible with ChatGPT Mobile:
 
-![Example1](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone1.png)
 ![Example2](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone2.png)
 ![Example3](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone3.png)
 ![Example4](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone4.png)
