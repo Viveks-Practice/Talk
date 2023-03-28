@@ -9,9 +9,9 @@ It is an improvement to the online version because the user doesn't need to use 
 The app also features context retention, so ChatGPT will remember your earlier messages, and respond accordingly. Just as a regular person would in conversation.
 
 ## Downloads
-Google Play Store: https://play.google.com/store/apps/details?id=com.viveks_7764.talk
+Google Play Store (Android): https://play.google.com/store/apps/details?id=com.viveks_7764.talk
 
-App Store: Coming soon! Please check back! :D
+App Store (iOS): Coming soon! Please check back! :D
 
 ## Examples
 
