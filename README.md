@@ -10,9 +10,10 @@ The app also features context retention, so ChatGPT will remember your earlier m
 
 ## Downloads
 Google Play Store: https://play.google.com/store/apps/details?id=com.viveks_7764.talk
+
 App Store: Coming soon! Please check back! :D
 
-
+## Examples
 
 Here are some examples below, to illustrate what is possible with ChatGPT Mobile:
 
