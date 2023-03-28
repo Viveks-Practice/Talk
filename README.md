@@ -15,7 +15,7 @@ App Store (iOS): Coming soon! Please check back! :D
 
 ## Examples
 
-Here are some examples below, to illustrate what is possible with ChatGPT Mobile:
+These are some examples that illustrate what is possible with ChatGPT Mobile:
 
 ![Example2](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone2.png)
 ![Example3](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone3.png)
