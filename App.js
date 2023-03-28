@@ -116,7 +116,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
@@ -187,7 +187,7 @@ export default function App() {
         </TouchableOpacity>
       </View>
       
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
