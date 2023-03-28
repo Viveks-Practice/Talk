@@ -8,12 +8,12 @@ The app also features context retention, so ChatGPT will remember your earlier m
 
 Here are some examples below, to illustrate what is possible with ChatGPT Mobile:
 
-![Example1](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone1.png)
-![Example2](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone2.png)
-![Example3](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone3.png)
-![Example4](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone4.png)
-![Example5](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone5.png)
-![Example6](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone6.png)
-![Example7](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone7.png)
-![Example8](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-iphone8.png)
-![Example9](https://github.com/Viveks-Practice/Weather-Viewing-Website/blob/main/images/image-ipad.png)
+![Example1](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone1.png)
+![Example2](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone2.png)
+![Example3](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone3.png)
+![Example4](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone4.png)
+![Example5](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone5.png)
+![Example6](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone6.png)
+![Example7](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone7.png)
+![Example8](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone8.png)
+![Example9](https://github.com/Viveks-Practice/Talk/blob/main/images/image-ipad.png)
