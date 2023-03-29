@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "ChatGPT Mobile",
+    "name": "GPT - The Chat AI",
     "slug": "talk",
-    "version": "2.0.22",
+    "version": "2.0.23",
     "orientation": "portrait",
-    "icon": "./assets/smallicon-chatgpt-mobile.png",
+    "icon": "./assets/icon1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/smallicon-chatgpt-mobile.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,9 +17,9 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "versionCode": 23,
+      "versionCode": 24,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/smallicon-chatgpt-mobile.png",
+        "foregroundImage": "./assets/adaptive-icon1.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.viveks_7764.talk"
