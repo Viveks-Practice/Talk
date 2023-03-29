@@ -24,4 +24,4 @@ These are some examples that illustrate what is possible with ChatGPT Mobile:
 ![Example6](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone6.png)
 ![Example7](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone7.png)
 ![Example8](https://github.com/Viveks-Practice/Talk/blob/main/images/image-iphone8.png)
-![Example9](https://github.com/Viveks-Practice/Talk/blob/main/images/image-ipad.png)# ChadGPT
+![Example9](https://github.com/Viveks-Practice/Talk/blob/main/images/image-ipad.png)
