@@ -93,11 +93,11 @@ export default function App() {
       });
 
       if (tokenCount > 4090) {
-        if (updatedMessages.length == 1) {
+        if (messages.length == 1) {
           setMessages([]);
         }
-        const halfIndex = Math.ceil(updatedMessages.length / 2);
-        const secondHalfMessages = updatedMessages.slice(halfIndex);
+        const halfIndex = Math.ceil(messages.length / 2);
+        const secondHalfMessages = messages.slice(halfIndex);
 
         setMessages(secondHalfMessages);
       }
