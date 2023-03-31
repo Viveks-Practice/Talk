@@ -4,7 +4,7 @@
     "slug": "talk",
     "version": "2.0.25",
     "orientation": "portrait",
-    "icon": "./assets/smallicon-chatgpt-mobile.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash1.png",
@@ -19,7 +19,7 @@
     "android": {
       "versionCode": 26,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/smallicon-chatgpt-mobile.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.viveks_7764.talk"
