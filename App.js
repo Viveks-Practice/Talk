@@ -123,7 +123,7 @@ export default function App() {
       <Header
         placement="center"
         centerComponent={{
-          text: "GPT - The Chat AI",
+          text: "ChatGPT Mobile",
           style: styles.toolbarTitle,
         }}
         containerStyle={{
@@ -155,7 +155,7 @@ export default function App() {
                 ]}
               >
                 {item.role === "assistant" && (
-                  <Text style={styles.assistantTitle}>GPT</Text>
+                  <Text style={styles.assistantTitle}>ChatGPT</Text>
                 )}
                 {item.role === "user" && (
                   <Text style={styles.userTitle}>You</Text>

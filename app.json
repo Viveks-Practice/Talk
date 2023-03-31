@@ -2,9 +2,9 @@
   "expo": {
     "name": "GPT - The Chat AI",
     "slug": "talk",
-    "version": "2.0.24",
+    "version": "2.0.25",
     "orientation": "portrait",
-    "icon": "./assets/icon1.png",
+    "icon": "./assets/smallicon-chatgpt-mobile.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash1.png",
@@ -17,9 +17,9 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "versionCode": 25,
+      "versionCode": 26,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon1.png",
+        "foregroundImage": "./assets/smallicon-chatgpt-mobile.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.viveks_7764.talk"
