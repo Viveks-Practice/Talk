@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "GPT - The Chat AI",
+    "name": "ChatGPT Mobile",
     "slug": "talk",
-    "version": "2.0.25",
+    "version": "2.0.27",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "versionCode": 26,
+      "versionCode": 28,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
