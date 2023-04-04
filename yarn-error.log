@@ -1,0 +1,61 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add react-native-google-mobile-ads
+
+PATH: 
+  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.15.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/vivek/Downloads/Talk/node_modules/@0no-co'
+
+npm manifest: 
+  {
+    "name": "talk",
+    "version": "2.0.24",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "@react-native-clipboard/clipboard": "^1.11.2",
+      "axios": "^1.3.4",
+      "expo": "^48.0.0",
+      "expo-dev-client": "~2.1.5",
+      "expo-status-bar": "~1.4.4",
+      "openai": "^3.2.1",
+      "react": "18.2.0",
+      "react-native": "0.71.3",
+      "react-native-admob": "^1.3.2",
+      "react-native-config": "^1.5.0",
+      "react-native-elements": "^3.4.3",
+      "react-native-gifted-chat": "^1.1.1",
+      "react-native-paper": "^5.3.1",
+      "react-native-safe-area-context": "4.5.0",
+      "react-native-vector-icons": "^9.2.0",
+      "url-polyfill": "^1.1.12"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.20.0",
+      "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+      "dotenv": "^16.0.3",
+      "react-native-dotenv": "^3.4.8"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

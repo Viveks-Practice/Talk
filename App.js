@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   ImageBackground
 } from "react-native";
+import { AppOpenAd, InterstitialAd, RewardedAd, BannerAd, TestIds, BannerAdSize } from 'react-native-google-mobile-ads';
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
@@ -139,6 +140,7 @@ export default function App() {
         backgroundColor="#202d3a"
         style={styles.statusBar}
       />
+      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.LARGE_BANNER} requestOptions={{requestNonPersonalizedAdsOnly: true }} />
 
       <View style={styles.messages}>
         {messages.length > 0 && (
