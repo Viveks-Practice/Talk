@@ -11,7 +11,7 @@ The app also features context retention, so ChatGPT will remember your earlier m
 ## Downloads
 Google Play Store (Android): https://play.google.com/store/apps/details?id=com.viveks_7764.talk
 
-App Store (iOS): Coming soon! Please check back! :D
+App Store (iOS): https://apps.apple.com/us/app/neo-the-chat-ai/id6446654685
 
 ## Examples
 
