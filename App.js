@@ -140,7 +140,7 @@ export default function App() {
         backgroundColor="#202d3a"
         style={styles.statusBar}
       />
-      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.LARGE_BANNER} requestOptions={{requestNonPersonalizedAdsOnly: true }} />
+      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{requestNonPersonalizedAdsOnly: true }} />
 
       <View style={styles.messages}>
         {messages.length > 0 && (
