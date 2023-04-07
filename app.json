@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
+      "permissions": ["android.permissions.AD_ID"],
       "versionCode": 29,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
