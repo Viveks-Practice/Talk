@@ -2,7 +2,7 @@
   "expo": {
     "name": "ChatGPT Mobile",
     "slug": "talk",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,8 +17,7 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "permissions": ["android.permissions.AD_ID"],
-      "versionCode": 30,
+      "versionCode": 31,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
