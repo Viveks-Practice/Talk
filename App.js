@@ -24,6 +24,7 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
+import { ADMOB_ID } from "@env";
 
 export default function App() {
   const [message, setMessage] = useState("");
@@ -36,12 +37,12 @@ export default function App() {
   ]);
 
   // set adUnitId based on platform
-  let adUnitId = "";
-  if (Platform.OS === "ios") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID; // iOS Ad Unit ID
-  } else if (Platform.OS === "android") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID; // Android Ad Unit ID
-  }
+  let adUnitId = "ca-app-pub-5578644815986311/8677683710";
+  // if (Platform.OS === "ios") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID; // iOS Ad Unit ID
+  // } else if (Platform.OS === "android") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID; // Android Ad Unit ID
+  // }
 
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
