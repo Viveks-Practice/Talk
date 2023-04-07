@@ -10,9 +10,16 @@ import {
   KeyboardAvoidingView,
   ToastAndroid,
   SafeAreaView,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
-import { AppOpenAd, InterstitialAd, RewardedAd, BannerAd, TestIds, BannerAdSize } from 'react-native-google-mobile-ads';
+import {
+  AppOpenAd,
+  InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize,
+} from "react-native-google-mobile-ads";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
@@ -27,6 +34,15 @@ export default function App() {
       id: Math.random().toString(),
     },
   ]);
+
+  // set adUnitId based on platform
+  let adUnitId = "";
+  if (Platform.OS === "ios") {
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID; // iOS Ad Unit ID
+  } else if (Platform.OS === "android") {
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID; // Android Ad Unit ID
+  }
+
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
   const url = "https://api.openai.com/v1/chat/completions";
@@ -53,13 +69,12 @@ export default function App() {
     setMessage("");
     setTimeout(async () => {
       setMessages((prevMessages) => [...prevMessages, emptyResponseMessage]); // adding the Thinking... element to the array at the end, after a delay, so that the user see's the thinking bubble
-                                                                              //before GPT's response
-    },400);
+      //before GPT's response
+    }, 400);
 
     const requestData = {
       model: "gpt-3.5-turbo",
-      messages: updatedMessage
-      .map(({ id, ...rest }) => ({ ...rest })),
+      messages: updatedMessage.map(({ id, ...rest }) => ({ ...rest })),
     };
 
     try {
@@ -104,9 +119,7 @@ export default function App() {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(
-        "There was an error processing your message. Please try again."
-      );
+      alert("There was an error processing your message. Please try again.");
     }
   };
 
@@ -132,19 +145,23 @@ export default function App() {
           borderBottomColor: "#202d3a",
           borderBottomWidth: 1,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
-          paddingTop: Platform.OS == "android" ? 35 : null
+          paddingTop: Platform.OS == "android" ? 35 : null,
         }}
       />
+      <View>
+        <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+        />
+      </View>
       <StatusBar
         barStyle="light-content"
         backgroundColor="#202d3a"
         style={styles.statusBar}
       />
-      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{requestNonPersonalizedAdsOnly: true }} />
-
       <View style={styles.messages}>
         {messages.length > 0 && (
-
           <FlatList
             data={messages}
             renderItem={({ item }) => (
@@ -162,7 +179,9 @@ export default function App() {
                 {item.role === "user" && (
                   <Text style={styles.userTitle}>You</Text>
                 )}
-                <Text style={styles.messageText} selectable>{item.content}</Text>
+                <Text style={styles.messageText} selectable>
+                  {item.content}
+                </Text>
               </View>
             )}
             keyExtractor={(item) => item.id}
@@ -172,7 +191,6 @@ export default function App() {
             }
             onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
           />
-
         )}
       </View>
 
@@ -188,7 +206,6 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-      
     </SafeAreaView>
   );
 }
