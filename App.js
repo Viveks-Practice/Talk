@@ -193,7 +193,6 @@ export default function App() {
           />
         )}
       </View>
-
       <View style={styles.input}>
         <TextInput
           style={styles.inputText}
