@@ -130,14 +130,14 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <Header
         placement="center"
         centerComponent={{
-          text: "ChatGPT Mobile",
+          text: "Neo - The Chat AI",
           style: styles.toolbarTitle,
         }}
         containerStyle={{
@@ -174,7 +174,7 @@ export default function App() {
                 ]}
               >
                 {item.role === "assistant" && (
-                  <Text style={styles.assistantTitle}>ChatGPT</Text>
+                  <Text style={styles.assistantTitle}>Neo</Text>
                 )}
                 {item.role === "user" && (
                   <Text style={styles.userTitle}>You</Text>
@@ -205,7 +205,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
