@@ -76,7 +76,6 @@ export default function App() {
       model: "gpt-3.5-turbo",
       messages: updatedMessage.map(({ id, ...rest }) => ({ ...rest })),
     };
-
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -211,7 +210,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#161d27",
+    backgroundColor: "#202d3a",
   },
   toolbarTitle: {
     fontWeight: "bold",
