@@ -11,6 +11,8 @@ import {
   ToastAndroid,
   SafeAreaView,
   ImageBackground,
+  Modal,
+  Pressable,
 } from "react-native";
 import {
   AppOpenAd,
@@ -35,6 +37,8 @@ export default function App() {
       id: Math.random().toString(),
     },
   ]);
+  const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
+  const [modalVisible, setModalVisible] = useState(false);
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -47,7 +51,18 @@ export default function App() {
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
   const url = "https://api.openai.com/v1/chat/completions";
-
+  const options = [
+    "Neo - The Chat AI",
+    "Kanye West",
+    "Kratos (God of War)",
+    "Jordan B Peterson",
+    "Kim Kardashian",
+    "Ragnar Lothbrok",
+    "Harry Potter",
+    "Joe Rogan",
+    "Joe Biden",
+    "Donald Trump",
+  ];
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
       return;
@@ -137,10 +152,11 @@ export default function App() {
     >
       <Header
         placement="center"
-        centerComponent={{
-          text: "Neo - The Chat AI",
-          style: styles.toolbarTitle,
-        }}
+        centerComponent={
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Text style={styles.toolbarTitle}>{selectedOption}</Text>
+          </Pressable>
+        }
         containerStyle={{
           backgroundColor: "#202d3a",
           borderBottomColor: "#202d3a",
@@ -149,6 +165,40 @@ export default function App() {
           paddingTop: Platform.OS == "android" ? 35 : null,
         }}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <Pressable
+          style={styles.modalOverlay}
+          onPress={() => setModalVisible(false)}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <FlatList
+                data={options}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.optionButton}
+                    onPress={() => {
+                      setSelectedOption(item);
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={styles.optionText}>{item}</Text>
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
+          </View>
+        </Pressable>
+      </Modal>
       <View>
         <BannerAd
           unitId={adUnitId}
@@ -288,5 +338,47 @@ const styles = StyleSheet.create({
   scrollToEndButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    maxHeight: 290, // Adjust this value according to the height of 5 options
+    width: "80%",
+  },
+  optionButton: {
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "#2196F3",
+  },
+  optionText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
 });
