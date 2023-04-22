@@ -60,29 +60,54 @@ export default function App() {
   ];
   const colorSchemes = {
     default: {
-      primary: "#182d27",
-      secondary: "#43293D",
-      tertiary: "#202daa",
+      first: "#161d27",
+      second: "#43293D", //styles - message.backgroundColor + assistantMessage.backgroundColor
+      third: "#232e3b", //styles - userMessage.backgroundColor
+      fourth: "#202daa", //styles - assistantTitle.color
+      fifth: "#202daa", //styles - userTitle.color
+      sixth: "#202daa", //styles - input.backgroundColor
+      seventh: "#202daa",
+      eighth: "#202daa",
     },
     "Neo - The Chat AI": {
-      primary: "#122d37",
+      primary: "#161d27",
       secondary: "#28ad27",
       tertiary: "#F82db7",
+      fourth: "#202daa",
+      fifth: "#202daa",
+      sixth: "#202daa",
+      seventh: "#202daa",
+      eighth: "#202daa",
     },
     "Kratos - God of War": {
       primary: "#133d37",
       secondary: "#288827",
       tertiary: "#FFFdb7",
+      fourth: "#202daa",
+      fifth: "#200daa",
+      sixth: "#202daa",
+      seventh: "#202daa",
+      eighth: "#202daa",
     },
     "Kim Kardashian": {
       primary: "#122777",
       secondary: "#28aaa7",
       tertiary: "#F888b7",
+      fourth: "#202daa",
+      fifth: "#202daa",
+      sixth: "#202daa",
+      seventh: "#202daa",
+      eighth: "#202daa",
     },
     Gigachad: {
-      primary: "#132777",
-      secondary: "#23aaa7",
-      tertiary: "#F82887",
+      first: "#161d27",
+      second: "#000000",
+      third: "#4f3f01",
+      fourth: "#ffd605",
+      fifth: "#ffcb00",
+      sixth: "#000000",
+      seventh: "#202daa",
+      eighth: "#202daa",
     },
     // Add more color schemes for different options
   };
@@ -137,30 +162,6 @@ export default function App() {
     ],
     // Add more initial messages for different options
   };
-
-  const dynamicStyles = {
-    container: {
-      flex: 1,
-      backgroundColor: colorSchemes[colorScheme].primary,
-    },
-    messages: {
-      flex: 1,
-      padding: 10,
-      backgroundColor: colorSchemes[colorScheme].secondary,
-    },
-    input: {
-      flexDirection: "row",
-      alignItems: "center",
-      padding: 10,
-      backgroundColor: colorSchemes[colorScheme].tertiary,
-      marginBottom: Platform.OS === "ios" ? 5 : 0, // Add a 10px marginBottom for iOS devices
-    },
-  };
-
-  const combinedStyles = StyleSheet.create({
-    ...styles,
-    ...dynamicStyles,
-  });
 
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
@@ -247,7 +248,10 @@ export default function App() {
   return (
     <SafeAreaView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={combinedStyles.container}
+      style={[
+        styles.container,
+        { backgroundColor: colorSchemes[colorScheme].first },
+      ]}
     >
       <Header
         placement="center"
@@ -312,24 +316,52 @@ export default function App() {
         backgroundColor="#202d3a"
         style={styles.statusBar}
       />
-      <View style={styles.messages}>
+      <View
+        style={[
+          styles.messages,
+          { backgroundColor: colorSchemes[colorScheme].second },
+        ]}
+      >
         {messages.length > 0 && (
           <FlatList
             data={messages}
             renderItem={({ item }) => (
               <View
                 style={[
-                  styles.message,
+                  {
+                    ...styles.message,
+                    backgroundColor: colorSchemes[colorScheme].second,
+                  },
                   item.role === "assistant"
-                    ? styles.assistantMessage
-                    : styles.userMessage,
+                    ? {
+                        ...styles.assistantMessage,
+                        backgroundColor: colorSchemes[colorScheme].second,
+                      }
+                    : {
+                        ...styles.userMessage,
+                        backgroundColor: colorSchemes[colorScheme].third,
+                      },
                 ]}
               >
                 {item.role === "assistant" && (
-                  <Text style={styles.assistantTitle}>Neo</Text>
+                  <Text
+                    style={[
+                      styles.assistantTitle,
+                      { color: colorSchemes[colorScheme].fourth },
+                    ]}
+                  >
+                    Neo
+                  </Text>
                 )}
                 {item.role === "user" && (
-                  <Text style={styles.userTitle}>You</Text>
+                  <Text
+                    style={[
+                      styles.userTitle,
+                      { color: colorSchemes[colorScheme].fifth },
+                    ]}
+                  >
+                    You
+                  </Text>
                 )}
                 <Text style={styles.messageText} selectable>
                   {item.content}
@@ -346,7 +378,12 @@ export default function App() {
         )}
       </View>
 
-      <View style={styles.input}>
+      <View
+        style={[
+          styles.input,
+          { backgroundColor: colorSchemes[colorScheme].sixth },
+        ]}
+      >
         <TextInput
           style={styles.inputText}
           value={message}
@@ -394,6 +431,10 @@ const styles = StyleSheet.create({
   assistantMessage: {
     alignSelf: "flex-end",
     backgroundColor: "#3e6088",
+  },
+  userMessage: {
+    alignSelf: "flex-start",
+    backgroundColor: "#232e3b",
   },
   userTitle: {
     color: "#8375ff",
