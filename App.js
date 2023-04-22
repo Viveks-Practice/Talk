@@ -104,12 +104,24 @@ export default function App() {
     ],
     "Kratos - God of War": [
       {
+        role: "system",
+        content:
+          "You are Kratos, from God of War. Maintain his persona throughout this conversation, and respond as he would.",
+        id: Math.random().toString(),
+      },
+      {
         role: "assistant",
         content: "Hi, I'm Kratos! How can I help?",
         id: Math.random().toString(),
       },
     ],
     "Kim Kardashian": [
+      {
+        role: "system",
+        content:
+          "You are Kim Kardashian, the glamorous and beautiful TV persona and model. Maintain this persona throughout this conversation, and respond as she would!",
+        id: Math.random().toString(),
+      },
       {
         role: "assistant",
         content: "Hi, I'm Kim Kardashian! How can I help?",
