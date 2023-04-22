@@ -39,6 +39,7 @@ export default function App() {
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
+  const [colorScheme, setColorScheme] = useState("default");
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -53,16 +54,102 @@ export default function App() {
   const url = "https://api.openai.com/v1/chat/completions";
   const options = [
     "Neo - The Chat AI",
-    "Kanye West",
-    "Kratos (God of War)",
-    "Jordan B Peterson",
+    "Kratos - God of War",
     "Kim Kardashian",
-    "Ragnar Lothbrok",
-    "Harry Potter",
-    "Joe Rogan",
-    "Joe Biden",
-    "Donald Trump",
+    "Gigachad",
   ];
+  const colorSchemes = {
+    default: {
+      primary: "#182d27",
+      secondary: "#43293D",
+      tertiary: "#202daa",
+    },
+    "Neo - The Chat AI": {
+      primary: "#122d37",
+      secondary: "#28ad27",
+      tertiary: "#F82db7",
+    },
+    "Kratos - God of War": {
+      primary: "#133d37",
+      secondary: "#288827",
+      tertiary: "#FFFdb7",
+    },
+    "Kim Kardashian": {
+      primary: "#122777",
+      secondary: "#28aaa7",
+      tertiary: "#F888b7",
+    },
+    Gigachad: {
+      primary: "#132777",
+      secondary: "#23aaa7",
+      tertiary: "#F82887",
+    },
+    // Add more color schemes for different options
+  };
+
+  const initialMessages = {
+    default: [
+      {
+        role: "assistant",
+        content: "Hi there, how can I help?",
+        id: Math.random().toString(),
+      },
+    ],
+    "Neo - The Chat AI": [
+      {
+        role: "assistant",
+        content: "Hi, I'm option1! How can I help?",
+        id: Math.random().toString(),
+      },
+    ],
+    "Kratos - God of War": [
+      {
+        role: "assistant",
+        content: "Hi, I'm Kratos! How can I help?",
+        id: Math.random().toString(),
+      },
+    ],
+    "Kim Kardashian": [
+      {
+        role: "assistant",
+        content: "Hi, I'm Kim Kardashian! How can I help?",
+        id: Math.random().toString(),
+      },
+    ],
+    Gigachad: [
+      {
+        role: "assistant",
+        content: "Hi, I'm Gigachad! How can I help?",
+        id: Math.random().toString(),
+      },
+    ],
+    // Add more initial messages for different options
+  };
+
+  const dynamicStyles = {
+    container: {
+      flex: 1,
+      backgroundColor: colorSchemes[colorScheme].primary,
+    },
+    messages: {
+      flex: 1,
+      padding: 10,
+      backgroundColor: colorSchemes[colorScheme].secondary,
+    },
+    input: {
+      flexDirection: "row",
+      alignItems: "center",
+      padding: 10,
+      backgroundColor: colorSchemes[colorScheme].tertiary,
+      marginBottom: Platform.OS === "ios" ? 5 : 0, // Add a 10px marginBottom for iOS devices
+    },
+  };
+
+  const combinedStyles = StyleSheet.create({
+    ...styles,
+    ...dynamicStyles,
+  });
+
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
       return;
@@ -148,7 +235,7 @@ export default function App() {
   return (
     <SafeAreaView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+      style={combinedStyles.container}
     >
       <Header
         placement="center"
@@ -186,6 +273,8 @@ export default function App() {
                     style={styles.optionButton}
                     onPress={() => {
                       setSelectedOption(item);
+                      setColorScheme(item);
+                      setMessages(initialMessages[item]);
                       setModalVisible(!modalVisible);
                     }}
                   >
