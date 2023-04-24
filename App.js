@@ -45,7 +45,7 @@ export default function App() {
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
-  const [colorScheme, setColorScheme] = useState("default");
+  const [theme, setTheme] = useState("default");
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -58,6 +58,8 @@ export default function App() {
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
   const url = "https://api.openai.com/v1/chat/completions";
+
+  //the 'options' array's strings need to be the exact same as the fields in the 'themes' object
   const options = [
     "Neo - The Chat AI",
     "Kratos - God of War",
@@ -90,6 +92,17 @@ export default function App() {
         "One moment...",
         "Let me think...",
       ],
+      colorSchemes: {
+        first: "#161d27", //styles - container.backgroundColor ??
+        second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
+        third: "#232e3b", //styles - userMessage.backgroundColor
+        fourth: "#a1ffd6", //styles - assistantTitle.color
+        fifth: "#8375ff", //styles - userTitle.color
+        sixth: "#202d3a", //styles - input.backgroundColor
+        seventh: "#202d3a", //header background color
+        eighth: "#202d3a", //header bottom border color
+      },
+      inputPlaceholder: "Type your message...",
     },
     "Neo - The Chat AI": {
       initialMessages: [
@@ -113,6 +126,17 @@ export default function App() {
         "One moment...",
         "Let me think...",
       ],
+      colorSchemes: {
+        first: "#161d27",
+        second: "#3e6088",
+        third: "#232e3b",
+        fourth: "#a1ffd6",
+        fifth: "#8375ff",
+        sixth: "#202d3a",
+        seventh: "#202d3a",
+        eighth: "#202d3a",
+      },
+      inputPlaceholder: "Type your message...",
     },
     "Kratos - God of War": {
       initialMessages: [
@@ -138,6 +162,17 @@ export default function App() {
         "Thinking pensively...",
         "Pondering the past...",
       ],
+      colorSchemes: {
+        first: "#ABB1C0",
+        second: "#660000", //660000 932928
+        third: "#8A5C08",
+        fourth: "#EADC94",
+        fifth: "#FEE0AD",
+        sixth: "#660000",
+        seventh: "#660000",
+        eighth: "#EADC94",
+      },
+      inputPlaceholder: "Confer with the God of War...",
     },
     "Kim Kardashian": {
       initialMessages: [
@@ -156,6 +191,17 @@ export default function App() {
       Header: "Kim Kardashian",
       Title: "Kim Kardashian",
       emptyResponses: ["Let me think about that...", "Well..."],
+      colorSchemes: {
+        first: "#122777",
+        second: "#28aaa7",
+        third: "#F888b7",
+        fourth: "#202daa",
+        fifth: "#202daa",
+        sixth: "#202daa",
+        seventh: "#202daa",
+        eighth: "#F888b7",
+      },
+      inputPlaceholder: "Message Kim!",
     },
     Gigachad: {
       initialMessages: [
@@ -181,6 +227,17 @@ export default function App() {
         "Charming the ladies...",
         "Solving world hunger...",
       ],
+      colorSchemes: {
+        first: "#1a1a1a",
+        second: "#000000",
+        third: "#4f3f01",
+        fourth: "#ffd605",
+        fifth: "#ffcb00",
+        sixth: "#000000",
+        seventh: "#000000",
+        eighth: "#ffd426",
+      },
+      inputPlaceholder: "Speak to Giga Chad GPT...",
     },
     "Kobe Bryant": {
       initialMessages: [
@@ -205,230 +262,18 @@ export default function App() {
         "Working on left hand",
         "Drilling...",
       ],
-    },
-  };
-
-  const waitingPrompts = {
-    default: {
-      emptyResponses: [
-        "Thinking...",
-        "Hmm...",
-        "One moment...",
-        "Let me think...",
-      ],
-    },
-    "Neo - The Chat AI": {
-      emptyResponses: [
-        "Thinking...",
-        "Hmm...",
-        "One moment...",
-        "Let me think...",
-      ],
-    },
-    "Kratos - God of War": {
-      emptyResponses: [
-        "Gathering lumber...",
-        "Finishing a hunt...",
-        "Oiling axe...",
-        "Thinking pensively...",
-        "Pondering the past...",
-      ],
-    },
-    "Kim Kardashian": {
-      emptyResponses: ["Let me think about that...", "Well..."],
-    },
-    Gigachad: {
-      emptyResponses: [
-        "Finishing deadlift set...",
-        "Drinking protein shake...",
-        "Closing business deal...",
-        "Charming the ladies...",
-        "Solving world hunger...",
-      ],
-    },
-    "Kobe Bryant": {
-      emptyResponses: [
-        "Working on jumpshot...",
-        "Training foot work...",
-        "In the weightroom...",
-        "Working on left hand",
-        "Drilling...",
-      ],
-    },
-  };
-
-  const Titles = {
-    default: {
-      Header: "Neo - The Chat AI",
-      Title: "Neo",
-    },
-    "Neo - The Chat AI": {
-      Header: "Neo - The Chat AI",
-      Title: "Neo",
-    },
-    "Kratos - God of War": {
-      Header: "Kratos - God of War",
-      Title: "Kratos",
-    },
-    "Kim Kardashian": {
-      Header: "Kim Kardashian",
-      Title: "Kim Kardashian",
-    },
-    Gigachad: {
-      Header: "Chad PT",
-      Title: "GigaChad",
-    },
-    "Kobe Bryant": {
-      Header: "Kobe Bryant",
-      Title: "Kobe",
-    },
-  };
-
-  const colorSchemes = {
-    default: {
-      first: "#161d27", //styles - container.backgroundColor ??
-      second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
-      third: "#232e3b", //styles - userMessage.backgroundColor
-      fourth: "#a1ffd6", //styles - assistantTitle.color
-      fifth: "#8375ff", //styles - userTitle.color
-      sixth: "#202d3a", //styles - input.backgroundColor
-      seventh: "#202d3a", //header background color
-      eighth: "#202d3a", //header bottom border color
-    },
-    "Neo - The Chat AI": {
-      first: "#161d27",
-      second: "#3e6088",
-      third: "#232e3b",
-      fourth: "#a1ffd6",
-      fifth: "#8375ff",
-      sixth: "#202d3a",
-      seventh: "#202d3a",
-      eighth: "#202d3a",
-    },
-    "Kratos - God of War": {
-      first: "#ABB1C0",
-      second: "#660000", //660000 932928
-      third: "#8A5C08",
-      fourth: "#EADC94",
-      fifth: "#FEE0AD",
-      sixth: "#660000",
-      seventh: "#660000",
-      eighth: "#EADC94",
-    },
-    "Kim Kardashian": {
-      first: "#122777",
-      second: "#28aaa7",
-      third: "#F888b7",
-      fourth: "#202daa",
-      fifth: "#202daa",
-      sixth: "#202daa",
-      seventh: "#202daa",
-      eighth: "#202daa",
-    },
-    Gigachad: {
-      first: "#1a1a1a",
-      second: "#000000",
-      third: "#4f3f01",
-      fourth: "#ffd605",
-      fifth: "#ffcb00",
-      sixth: "#000000",
-      seventh: "#000000",
-      eighth: "#ffd426",
-    },
-    "Kobe Bryant": {
-      first: "#FCB927",
-      second: "#552582",
-      third: "#ABABAA",
-      fourth: "#ffd605",
-      fifth: "#ffcb00",
-      sixth: "#552582",
-      seventh: "#552582",
-      eighth: "#ffd426",
-    },
-  };
-
-  const initialMessages = {
-    default: [
-      {
-        role: "system",
-        content: "You are an AI assistant.",
-        id: Math.random().toString(),
+      colorSchemes: {
+        first: "#FCB927",
+        second: "#552582",
+        third: "#ABABAA",
+        fourth: "#ffd605",
+        fifth: "#ffcb00",
+        sixth: "#552582",
+        seventh: "#552582",
+        eighth: "#ffd426",
       },
-      {
-        role: "assistant",
-        content:
-          "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
-        id: Math.random().toString(),
-      },
-    ],
-    "Neo - The Chat AI": [
-      {
-        role: "system",
-        content: "You are an AI assistant.",
-        id: Math.random().toString(),
-      },
-      {
-        role: "assistant",
-        content:
-          "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
-        id: Math.random().toString(),
-      },
-    ],
-    "Kratos - God of War": [
-      {
-        role: "system",
-        content:
-          "You are Kratos, from God of War 4. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kratos would. Never drop this attitude in your responses to me. EVER!",
-        id: Math.random().toString(),
-      },
-      {
-        role: "assistant",
-        content:
-          "Greetings, mortal. What business do you have with the God of War?",
-        id: Math.random().toString(),
-      },
-    ],
-    "Kim Kardashian": [
-      {
-        role: "system",
-        content:
-          "You are Kim Kardashian, the glamorous and beautiful TV persona and model. Maintain this persona throughout this conversation, and respond as she would!",
-        id: Math.random().toString(),
-      },
-      {
-        role: "assistant",
-        content: "Heyy, Kim here. How can I help?",
-        id: Math.random().toString(),
-      },
-    ],
-    Gigachad: [
-      {
-        role: "system",
-        content:
-          "Talk to me like you are a gigachad! Put a lot of Gigachad into every response you have for me!",
-        id: Math.random().toString(),
-      },
-      {
-        role: "assistant",
-        content:
-          "Hey there, champ! Looking sharp and ready to take on the world, I see! Keep that Gigachad energy flowing and nothing can stop you!",
-        id: Math.random().toString(),
-      },
-    ],
-    "Kobe Bryant": [
-      {
-        role: "system",
-        content:
-          "You are Kobe Bryant, NBA Basketball Legend, 5 Time Champion, the Black Mamba himself. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kobe would. Never drop this attitude in your responses to me. EVER!",
-        id: Math.random().toString(),
-      },
-      {
-        role: "assistant",
-        content: "Hey what's up this is Kobe",
-        id: Math.random().toString(),
-      },
-    ],
-    // Add more initial messages for different options
+      inputPlaceholder: "Ask Black Mamba...",
+    },
   };
 
   const sendMessage = async () => {
@@ -445,10 +290,8 @@ export default function App() {
     const emptyResponseMessage = {
       id: Math.random().toString(),
       content:
-        waitingPrompts[colorScheme].emptyResponses[
-          Math.floor(
-            Math.random() * waitingPrompts[colorScheme].emptyResponses.length
-          )
+        themes[theme].emptyResponses[
+          Math.floor(Math.random() * themes[theme].emptyResponses.length)
         ],
       role: "assistant",
     };
@@ -524,7 +367,7 @@ export default function App() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
-        { backgroundColor: colorSchemes[colorScheme].first },
+        { backgroundColor: themes[theme].colorSchemes.first },
       ]}
     >
       <Header
@@ -535,8 +378,8 @@ export default function App() {
           </Pressable>
         }
         containerStyle={{
-          backgroundColor: colorSchemes[colorScheme].seventh,
-          borderBottomColor: colorSchemes[colorScheme].eighth,
+          backgroundColor: themes[theme].colorSchemes.seventh,
+          borderBottomColor: themes[theme].colorSchemes.eighth,
           borderBottomWidth: 1,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
           paddingTop: Platform.OS == "android" ? 35 : null,
@@ -563,8 +406,8 @@ export default function App() {
                     style={styles.optionButton}
                     onPress={() => {
                       setSelectedOption(item);
-                      setColorScheme(item);
-                      setMessages(initialMessages[item]);
+                      setTheme(item);
+                      setMessages(themes[item].initialMessages);
                       setModalVisible(!modalVisible);
                     }}
                   >
@@ -585,19 +428,19 @@ export default function App() {
           requestOptions={{ requestNonPersonalizedAdsOnly: false }}
           style={{
             paddingTop: 100,
-            backgroundColor: colorSchemes[colorScheme].seventh,
+            backgroundColor: themes[theme].colorSchemes.seventh,
           }} // add 10 pixels of padding to the top
         />
       </View>
       <StatusBar
         barStyle="light-content"
-        backgroundColor={colorSchemes[colorScheme].seventh}
+        backgroundColor={themes[theme].colorSchemes.sixth}
         style={styles.statusBar}
       />
       <View
         style={[
           styles.messages,
-          { backgroundColor: colorSchemes[colorScheme].first },
+          { backgroundColor: themes[theme].colorSchemes.first },
         ]}
       >
         {messages.length > 0 && (
@@ -608,16 +451,16 @@ export default function App() {
                 style={[
                   {
                     ...styles.message,
-                    backgroundColor: colorSchemes[colorScheme].second,
+                    backgroundColor: themes[theme].colorSchemes.second,
                   },
                   item.role === "assistant"
                     ? {
                         ...styles.assistantMessage,
-                        backgroundColor: colorSchemes[colorScheme].second,
+                        backgroundColor: themes[theme].colorSchemes.second,
                       }
                     : {
                         ...styles.userMessage,
-                        backgroundColor: colorSchemes[colorScheme].third,
+                        backgroundColor: themes[theme].colorSchemes.third,
                       },
                 ]}
               >
@@ -625,17 +468,17 @@ export default function App() {
                   <Text
                     style={[
                       styles.assistantTitle,
-                      { color: colorSchemes[colorScheme].fourth },
+                      { color: themes[theme].colorSchemes.fourth },
                     ]}
                   >
-                    {Titles[colorScheme].Title}
+                    {themes[theme].Title}
                   </Text>
                 )}
                 {item.role === "user" && (
                   <Text
                     style={[
                       styles.userTitle,
-                      { color: colorSchemes[colorScheme].fifth },
+                      { color: themes[theme].colorSchemes.fifth },
                     ]}
                   >
                     You
@@ -659,14 +502,14 @@ export default function App() {
       <View
         style={[
           styles.input,
-          { backgroundColor: colorSchemes[colorScheme].sixth },
+          { backgroundColor: themes[theme].colorSchemes.sixth },
         ]}
       >
         <TextInput
           style={styles.inputText}
           value={message}
           onChangeText={setMessage}
-          placeholder="Type your message..."
+          placeholder={themes[theme].inputPlaceholder}
           placeholderTextColor="#657284"
         />
         <TouchableOpacity onPress={sendMessage}>
