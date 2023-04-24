@@ -342,7 +342,7 @@ export default function App() {
         containerStyle={{
           backgroundColor: colorSchemes[colorScheme].seventh,
           borderBottomColor: colorSchemes[colorScheme].eighth,
-          borderBottomWidth: 1,
+          borderBottomWidth: 2,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
           paddingTop: Platform.OS == "android" ? 35 : null,
         }}
