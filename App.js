@@ -67,6 +67,196 @@ export default function App() {
     "Replika AI",
   ];
 
+  const themes = {
+    default: {
+      initialMessages: [
+        {
+          role: "system",
+          content: "You are an AI assistant.",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content:
+            "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Neo - The Chat AI",
+      Title: "Neo",
+      emptyResponses: [
+        "Thinking...",
+        "Hmm...",
+        "One moment...",
+        "Let me think...",
+      ],
+    },
+    "Neo - The Chat AI": {
+      initialMessages: [
+        {
+          role: "system",
+          content: "You are an AI assistant.",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content:
+            "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Neo - The Chat AI",
+      Title: "Neo",
+      emptyResponses: [
+        "Thinking...",
+        "Hmm...",
+        "One moment...",
+        "Let me think...",
+      ],
+    },
+    "Kratos - God of War": {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "You are Kratos, from God of War 4. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kratos would. Never drop this attitude in your responses to me. EVER!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content:
+            "Greetings, mortal. What business do you have with the God of War?",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Kratos - God of War",
+      Title: "Kratos",
+      emptyResponses: [
+        "Gathering lumber...",
+        "Finishing a hunt...",
+        "Oiling axe...",
+        "Thinking pensively...",
+        "Pondering the past...",
+      ],
+    },
+    "Kim Kardashian": {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "You are Kim Kardashian, the glamorous and beautiful TV persona and model. Maintain this persona throughout this conversation, and respond as she would!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content: "Heyy, Kim here. How can I help?",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Kim Kardashian",
+      Title: "Kim Kardashian",
+      emptyResponses: ["Let me think about that...", "Well..."],
+    },
+    Gigachad: {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "Talk to me like you are a gigachad! Put a lot of Gigachad into every response you have for me!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content:
+            "Hey there, champ! Looking sharp and ready to take on the world, I see! Keep that Gigachad energy flowing and nothing can stop you!",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Chad PT",
+      Title: "GigaChad",
+      emptyResponses: [
+        "Finishing deadlift set...",
+        "Drinking protein shake...",
+        "Closing business deal...",
+        "Charming the ladies...",
+        "Solving world hunger...",
+      ],
+    },
+    "Kobe Bryant": {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "You are Kobe Bryant, NBA Basketball Legend, 5 Time Champion, the Black Mamba himself. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kobe would. Never drop this attitude in your responses to me. EVER!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content: "Hey what's up this is Kobe",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Kobe Bryant",
+      Title: "Kobe",
+      emptyResponses: [
+        "Working on jumpshot...",
+        "Training foot work...",
+        "In the weightroom...",
+        "Working on left hand",
+        "Drilling...",
+      ],
+    },
+  };
+
+  const waitingPrompts = {
+    default: {
+      emptyResponses: [
+        "Thinking...",
+        "Hmm...",
+        "One moment...",
+        "Let me think...",
+      ],
+    },
+    "Neo - The Chat AI": {
+      emptyResponses: [
+        "Thinking...",
+        "Hmm...",
+        "One moment...",
+        "Let me think...",
+      ],
+    },
+    "Kratos - God of War": {
+      emptyResponses: [
+        "Gathering lumber...",
+        "Finishing a hunt...",
+        "Oiling axe...",
+        "Thinking pensively...",
+        "Pondering the past...",
+      ],
+    },
+    "Kim Kardashian": {
+      emptyResponses: ["Let me think about that...", "Well..."],
+    },
+    Gigachad: {
+      emptyResponses: [
+        "Finishing deadlift set...",
+        "Drinking protein shake...",
+        "Closing business deal...",
+        "Charming the ladies...",
+        "Solving world hunger...",
+      ],
+    },
+    "Kobe Bryant": {
+      emptyResponses: [
+        "Working on jumpshot...",
+        "Training foot work...",
+        "In the weightroom...",
+        "Working on left hand",
+        "Drilling...",
+      ],
+    },
+  };
+
   const Titles = {
     default: {
       Header: "Neo - The Chat AI",
@@ -254,7 +444,12 @@ export default function App() {
 
     const emptyResponseMessage = {
       id: Math.random().toString(),
-      content: "Thinking...",
+      content:
+        waitingPrompts[colorScheme].emptyResponses[
+          Math.floor(
+            Math.random() * waitingPrompts[colorScheme].emptyResponses.length
+          )
+        ],
       role: "assistant",
     };
 
