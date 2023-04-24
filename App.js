@@ -32,8 +32,14 @@ export default function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
     {
+      role: "system",
+      content: "You are an AI assistant.",
+      id: Math.random().toString(),
+    },
+    {
       role: "assistant",
-      content: "Hi there, how can I help?",
+      content:
+        "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
       id: Math.random().toString(),
     },
   ]);
@@ -57,42 +63,72 @@ export default function App() {
     "Kratos - God of War",
     "Kim Kardashian",
     "Gigachad",
+    "Kobe Bryant",
+    "Replika AI",
   ];
-  const colorSchemes = {
+
+  const Titles = {
     default: {
-      first: "#161d27",
-      second: "#43293D", //styles - message.backgroundColor + assistantMessage.backgroundColor
-      third: "#232e3b", //styles - userMessage.backgroundColor
-      fourth: "#202daa", //styles - assistantTitle.color
-      fifth: "#202daa", //styles - userTitle.color
-      sixth: "#202daa", //styles - input.backgroundColor
-      seventh: "#202daa",
-      eighth: "#202daa",
+      Header: "Neo - The Chat AI",
+      Title: "Neo",
     },
     "Neo - The Chat AI": {
-      primary: "#161d27",
-      secondary: "#28ad27",
-      tertiary: "#F82db7",
-      fourth: "#202daa",
-      fifth: "#202daa",
-      sixth: "#202daa",
-      seventh: "#202daa",
-      eighth: "#202daa",
+      Header: "Neo - The Chat AI",
+      Title: "Neo",
     },
     "Kratos - God of War": {
-      primary: "#133d37",
-      secondary: "#288827",
-      tertiary: "#FFFdb7",
-      fourth: "#202daa",
-      fifth: "#200daa",
-      sixth: "#202daa",
-      seventh: "#202daa",
-      eighth: "#202daa",
+      Header: "Kratos - God of War",
+      Title: "Kratos",
     },
     "Kim Kardashian": {
-      primary: "#122777",
-      secondary: "#28aaa7",
-      tertiary: "#F888b7",
+      Header: "Kim Kardashian",
+      Title: "Kim Kardashian",
+    },
+    Gigachad: {
+      Header: "Chad PT",
+      Title: "GigaChad",
+    },
+    "Kobe Bryant": {
+      Header: "Kobe Bryant",
+      Title: "Kobe",
+    },
+  };
+
+  const colorSchemes = {
+    default: {
+      first: "#161d27", //styles - container.backgroundColor ??
+      second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
+      third: "#232e3b", //styles - userMessage.backgroundColor
+      fourth: "#a1ffd6", //styles - assistantTitle.color
+      fifth: "#8375ff", //styles - userTitle.color
+      sixth: "#202d3a", //styles - input.backgroundColor
+      seventh: "#202d3a", //header background color
+      eighth: "#202d3a", //header bottom border color
+    },
+    "Neo - The Chat AI": {
+      first: "#161d27",
+      second: "#3e6088",
+      third: "#232e3b",
+      fourth: "#a1ffd6",
+      fifth: "#8375ff",
+      sixth: "#202d3a",
+      seventh: "#202d3a",
+      eighth: "#202d3a",
+    },
+    "Kratos - God of War": {
+      first: "#ABB1C0",
+      second: "#660000", //660000 932928
+      third: "#8A5C08",
+      fourth: "#EADC94",
+      fifth: "#FEE0AD",
+      sixth: "#660000",
+      seventh: "#660000",
+      eighth: "#EADC94",
+    },
+    "Kim Kardashian": {
+      first: "#122777",
+      second: "#28aaa7",
+      third: "#F888b7",
       fourth: "#202daa",
       fifth: "#202daa",
       sixth: "#202daa",
@@ -100,30 +136,51 @@ export default function App() {
       eighth: "#202daa",
     },
     Gigachad: {
-      first: "#161d27",
+      first: "#1a1a1a",
       second: "#000000",
       third: "#4f3f01",
       fourth: "#ffd605",
       fifth: "#ffcb00",
       sixth: "#000000",
-      seventh: "#202daa",
-      eighth: "#202daa",
+      seventh: "#000000",
+      eighth: "#ffd426",
     },
-    // Add more color schemes for different options
+    "Kobe Bryant": {
+      first: "#FCB927",
+      second: "#552582",
+      third: "#ABABAA",
+      fourth: "#ffd605",
+      fifth: "#ffcb00",
+      sixth: "#552582",
+      seventh: "#552582",
+      eighth: "#ffd426",
+    },
   };
 
   const initialMessages = {
     default: [
       {
+        role: "system",
+        content: "You are an AI assistant.",
+        id: Math.random().toString(),
+      },
+      {
         role: "assistant",
-        content: "Hi there, how can I help?",
+        content:
+          "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
         id: Math.random().toString(),
       },
     ],
     "Neo - The Chat AI": [
       {
+        role: "system",
+        content: "You are an AI assistant.",
+        id: Math.random().toString(),
+      },
+      {
         role: "assistant",
-        content: "Hi, I'm option1! How can I help?",
+        content:
+          "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
         id: Math.random().toString(),
       },
     ],
@@ -131,12 +188,13 @@ export default function App() {
       {
         role: "system",
         content:
-          "You are Kratos, from God of War. Maintain his persona throughout this conversation, and respond as he would.",
+          "You are Kratos, from God of War 4. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kratos would. Never drop this attitude in your responses to me. EVER!",
         id: Math.random().toString(),
       },
       {
         role: "assistant",
-        content: "Hi, I'm Kratos! How can I help?",
+        content:
+          "Greetings, mortal. What business do you have with the God of War?",
         id: Math.random().toString(),
       },
     ],
@@ -149,14 +207,34 @@ export default function App() {
       },
       {
         role: "assistant",
-        content: "Hi, I'm Kim Kardashian! How can I help?",
+        content: "Heyy, Kim here. How can I help?",
         id: Math.random().toString(),
       },
     ],
     Gigachad: [
       {
+        role: "system",
+        content:
+          "Talk to me like you are a gigachad! Put a lot of Gigachad into every response you have for me!",
+        id: Math.random().toString(),
+      },
+      {
         role: "assistant",
-        content: "Hi, I'm Gigachad! How can I help?",
+        content:
+          "Hey there, champ! Looking sharp and ready to take on the world, I see! Keep that Gigachad energy flowing and nothing can stop you!",
+        id: Math.random().toString(),
+      },
+    ],
+    "Kobe Bryant": [
+      {
+        role: "system",
+        content:
+          "You are Kobe Bryant, NBA Basketball Legend, 5 Time Champion, the Black Mamba himself. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Kobe would. Never drop this attitude in your responses to me. EVER!",
+        id: Math.random().toString(),
+      },
+      {
+        role: "assistant",
+        content: "Hey what's up this is Kobe",
         id: Math.random().toString(),
       },
     ],
@@ -225,13 +303,14 @@ export default function App() {
       });
 
       if (tokenCount > 4090) {
-        if (messages.length == 1) {
-          setMessages([]);
+        if (messages.length == 2 || messages.length == 3) {
+          setMessages([messages[0]]);
         }
         const halfIndex = Math.ceil(messages.length / 2);
         const secondHalfMessages = messages.slice(halfIndex);
+        const newMessages = [messages[0], ...secondHalfMessages];
 
-        setMessages(secondHalfMessages);
+        setMessages(newMessages);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -257,12 +336,12 @@ export default function App() {
         placement="center"
         centerComponent={
           <Pressable onPress={() => setModalVisible(true)}>
-            <Text style={styles.toolbarTitle}>{selectedOption}</Text>
+            <Text style={[styles.toolbarTitle]}>{selectedOption}</Text>
           </Pressable>
         }
         containerStyle={{
-          backgroundColor: "#202d3a",
-          borderBottomColor: "#202d3a",
+          backgroundColor: colorSchemes[colorScheme].seventh,
+          borderBottomColor: colorSchemes[colorScheme].eighth,
           borderBottomWidth: 1,
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
           paddingTop: Platform.OS == "android" ? 35 : null,
@@ -309,22 +388,26 @@ export default function App() {
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+          style={{
+            paddingTop: 100,
+            backgroundColor: colorSchemes[colorScheme].seventh,
+          }} // add 10 pixels of padding to the top
         />
       </View>
       <StatusBar
         barStyle="light-content"
-        backgroundColor="#202d3a"
+        backgroundColor={colorSchemes[colorScheme].seventh}
         style={styles.statusBar}
       />
       <View
         style={[
           styles.messages,
-          { backgroundColor: colorSchemes[colorScheme].second },
+          { backgroundColor: colorSchemes[colorScheme].first },
         ]}
       >
         {messages.length > 0 && (
           <FlatList
-            data={messages}
+            data={messages.filter((msg) => msg.role !== "system")}
             renderItem={({ item }) => (
               <View
                 style={[
@@ -350,7 +433,7 @@ export default function App() {
                       { color: colorSchemes[colorScheme].fourth },
                     ]}
                   >
-                    Neo
+                    {Titles[colorScheme].Title}
                   </Text>
                 )}
                 {item.role === "user" && (
