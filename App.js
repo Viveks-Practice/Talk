@@ -354,7 +354,7 @@ export default function App() {
         }}
       />
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -366,12 +366,20 @@ export default function App() {
           onPress={() => setModalVisible(false)}
         >
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View
+              style={[
+                styles.modalView,
+                { backgroundColor: themes[theme].colorSchemes.first },
+              ]}
+            >
               <FlatList
                 data={options}
                 renderItem={({ item }) => (
                   <TouchableOpacity
-                    style={styles.optionButton}
+                    style={[
+                      styles.optionButton,
+                      { backgroundColor: themes[theme].colorSchemes.seventh },
+                    ]}
                     onPress={() => {
                       setSelectedOption(item);
                       setTheme(item);
@@ -384,6 +392,7 @@ export default function App() {
                 )}
                 keyExtractor={(item) => item}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1 }}
               />
             </View>
           </View>
@@ -577,10 +586,11 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    padding: 22,
+    marginHorizontal: 40,
+    marginVertical: 200,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -589,15 +599,16 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
-    maxHeight: 290, // Adjust this value according to the height of 5 options
-    width: "80%",
+    elevation: 50,
+    height: 190, // Adjust this value according to the height of each option
+
+    width: "100%",
   },
   optionButton: {
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
-    width: "100%",
+    marginBottom: 1,
+    flex: 1,
     alignItems: "center",
     backgroundColor: "#2196F3",
   },
