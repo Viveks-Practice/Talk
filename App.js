@@ -66,7 +66,6 @@ export default function App() {
     "Kim Kardashian",
     "Gigachad",
     "Kobe Bryant",
-    "Replika AI",
   ];
 
   const themes = {
@@ -374,7 +373,10 @@ export default function App() {
         placement="center"
         centerComponent={
           <Pressable onPress={() => setModalVisible(true)}>
-            <Text style={[styles.toolbarTitle]}>{selectedOption}</Text>
+            <Text style={[styles.toolbarTitle]}>
+              {selectedOption}
+              <Ionicons name="chevron-down-outline" size={18} color="#fff" />
+            </Text>
           </Pressable>
         }
         containerStyle={{
