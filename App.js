@@ -328,7 +328,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
@@ -369,7 +369,10 @@ export default function App() {
             <View
               style={[
                 styles.modalView,
-                { backgroundColor: themes[theme].colorSchemes.first },
+                {
+                  backgroundColor:
+                    themes["Neo - The Chat AI"].colorSchemes.first,
+                },
               ]}
             >
               <FlatList
@@ -378,7 +381,10 @@ export default function App() {
                   <TouchableOpacity
                     style={[
                       styles.optionButton,
-                      { backgroundColor: themes[theme].colorSchemes.seventh },
+                      {
+                        backgroundColor:
+                          themes["Neo - The Chat AI"].colorSchemes.sixth,
+                      },
                     ]}
                     onPress={() => {
                       setSelectedOption(item);
@@ -497,7 +503,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -584,29 +590,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   centeredView: {
-    flex: 1,
-    justifyContent: "center",
+    position: "absolute",
+    top: Platform.OS === "ios" ? Constants.statusBarHeight + 56 : 56,
+    width: "100%",
     alignItems: "center",
-    marginTop: 22,
   },
   modalView: {
-    padding: 22,
-    marginHorizontal: 40,
-    marginVertical: 200,
-    backgroundColor: "white",
-    borderRadius: 20,
-    alignItems: "center",
+    width: "100%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 50,
-    height: 190, // Adjust this value according to the height of each option
-
-    width: "100%",
+    shadowRadius: 0.84,
+    maxHeight: 600,
+    elevation: 5,
   },
   optionButton: {
     borderRadius: 10,
@@ -625,6 +627,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
 });
