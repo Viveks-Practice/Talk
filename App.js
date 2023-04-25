@@ -45,7 +45,7 @@ export default function App() {
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState("Neo - The Chat AI");
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -69,40 +69,6 @@ export default function App() {
   ];
 
   const themes = {
-    default: {
-      initialMessages: [
-        {
-          role: "system",
-          content: "You are an AI assistant.",
-          id: Math.random().toString(),
-        },
-        {
-          role: "assistant",
-          content:
-            "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
-          id: Math.random().toString(),
-        },
-      ],
-      Header: "Neo - The Chat AI",
-      Title: "Neo",
-      emptyResponses: [
-        "Thinking...",
-        "Hmm...",
-        "One moment...",
-        "Let me think...",
-      ],
-      colorSchemes: {
-        first: "#161d27", //styles - container.backgroundColor ??
-        second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
-        third: "#232e3b", //styles - userMessage.backgroundColor
-        fourth: "#a1ffd6", //styles - assistantTitle.color
-        fifth: "#8375ff", //styles - userTitle.color
-        sixth: "#202d3a", //styles - input.backgroundColor
-        seventh: "#202d3a", //header background color
-        eighth: "#202d3a", //header bottom border color
-      },
-      inputPlaceholder: "Type your message...",
-    },
     "Neo - The Chat AI": {
       initialMessages: [
         {
