@@ -92,14 +92,14 @@ export default function App() {
         "Let me think...",
       ],
       colorSchemes: {
-        first: "#161d27",
-        second: "#3e6088",
-        third: "#232e3b",
-        fourth: "#a1ffd6",
-        fifth: "#8375ff",
-        sixth: "#202d3a",
-        seventh: "#202d3a",
-        eighth: "#202d3a",
+        first: "#161d27", //styles - messages.backgroundColor
+        second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
+        third: "#232e3b", //styles - userMessage.backgroundColor
+        fourth: "#a1ffd6", //styles - assistantTitle.color
+        fifth: "#8375ff", //styles - userTitle.color
+        sixth: "#202d3a", //styles - input.backgroundColor
+        seventh: "#202d3a", //header - backgroundColor
+        eighth: "#202d3a", //header - bottom borderColor
       },
       inputPlaceholder: "Type your message...",
     },
@@ -332,7 +332,7 @@ export default function App() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
-        { backgroundColor: themes[theme].colorSchemes.first },
+        { backgroundColor: themes[theme].colorSchemes.seventh },
       ]}
     >
       <Header
@@ -398,7 +398,11 @@ export default function App() {
           </View>
         </Pressable>
       </Modal>
-      <View>
+      <View
+        style={{
+          backgroundColor: themes[theme].colorSchemes.first,
+        }}
+      >
         <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
