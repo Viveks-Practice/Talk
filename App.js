@@ -398,7 +398,11 @@ export default function App() {
           </View>
         </Pressable>
       </Modal>
-      <View>
+      <View
+        style={{
+          backgroundColor: themes[theme].colorSchemes.first,
+        }}
+      >
         <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
