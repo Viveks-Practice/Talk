@@ -67,6 +67,7 @@ export default function App() {
     "Gigachad",
     "Kobe Bryant",
     "Andrew Huberman",
+    "Sam Harris",
   ];
 
   const themes = {
