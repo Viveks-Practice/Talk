@@ -22,6 +22,7 @@ import {
   TestIds,
   BannerAdSize,
 } from "react-native-google-mobile-ads";
+import axios from "axios";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
@@ -47,6 +48,7 @@ export default function App() {
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
   const [theme, setTheme] = useState("Neo - The Chat AI");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -70,6 +72,31 @@ export default function App() {
     "Andrew Huberman",
     "Sam Harris",
   ];
+
+  const searchPerson = async (query) => {
+    try {
+      const response = await axios.get(
+        `https://kgsearch.googleapis.com/v1/entities:search?query=${encodeURIComponent(
+          query
+        )}&key=${
+          process.env.GOOGLE_KNOWLEDGE_GRAPH_SEARCH_API
+        }&limit=5&indent=True&types=Person`
+      );
+
+      const { data } = response;
+      if (data.itemListElement && data.itemListElement.length > 0) {
+        const person = data.itemListElement[0].result;
+        const name = person.name;
+        const description = person.description;
+        // Use the person's name and description in your app
+        console.log(name, description);
+      } else {
+        console.log("No results found");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
@@ -205,6 +232,16 @@ export default function App() {
                 },
               ]}
             >
+              {/* Add the search bar */}
+              <TextInput
+                style={styles.searchInput}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                onSubmitEditing={() => searchPerson(searchQuery)}
+                placeholder="Search for a person"
+                placeholderTextColor="#657284"
+                returnKeyType="search"
+              />
               <FlatList
                 data={options}
                 renderItem={({ item }) => (
@@ -458,5 +495,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  searchInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 8,
+    borderRadius: 4,
+    color: "#5d5d5d",
+    fontSize: 16,
   },
 });
