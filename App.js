@@ -49,6 +49,15 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
+  const [options, setOptions] = useState([
+    "Neo - The Chat AI",
+    "Kratos - God of War",
+    "Kim Kardashian",
+    "Gigachad",
+    "Kobe Bryant",
+    "Andrew Huberman",
+    "Sam Harris",
+  ]);
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -61,17 +70,6 @@ export default function App() {
   const flatListRef = useRef(null); // Create a reference to the FlatList component.
 
   const url = "https://api.openai.com/v1/chat/completions";
-
-  //the 'options' array's strings need to be the exact same as the fields in the 'themes' object
-  const options = [
-    "Neo - The Chat AI",
-    "Kratos - God of War",
-    "Kim Kardashian",
-    "Gigachad",
-    "Kobe Bryant",
-    "Andrew Huberman",
-    "Sam Harris",
-  ];
 
   const searchPerson = async (query) => {
     try {
@@ -90,6 +88,13 @@ export default function App() {
         const description = person.description;
         // Use the person's name and description in your app
         console.log(name, description);
+        console.log(person);
+        themes[name] = {
+          description: description,
+        };
+        setOptions((prevOptions) => [...prevOptions, name]);
+        console.log(themes["Kobe Bryant"]);
+        console.log(options);
       } else {
         console.log("No results found");
       }
@@ -237,7 +242,10 @@ export default function App() {
                 style={styles.searchInput}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
-                onSubmitEditing={() => searchPerson(searchQuery)}
+                onSubmitEditing={() => {
+                  searchPerson(searchQuery);
+                  setSearchQuery("");
+                }}
                 placeholder="Search for a person"
                 placeholderTextColor="#657284"
                 returnKeyType="search"
