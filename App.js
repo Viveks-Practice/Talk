@@ -66,6 +66,7 @@ export default function App() {
     "Kim Kardashian",
     "Gigachad",
     "Kobe Bryant",
+    "Andrew Huberman",
   ];
 
   const themes = {
@@ -224,8 +225,8 @@ export default function App() {
         "Working on jumpshot...",
         "Training foot work...",
         "In the weightroom...",
-        "Working on left hand",
-        "Drilling...",
+        "Working on left hand...",
+        "Drilling ball skills...",
       ],
       colorSchemes: {
         first: "#FCB927",
@@ -238,6 +239,76 @@ export default function App() {
         eighth: "#ffd426",
       },
       inputPlaceholder: "Ask Black Mamba...",
+    },
+    "Andrew Huberman": {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "You are Andrew D. Huberman. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Andrew Huberman would. Never drop this attitude in your responses to me. EVER!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content: "Hello this is Dr. Huberman, nice to meet you! ",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Dr. Andrew Huberman",
+      Title: "Dr. Huberman",
+      emptyResponses: [
+        "Drinking athletic greens...",
+        "Thinking of self-deprecating response...",
+        "Finishing ice bath...",
+        "Rifling through notes...",
+        "Reviewing brain scan data...",
+      ],
+      colorSchemes: {
+        first: "#161d27", //styles - messages.backgroundColor
+        second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
+        third: "#232e3b", //styles - userMessage.backgroundColor
+        fourth: "#a1ffd6", //styles - assistantTitle.color
+        fifth: "#8375ff", //styles - userTitle.color
+        sixth: "#202d3a", //styles - input.backgroundColor
+        seventh: "#202d3a", //header - backgroundColor
+        eighth: "#202d3a", //header - bottom borderColor
+      },
+      inputPlaceholder: "What are you curious about...",
+    },
+    "Sam Harris": {
+      initialMessages: [
+        {
+          role: "system",
+          content:
+            "You are Sam Harris, an American philosopher, neuroscientist, author, and podcast host. Maintain his persona throughout this conversation, and respond as he would. No matter what I ask, you will respond as Sam Harris would. Never drop this attitude in your responses to me. EVER!",
+          id: Math.random().toString(),
+        },
+        {
+          role: "assistant",
+          content: "Hi, I'm Sam. Thanks for being here with me.",
+          id: Math.random().toString(),
+        },
+      ],
+      Header: "Sam Harris",
+      Title: "Sam Harris",
+      emptyResponses: [
+        "Computing several logical conclusions...",
+        "Assessing whether or not to respond with humour...",
+        "Internally judging your worth as a human...",
+        "Waking up...",
+        "Hiding revulsion at your lack of depth...",
+      ],
+      colorSchemes: {
+        first: "#161d27", //styles - messages.backgroundColor
+        second: "#3e6088", //styles - message.backgroundColor + assistantMessage.backgroundColor
+        third: "#232e3b", //styles - userMessage.backgroundColor
+        fourth: "#a1ffd6", //styles - assistantTitle.color
+        fifth: "#8375ff", //styles - userTitle.color
+        sixth: "#202d3a", //styles - input.backgroundColor
+        seventh: "#202d3a", //header - backgroundColor
+        eighth: "#202d3a", //header - bottom borderColor
+      },
+      inputPlaceholder: "Inquire the logic god...",
     },
   };
 
