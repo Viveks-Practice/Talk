@@ -93,7 +93,7 @@ export default function App() {
           initialMessages: [
             {
               role: "system",
-              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. Never drop this attitude in your responses to me. EVER!`,
+              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER!`,
               id: "0",
             },
             {
@@ -214,7 +214,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
@@ -402,7 +402,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     marginBottom: 8,
     borderRadius: 4,
-    color: "#5d5d5d",
+    color: "#fff",
     fontSize: 16,
   },
 });
