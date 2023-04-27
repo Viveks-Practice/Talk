@@ -90,10 +90,34 @@ export default function App() {
         console.log(name, description);
         console.log(person);
         themes[name] = {
-          description: description,
+          initialMessages: [
+            {
+              role: "system",
+              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. Never drop this attitude in your responses to me. EVER!`,
+              id: "0",
+            },
+            {
+              role: "assistant",
+              content: `You are now speaking to ${name}.`,
+              id: "1",
+            },
+          ],
+          Header: `${name}`,
+          Title: `${name}`,
+          emptyResponses: ["Thinking..."],
+          colorSchemes: {
+            first: "#161d27",
+            second: "#3e6088",
+            third: "#232e3b",
+            fourth: "#a1ffd6",
+            fifth: "#8375ff",
+            sixth: "#202d3a",
+            seventh: "#202d3a",
+            eighth: "#202d3a",
+          },
+          inputPlaceholder: "Type your message...",
         };
         setOptions((prevOptions) => [...prevOptions, name]);
-        console.log(themes["Kobe Bryant"]);
         console.log(options);
       } else {
         console.log("No results found");
