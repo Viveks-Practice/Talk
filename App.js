@@ -82,7 +82,16 @@ export default function App() {
       );
 
       const { data } = response;
-      if (data.itemListElement && data.itemListElement.length > 0) {
+      if (themes[data.itemListElement[0].result.name]) {
+        alert(
+          "This character entry already exists. Enter another character's name and try again"
+        );
+      }
+      if (
+        data.itemListElement &&
+        data.itemListElement.length > 0 &&
+        !themes[data.itemListElement[0].result.name]
+      ) {
         const person = data.itemListElement[0].result;
         const name = person.name;
         const description = person.description;
@@ -93,7 +102,7 @@ export default function App() {
           initialMessages: [
             {
               role: "system",
-              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER!`,
+              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER! Also do not bring up that you are a AI language model or anything of the sort please.`,
               id: "0",
             },
             {
@@ -333,47 +342,60 @@ export default function App() {
           <FlatList
             data={messages.filter((msg) => msg.role !== "system")}
             renderItem={({ item }) => (
-              <View
-                style={[
-                  {
-                    ...styles.message,
-                    backgroundColor: themes[theme].colorSchemes.second,
-                  },
-                  item.role === "assistant"
-                    ? {
-                        ...styles.assistantMessage,
-                        backgroundColor: themes[theme].colorSchemes.second,
-                      }
-                    : {
-                        ...styles.userMessage,
-                        backgroundColor: themes[theme].colorSchemes.third,
-                      },
-                ]}
-              >
-                {item.role === "assistant" && (
-                  <Text
-                    style={[
-                      styles.assistantTitle,
-                      { color: themes[theme].colorSchemes.fourth },
-                    ]}
-                  >
-                    {themes[theme].Title}
+              <>
+                <View
+                  style={[
+                    {
+                      ...styles.message,
+                      backgroundColor: themes[theme].colorSchemes.second,
+                    },
+                    item.role === "assistant"
+                      ? {
+                          ...styles.assistantMessage,
+                          backgroundColor: themes[theme].colorSchemes.second,
+                        }
+                      : {
+                          ...styles.userMessage,
+                          backgroundColor: themes[theme].colorSchemes.third,
+                        },
+                  ]}
+                >
+                  {item.role === "assistant" && (
+                    <Text
+                      style={[
+                        styles.assistantTitle,
+                        { color: themes[theme].colorSchemes.fourth },
+                      ]}
+                    >
+                      {themes[theme].Title}
+                    </Text>
+                  )}
+                  {item.role === "user" && (
+                    <Text
+                      style={[
+                        styles.userTitle,
+                        { color: themes[theme].colorSchemes.fifth },
+                      ]}
+                    >
+                      You
+                    </Text>
+                  )}
+                  <Text style={styles.messageText} selectable>
+                    {item.content}
                   </Text>
-                )}
-                {item.role === "user" && (
-                  <Text
-                    style={[
-                      styles.userTitle,
-                      { color: themes[theme].colorSchemes.fifth },
-                    ]}
-                  >
-                    You
-                  </Text>
-                )}
-                <Text style={styles.messageText} selectable>
-                  {item.content}
-                </Text>
-              </View>
+                </View>
+                {/* {item.role === "assistant" && (
+                  <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.BANNER}
+                    requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+                    style={{
+                      paddingTop: 100,
+                      backgroundColor: themes[theme].colorSchemes.seventh,
+                    }} // add 10 pixels of padding to the top
+                  />
+                )} */}
+              </>
             )}
             keyExtractor={(item) => item.id}
             ref={flatListRef}
