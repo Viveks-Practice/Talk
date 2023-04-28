@@ -214,7 +214,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <KeyboardAvoidingView
+    <SafeAreaView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
@@ -402,7 +402,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
