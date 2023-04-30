@@ -51,6 +51,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [options, setOptions] = useState([
     "Neo - The Chat AI",
+    "Yoda",
+    "Darth Vader",
     "Kratos - God of War",
     "Kim Kardashian",
     "Gigachad",
