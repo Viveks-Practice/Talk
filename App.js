@@ -80,7 +80,7 @@ export default function App() {
           query
         )}&key=${
           process.env.GOOGLE_KNOWLEDGE_GRAPH_SEARCH_API
-        }&limit=5&indent=True&types=Person`
+        }&limit=5&indent=True&types=Person, FictionalCharacter`
       );
 
       const { data } = response;
@@ -225,7 +225,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
@@ -426,7 +426,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
