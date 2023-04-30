@@ -50,13 +50,13 @@
     "emptyResponses": ["Meditating..."],
     "colorSchemes": {
       "first": "#616640",
-      "second": "#1be31f",
-      "third": "#9cbb80",
-      "fourth": "#054506",
-      "fifth": "#333333",
+      "second": "#668260",
+      "third": "#435240",
+      "fourth": "#1be31f",
+      "fifth": "#8eb886",
       "sixth": "#5e403b",
       "seventh": "#5e403b",
-      "eighth": "#202d3a"
+      "eighth": "#1be31f"
     },
     "inputPlaceholder": "Your inquiry, you may speak..."
   },
