@@ -80,7 +80,7 @@ export default function App() {
           query
         )}&key=${
           process.env.GOOGLE_KNOWLEDGE_GRAPH_SEARCH_API
-        }&limit=5&indent=True&types=Person, FictionalCharacter`
+        }&limit=5&indent=True&types=Person`
       );
 
       const { data } = response;
