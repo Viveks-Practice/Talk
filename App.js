@@ -49,6 +49,7 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
+  const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     "Neo - The Chat AI",
     "Yoda",
@@ -161,6 +162,7 @@ export default function App() {
     const updatedMessage = [...messages, newMessage]; //setting the new message for the API call to GPT
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setMessage("");
+    setAdIndex(adIndex + 1);
     setTimeout(async () => {
       setMessages((prevMessages) => [...prevMessages, emptyResponseMessage]); // adding the Thinking... element to the array at the end, after a delay, so that the user see's the thinking bubble
       //before GPT's response
