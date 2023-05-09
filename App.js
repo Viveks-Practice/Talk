@@ -32,9 +32,20 @@ import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 //branch - interstitial-ads
 
-const adUnitIdInterstitial = __DEV__
-  ? TestIds.INTERSTITIAL
-  : TestIds.INTERSTITIAL;
+// const adUnitIdInterstitial = __DEV__
+//   ? TestIds.INTERSTITIAL
+//   : TestIds.INTERSTITIAL;
+
+const adUnitIdInterstitial = "";
+if (Platform.OS === "ios") {
+  adUnitId = __DEV__
+    ? TestIds.INTERSTITIAL
+    : process.env.IOS_ADMOB_INTERSTITIAL_ID; // iOS Ad Unit ID
+} else if (Platform.OS === "android") {
+  adUnitId = __DEV__
+    ? TestIds.INTERSTITIAL
+    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID; // Android Ad Unit ID
+}
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
   requestNonPersonalizedAdsOnly: true,
