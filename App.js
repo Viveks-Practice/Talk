@@ -28,7 +28,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
-//branch - more-ads
+//branch - interstitial-ads
 
 export default function App() {
   const [message, setMessage] = useState("");
