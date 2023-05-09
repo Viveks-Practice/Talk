@@ -13,6 +13,7 @@ import {
   ImageBackground,
   Modal,
   Pressable,
+  Button,
 } from "react-native";
 import {
   AppOpenAd,
@@ -21,6 +22,7 @@ import {
   BannerAd,
   TestIds,
   BannerAdSize,
+  AdEventType,
 } from "react-native-google-mobile-ads";
 import axios from "axios";
 import Constants from "expo-constants";
@@ -30,7 +32,17 @@ import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 //branch - interstitial-ads
 
+const adUnitIdInterstitial = __DEV__
+  ? TestIds.INTERSTITIAL
+  : TestIds.INTERSTITIAL;
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+  requestNonPersonalizedAdsOnly: true,
+});
+
 export default function App() {
+  const [messageCount, setMessageCount] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -204,6 +216,11 @@ export default function App() {
         return updatedPrevMessages;
       });
 
+      setMessageCount(messageCount + 1); //Loads interstitial message
+      if (messageCount % 4 == 3) {
+        interstitial.show();
+      }
+
       if (tokenCount > 4090) {
         if (messages.length == 2 || messages.length == 3) {
           setMessages([messages[0]]);
@@ -219,6 +236,22 @@ export default function App() {
       alert("There was an error processing your message. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        console.log("Interstitial ad loaded!");
+      }
+    );
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -399,7 +432,6 @@ export default function App() {
           />
         )}
       </View>
-
       <View
         style={[
           styles.input,
