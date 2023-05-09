@@ -36,13 +36,13 @@ import themes from "./themes.json";
 //   ? TestIds.INTERSTITIAL
 //   : TestIds.INTERSTITIAL;
 
-const adUnitIdInterstitial = "";
+let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
-  adUnitId = __DEV__
+  adUnitIdInterstitial = __DEV__
     ? TestIds.INTERSTITIAL
     : process.env.IOS_ADMOB_INTERSTITIAL_ID; // iOS Ad Unit ID
 } else if (Platform.OS === "android") {
-  adUnitId = __DEV__
+  adUnitIdInterstitial = __DEV__
     ? TestIds.INTERSTITIAL
     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID; // Android Ad Unit ID
 }
