@@ -324,7 +324,7 @@ export default function App() {
         <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+          requestOptions={{ requestNonPersonalizedAdsOnly: true }}
           style={{
             paddingTop: 100,
             backgroundColor: themes[theme].colorSchemes.seventh,
@@ -388,17 +388,6 @@ export default function App() {
                     {item.content}
                   </Text>
                 </View>
-                {/* {item.role === "assistant" && (
-                  <BannerAd
-                    unitId={adUnitId}
-                    size={BannerAdSize.BANNER}
-                    requestOptions={{ requestNonPersonalizedAdsOnly: false }}
-                    style={{
-                      paddingTop: 100,
-                      backgroundColor: themes[theme].colorSchemes.seventh,
-                    }} // add 10 pixels of padding to the top
-                  />
-                )} */}
               </>
             )}
             keyExtractor={(item) => item.id}
