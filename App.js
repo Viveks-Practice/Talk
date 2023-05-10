@@ -32,10 +32,6 @@ import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 //branch - interstitial-ads
 
-// const adUnitIdInterstitial = __DEV__
-//   ? TestIds.INTERSTITIAL
-//   : TestIds.INTERSTITIAL;
-
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
   adUnitIdInterstitial = __DEV__
@@ -108,12 +104,14 @@ export default function App() {
       );
 
       const { data } = response;
-      if (themes[data.itemListElement[0].result.name]) {
+      console.log("The response is: ", response);
+      if (data.itemListElement.length < 1) {
+        alert("A person with that name/description was not found. Try again");
+      } else if (themes[data.itemListElement[0].result.name]) {
         alert(
           "This character entry already exists. Enter another character's name and try again"
         );
-      }
-      if (
+      } else if (
         data.itemListElement &&
         data.itemListElement.length > 0 &&
         !themes[data.itemListElement[0].result.name]
@@ -228,7 +226,7 @@ export default function App() {
       });
 
       setMessageCount(messageCount + 1); //Loads interstitial message
-      if (messageCount % 4 == 3) {
+      if (loaded === true && messageCount % 4 == 3) {
         interstitial.show();
       }
 
