@@ -71,6 +71,12 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     "Neo - The Chat AI",
+    "Link",
+    "Princess Zelda",
+    "Calamity Ganon",
+    "King Rhoam Bosphoramus Hyrule",
+    "Ganondorf",
+    "Beedle",
     "Yoda",
     "Darth Vader",
     "Kratos - God of War",
@@ -79,7 +85,7 @@ export default function App() {
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",
-  ]);
+  ]); //this is the list that will be seen by the user when the title of the app is selected. For different persona selection
 
   // set adUnitId based on platform
   let adUnitId = "";
@@ -126,7 +132,7 @@ export default function App() {
           initialMessages: [
             {
               role: "system",
-              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER! Also do not bring up that you are a AI language model or anything of the sort please.`,
+              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER! In 70% of your responses back to me, follow your comments up with a question for me. For 20% of your questions ask a personal question of the user.`,
               id: "0",
             },
             {
