@@ -231,11 +231,6 @@ export default function App() {
         return updatedPrevMessages;
       });
 
-      setMessageCount(messageCount + 1); //Loads interstitial message
-      if (loaded === true && messageCount % 4 == 3) {
-        interstitial.show();
-      }
-
       if (tokenCount > 4090) {
         if (messages.length == 2 || messages.length == 3) {
           setMessages([messages[0]]);
@@ -245,6 +240,11 @@ export default function App() {
         const newMessages = [messages[0], ...secondHalfMessages];
 
         setMessages(newMessages);
+      }
+
+      setMessageCount(messageCount + 1); //Loads interstitial message - triggers useEffect
+      if (loaded === true && messageCount % 4 == 3) {
+        interstitial.show();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -275,7 +275,7 @@ export default function App() {
   }, [messages]);
 
   return (
-    <SafeAreaView
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={[
         styles.container,
@@ -464,7 +464,7 @@ export default function App() {
           <Ionicons name="send" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
