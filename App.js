@@ -30,6 +30,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
+import PersonaModal from "./personaModal"; // Import the newly created component
+
 //branch - options-modal-component
 
 let adUnitIdInterstitial = "";
@@ -287,70 +289,18 @@ export default function App() {
         setModalVisible={setModalVisible}
         theme={theme}
       />
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <Pressable
-          style={styles.modalOverlay}
-          onPress={() => setModalVisible(false)}
-        >
-          <View style={styles.centeredView}>
-            <View
-              style={[
-                styles.modalView,
-                {
-                  backgroundColor:
-                    themes["Neo - The Chat AI"].colorSchemes.first,
-                },
-              ]}
-            >
-              {/* Add the search bar */}
-              <TextInput
-                style={styles.searchInput}
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-                onSubmitEditing={() => {
-                  searchPerson(searchQuery);
-                  setSearchQuery("");
-                }}
-                placeholder="Search for a person"
-                placeholderTextColor="#657284"
-                returnKeyType="search"
-              />
-              <FlatList
-                data={options}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={[
-                      styles.optionButton,
-                      {
-                        backgroundColor:
-                          themes["Neo - The Chat AI"].colorSchemes.sixth,
-                      },
-                    ]}
-                    onPress={() => {
-                      setSelectedOption(item);
-                      setTheme(item);
-                      setMessages(themes[item].initialMessages);
-                      setModalVisible(!modalVisible);
-                    }}
-                  >
-                    <Text style={styles.optionText}>{item}</Text>
-                  </TouchableOpacity>
-                )}
-                keyExtractor={(item) => item}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ flexGrow: 1 }}
-              />
-            </View>
-          </View>
-        </Pressable>
-      </Modal>
+      <PersonaModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        themes={themes}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        searchPerson={searchPerson}
+        setSelectedOption={setSelectedOption}
+        setTheme={setTheme}
+        setMessages={setMessages}
+        options={options}
+      />
       <View
         style={{
           backgroundColor: themes[theme].colorSchemes.first,
