@@ -4,7 +4,7 @@ import { Header } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
-import themes from "./themes.json";
+import themes from "../themes.json";
 
 const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
   const styles = StyleSheet.create({

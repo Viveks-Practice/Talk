@@ -29,7 +29,7 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
-import NeoHeader from "./Header";
+import NeoHeader from "./components/Header";
 //branch - header-component
 
 let adUnitIdInterstitial = "";
