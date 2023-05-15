@@ -27,9 +27,9 @@ import {
 import axios from "axios";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
-import { Header } from "react-native-elements";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
+import NeoHeader from "./Header";
 //branch - header-component
 
 let adUnitIdInterstitial = "";
@@ -282,23 +282,10 @@ export default function App() {
         { backgroundColor: themes[theme].colorSchemes.seventh },
       ]}
     >
-      <Header
-        placement="center"
-        centerComponent={
-          <Pressable onPress={() => setModalVisible(true)}>
-            <Text style={[styles.toolbarTitle]}>
-              {selectedOption}
-              <Ionicons name="chevron-down-outline" size={18} color="#fff" />
-            </Text>
-          </Pressable>
-        }
-        containerStyle={{
-          backgroundColor: themes[theme].colorSchemes.seventh,
-          borderBottomColor: themes[theme].colorSchemes.eighth,
-          borderBottomWidth: 1,
-          marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
-          paddingTop: Platform.OS == "android" ? 35 : null,
-        }}
+      <NeoHeader
+        selectedOption={selectedOption}
+        setModalVisible={setModalVisible}
+        theme={theme}
       />
       <Modal
         animationType="fade"
@@ -471,11 +458,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#161d27",
-  },
-  toolbarTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#fff",
   },
   statusBar: {
     backgroundColor: "#202d3a",
