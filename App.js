@@ -33,6 +33,9 @@ import NeoHeader from "./components/Header";
 import PersonaModal from "./personaModal"; // Import the newly created component
 
 //branch - options-modal-component
+//don't forget to
+//  -delete the styles used in the persona component from this main component
+//  -move functions used only in the components into the components, no need for them to be here
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
