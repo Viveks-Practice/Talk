@@ -30,7 +30,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-//branch - header-component
+//branch - options-modal-component
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
