@@ -7,14 +7,6 @@ import { Platform } from "react-native";
 import themes from "../themes.json";
 
 const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
-  const styles = StyleSheet.create({
-    headerTitle: {
-      fontWeight: "bold",
-      fontSize: 20,
-      color: "#fff",
-    },
-  });
-
   return (
     <Header
       placement="center"
@@ -36,5 +28,13 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#fff",
+  },
+});
 
 export default NeoHeader;

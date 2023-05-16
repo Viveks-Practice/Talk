@@ -12,7 +12,7 @@ import {
 import Constants from "expo-constants";
 import themes from "../themes.json";
 
-const SelectorModal = ({
+const PersonaModal = ({
   modalVisible,
   setModalVisible,
   themes,
@@ -24,64 +24,6 @@ const SelectorModal = ({
   setMessages,
   options,
 }) => {
-  const PersonaModalStyles = StyleSheet.create({
-    headerTitle: {
-      fontWeight: "bold",
-      fontSize: 20,
-      color: "#fff",
-    },
-    modalOverlay: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.3)",
-    },
-    centeredView: {
-      position: "absolute",
-      top: Platform.OS === "ios" ? Constants.statusBarHeight + 56 : 56,
-      width: "100%",
-      alignItems: "center",
-    },
-    modalView: {
-      width: "100%",
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      padding: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 0.84,
-      maxHeight: 600,
-      elevation: 5,
-    },
-    searchInput: {
-      height: 40,
-      borderColor: "gray",
-      borderWidth: 1,
-      paddingLeft: 8,
-      paddingRight: 8,
-      marginBottom: 8,
-      borderRadius: 4,
-      color: "#fff",
-      fontSize: 16,
-    },
-    optionButton: {
-      borderRadius: 10,
-      padding: 10,
-      marginBottom: 1,
-      flex: 1,
-      alignItems: "center",
-      backgroundColor: "#2196F3",
-    },
-    optionText: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center",
-    },
-  });
   return (
     <Modal
       animationType="fade"
@@ -149,4 +91,63 @@ const SelectorModal = ({
   );
 };
 
-export default SelectorModal;
+const PersonaModalStyles = StyleSheet.create({
+  headerTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#fff",
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  centeredView: {
+    position: "absolute",
+    top: Platform.OS === "ios" ? Constants.statusBarHeight + 56 : 56,
+    width: "100%",
+    alignItems: "center",
+  },
+  modalView: {
+    width: "100%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 0.84,
+    maxHeight: 600,
+    elevation: 5,
+  },
+  searchInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginBottom: 8,
+    borderRadius: 4,
+    color: "#fff",
+    fontSize: 16,
+  },
+  optionButton: {
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 1,
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#2196F3",
+  },
+  optionText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+
+export default PersonaModal;

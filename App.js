@@ -30,8 +30,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-import SelectorModal from "./components/PersonaModal"; // Import the newly created component
+import PersonaModal from "./components/PersonaModal"; // Import the newly created component
 import Banner from "./components/Banner"; // Import the Banner component
+import ChatWindow from "./components/ChatWindow"; // Import the Banner component
 
 //branch - chat-window-component
 //don't forget to
@@ -293,7 +294,7 @@ export default function App() {
         setModalVisible={setModalVisible}
         theme={theme}
       />
-      <SelectorModal
+      <PersonaModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         themes={themes}
@@ -311,69 +312,12 @@ export default function App() {
         backgroundColor={themes[theme].colorSchemes.sixth}
         style={styles.statusBar}
       />
-      <View
-        style={[
-          styles.messages,
-          { backgroundColor: themes[theme].colorSchemes.first },
-        ]}
-      >
-        {messages.length > 0 && (
-          <FlatList
-            data={messages.filter((msg) => msg.role !== "system")}
-            renderItem={({ item }) => (
-              <>
-                <View
-                  style={[
-                    {
-                      ...styles.message,
-                      backgroundColor: themes[theme].colorSchemes.second,
-                    },
-                    item.role === "assistant"
-                      ? {
-                          ...styles.assistantMessage,
-                          backgroundColor: themes[theme].colorSchemes.second,
-                        }
-                      : {
-                          ...styles.userMessage,
-                          backgroundColor: themes[theme].colorSchemes.third,
-                        },
-                  ]}
-                >
-                  {item.role === "assistant" && (
-                    <Text
-                      style={[
-                        styles.assistantTitle,
-                        { color: themes[theme].colorSchemes.fourth },
-                      ]}
-                    >
-                      {themes[theme].Title}
-                    </Text>
-                  )}
-                  {item.role === "user" && (
-                    <Text
-                      style={[
-                        styles.userTitle,
-                        { color: themes[theme].colorSchemes.fifth },
-                      ]}
-                    >
-                      You
-                    </Text>
-                  )}
-                  <Text style={styles.messageText} selectable>
-                    {item.content}
-                  </Text>
-                </View>
-              </>
-            )}
-            keyExtractor={(item) => item.id}
-            ref={flatListRef}
-            onContentSizeChange={() =>
-              flatListRef.current.scrollToEnd({ animated: true })
-            }
-            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
-          />
-        )}
-      </View>
+      <ChatWindow
+        messages={messages}
+        theme={theme}
+        flatListRef={flatListRef}
+        themes={themes}
+      />
       <View
         style={[
           styles.input,
@@ -405,43 +349,6 @@ const styles = StyleSheet.create({
     height: 30,
     paddingHorizontal: 10,
     justifyContent: "center",
-  },
-  messages: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#13293D",
-  },
-  message: {
-    padding: 10,
-    backgroundColor: "#232e3b",
-    borderRadius: 10,
-    marginBottom: 10,
-    alignSelf: "flex-start",
-    maxWidth: "80%",
-  },
-  assistantMessage: {
-    alignSelf: "flex-end",
-    backgroundColor: "#3e6088",
-  },
-  userMessage: {
-    alignSelf: "flex-start",
-    backgroundColor: "#232e3b",
-  },
-  userTitle: {
-    color: "#8375ff",
-    fontSize: 10,
-    fontWeight: "bold",
-    marginBottom: 0,
-  },
-  assistantTitle: {
-    color: "#a1ffd6",
-    fontSize: 10,
-    fontWeight: "bold",
-    marginBottom: 0,
-  },
-  messageText: {
-    fontSize: 16,
-    color: "#fff",
   },
   input: {
     flexDirection: "row",
