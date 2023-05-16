@@ -7,11 +7,12 @@ import {
   FlatList,
   TouchableOpacity,
   Text,
+  StyleSheet,
 } from "react-native";
-import styles from "./styles"; // Import the styles you have defined for the modal
+import Constants from "expo-constants";
 import themes from "../themes.json";
 
-const PersonaModal = ({
+const SelectorModal = ({
   modalVisible,
   setModalVisible,
   themes,
@@ -148,4 +149,4 @@ const PersonaModal = ({
   );
 };
 
-export default PersonaModal;
+export default SelectorModal;

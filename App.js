@@ -30,7 +30,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-import PersonaModal from "./personaModal"; // Import the newly created component
+import SelectorModal from "./components/PersonaModal"; // Import the newly created component
 
 //branch - options-modal-component
 //don't forget to
@@ -292,7 +292,7 @@ export default function App() {
         setModalVisible={setModalVisible}
         theme={theme}
       />
-      <PersonaModal
+      <SelectorModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         themes={themes}
@@ -485,55 +485,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-  centeredView: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? Constants.statusBarHeight + 56 : 56,
-    width: "100%",
-    alignItems: "center",
-  },
-  modalView: {
-    width: "100%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 0.84,
-    maxHeight: 600,
-    elevation: 5,
-  },
-  optionButton: {
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 1,
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#2196F3",
-  },
-  optionText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   modalOverlay: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
-  },
-  searchInput: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    paddingLeft: 8,
-    paddingRight: 8,
-    marginBottom: 8,
-    borderRadius: 4,
-    color: "#fff",
-    fontSize: 16,
   },
 });
