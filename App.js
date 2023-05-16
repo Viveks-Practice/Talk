@@ -147,7 +147,7 @@ export default function App() {
           },
           inputPlaceholder: "Type your message...",
         };
-        setOptions((prevOptions) => [...prevOptions, name]);
+        setOptions((prevOptions) => [name, ...prevOptions]);
         console.log(options);
       } else {
         console.log("No results found");
