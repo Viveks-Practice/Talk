@@ -1,20 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  FlatList,
-  StatusBar,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ToastAndroid,
-  SafeAreaView,
-  ImageBackground,
-  Modal,
-  Pressable,
-  Button,
-} from "react-native";
+import { StyleSheet, StatusBar, SafeAreaView } from "react-native";
 import {
   AppOpenAd,
   InterstitialAd,
@@ -25,9 +10,6 @@ import {
   AdEventType,
 } from "react-native-google-mobile-ads";
 import axios from "axios";
-import Constants from "expo-constants";
-import { Ionicons } from "@expo/vector-icons";
-import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/PersonaModal"; // Import the newly created component
@@ -340,23 +322,5 @@ const styles = StyleSheet.create({
     height: 30,
     paddingHorizontal: 10,
     justifyContent: "center",
-  },
-  scrollToEndButton: {
-    backgroundColor: "#007AFF",
-    borderRadius: 10,
-    padding: 10,
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-  },
-  scrollToEndButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
 });
