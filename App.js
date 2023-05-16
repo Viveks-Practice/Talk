@@ -33,6 +33,7 @@ import NeoHeader from "./components/Header";
 import PersonaModal from "./components/PersonaModal"; // Import the newly created component
 import Banner from "./components/Banner"; // Import the Banner component
 import ChatWindow from "./components/ChatWindow"; // Import the Banner component
+import MessageEntry from "./components/MessageEntry"; // Import the newly created component
 
 //branch - text-entry-component
 //don't forget to
@@ -319,23 +320,12 @@ export default function App() {
         flatListRef={flatListRef}
         themes={themes}
       />
-      <View
-        style={[
-          styles.input,
-          { backgroundColor: themes[theme].colorSchemes.sixth },
-        ]}
-      >
-        <TextInput
-          style={styles.inputText}
-          value={message}
-          onChangeText={setMessage}
-          placeholder={themes[theme].inputPlaceholder}
-          placeholderTextColor="#657284"
-        />
-        <TouchableOpacity onPress={sendMessage}>
-          <Ionicons name="send" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      <MessageEntry
+        theme={theme}
+        message={message}
+        setMessage={setMessage}
+        sendMessage={sendMessage}
+      />
     </SafeAreaView>
   );
 }
@@ -350,23 +340,6 @@ const styles = StyleSheet.create({
     height: 30,
     paddingHorizontal: 10,
     justifyContent: "center",
-  },
-  input: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#202d3a",
-    marginBottom: Platform.OS === "ios" ? 5 : 0, // Add a 10px marginBottom for iOS devices
-  },
-  inputText: {
-    flex: 1,
-    marginRight: 10,
-    padding: 10,
-    borderWidth: 0,
-    borderRadius: 10,
-    borderColor: "#ccc",
-    color: "#fff",
-    fontSize: 18,
   },
   scrollToEndButton: {
     backgroundColor: "#007AFF",
