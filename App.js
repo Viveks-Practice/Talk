@@ -78,6 +78,7 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     "Neo - The Chat AI",
+    "David Goggins",
     "Link",
     "Princess Zelda",
     "Calamity Ganon",
