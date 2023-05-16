@@ -34,7 +34,7 @@ import PersonaModal from "./components/PersonaModal"; // Import the newly create
 import Banner from "./components/Banner"; // Import the Banner component
 import ChatWindow from "./components/ChatWindow"; // Import the Banner component
 
-//branch - chat-window-component
+//branch - text-entry-component
 //don't forget to
 //  -delete the styles used in the persona component from this main component
 //  -move functions used only in the components into the components, no need for them to be here
