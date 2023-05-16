@@ -31,6 +31,7 @@ import { OPENAI_API_KEY } from "@env";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import SelectorModal from "./components/PersonaModal"; // Import the newly created component
+import Banner from "./components/Banner"; // Import the Banner component
 
 //branch - bannerad-component
 //don't forget to
@@ -304,21 +305,7 @@ export default function App() {
         setMessages={setMessages}
         options={options}
       />
-      <View
-        style={{
-          backgroundColor: themes[theme].colorSchemes.first,
-        }}
-      >
-        <BannerAd
-          unitId={adUnitId}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-          style={{
-            paddingTop: 100,
-            backgroundColor: themes[theme].colorSchemes.seventh,
-          }} // add 10 pixels of padding to the top
-        />
-      </View>
+      <Banner theme={theme} />
       <StatusBar
         barStyle="light-content"
         backgroundColor={themes[theme].colorSchemes.sixth}
