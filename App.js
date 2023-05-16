@@ -33,7 +33,7 @@ import NeoHeader from "./components/Header";
 import SelectorModal from "./components/PersonaModal"; // Import the newly created component
 import Banner from "./components/Banner"; // Import the Banner component
 
-//branch - bannerad-component
+//branch - chat-window-component
 //don't forget to
 //  -delete the styles used in the persona component from this main component
 //  -move functions used only in the components into the components, no need for them to be here
