@@ -17,7 +17,7 @@ import Banner from "./components/Banner"; // Import the Banner component
 import ChatWindow from "./components/ChatWindow"; // Import the Banner component
 import MessageEntry from "./components/MessageEntry"; // Import the newly created component
 
-//branch - sendMessage-to-component
+//branch - images
 //don't forget to
 //  -delete the styles used in the persona component from this main component
 //  -move functions used only in the components into the components, no need for them to be here
