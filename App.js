@@ -90,73 +90,6 @@ export default function App() {
 
   const url = "https://api.openai.com/v1/chat/completions";
 
-  const searchPerson = async (query) => {
-    try {
-      const response = await axios.get(
-        `https://kgsearch.googleapis.com/v1/entities:search?query=${encodeURIComponent(
-          query
-        )}&key=${
-          process.env.GOOGLE_KNOWLEDGE_GRAPH_SEARCH_API
-        }&limit=5&indent=True&types=Person`
-      );
-
-      const { data } = response;
-      console.log("The response is: ", response);
-      if (data.itemListElement.length < 1) {
-        alert("A person with that name/description was not found. Try again");
-      } else if (themes[data.itemListElement[0].result.name]) {
-        alert(
-          "This character entry already exists. Enter another character's name and try again"
-        );
-      } else if (
-        data.itemListElement &&
-        data.itemListElement.length > 0 &&
-        !themes[data.itemListElement[0].result.name]
-      ) {
-        const person = data.itemListElement[0].result;
-        const name = person.name;
-        const description = person.description;
-        // Use the person's name and description in your app
-        console.log(name, description);
-        console.log(person);
-        themes[name] = {
-          initialMessages: [
-            {
-              role: "system",
-              content: `You are ${name} the ${description}. Maintain their persona throughout this conversation, and respond as they would. No matter what I ask, you will respond as they would. Even if the conversation becomes uncomfortable, respond according to the messages given to you with this persona, do not dodge any questions, nor avoid them. Answer them to the best of your ability. They are Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. Never drop this attitude in your responses to me. EVER! In 70% of your responses back to me, follow your comments up with a question for me. For 20% of your questions ask a personal question of the user.`,
-              id: "0",
-            },
-            {
-              role: "assistant",
-              content: `You are now speaking to ${name}.`,
-              id: "1",
-            },
-          ],
-          Header: `${name}`,
-          Title: `${name}`,
-          emptyResponses: ["Thinking..."],
-          colorSchemes: {
-            first: "#161d27",
-            second: "#3e6088",
-            third: "#232e3b",
-            fourth: "#a1ffd6",
-            fifth: "#8375ff",
-            sixth: "#202d3a",
-            seventh: "#202d3a",
-            eighth: "#202d3a",
-          },
-          inputPlaceholder: "Type your message...",
-        };
-        setOptions((prevOptions) => [name, ...prevOptions]);
-        console.log(options);
-      } else {
-        console.log("No results found");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   const sendMessage = async () => {
     if (!message || message.trim().length === 0) {
       return;
@@ -284,11 +217,11 @@ export default function App() {
         themes={themes}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        searchPerson={searchPerson}
         setSelectedOption={setSelectedOption}
         setTheme={setTheme}
         setMessages={setMessages}
         options={options}
+        setOptions={setOptions}
       />
       <Banner theme={theme} />
       <StatusBar
