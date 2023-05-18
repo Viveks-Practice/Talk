@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import axios from "axios";
+import PersonSearch from "./PersonSearch";
 
 const PersonaModal = ({
   modalVisible,
@@ -113,18 +114,10 @@ const PersonaModal = ({
               },
             ]}
           >
-            {/* Add the search bar */}
-            <TextInput
-              style={PersonaModalStyles.searchInput}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              onSubmitEditing={() => {
-                searchPerson(searchQuery);
-                setSearchQuery("");
-              }}
-              placeholder="Search for a person"
-              placeholderTextColor="#657284"
-              returnKeyType="search"
+            <PersonSearch
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              searchPerson={searchPerson}
             />
             <FlatList
               data={options}
@@ -190,17 +183,6 @@ const PersonaModalStyles = StyleSheet.create({
     shadowRadius: 0.84,
     maxHeight: 600,
     elevation: 5,
-  },
-  searchInput: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    paddingLeft: 8,
-    paddingRight: 8,
-    marginBottom: 8,
-    borderRadius: 4,
-    color: "#fff",
-    fontSize: 16,
   },
   optionButton: {
     borderRadius: 10,
