@@ -9,7 +9,6 @@ import {
   BannerAdSize,
   AdEventType,
 } from "react-native-google-mobile-ads";
-import axios from "axios";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/PersonaModal"; // Import the newly created component
