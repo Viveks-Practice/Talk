@@ -11,25 +11,20 @@ import {
 } from "react-native-google-mobile-ads";
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-import PersonaModal from "./components/PersonaModal"; // Import the newly created component
-import Banner from "./components/Banner"; // Import the Banner component
-import ChatWindow from "./components/ChatWindow"; // Import the Banner component
-import MessageEntry from "./components/MessageEntry"; // Import the newly created component
-
-//branch - images
-//don't forget to
-//  -delete the styles used in the persona component from this main component
-//  -move functions used only in the components into the components, no need for them to be here
+import PersonaModal from "./components/PersonaModal";
+import Banner from "./components/Banner";
+import ChatWindow from "./components/ChatWindow";
+import MessageEntry from "./components/MessageEntry";
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
   adUnitIdInterstitial = __DEV__
     ? TestIds.INTERSTITIAL
-    : process.env.IOS_ADMOB_INTERSTITIAL_ID; // iOS Ad Unit ID
+    : process.env.IOS_ADMOB_INTERSTITIAL_ID;
 } else if (Platform.OS === "android") {
   adUnitIdInterstitial = __DEV__
     ? TestIds.INTERSTITIAL
-    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID; // Android Ad Unit ID
+    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
 }
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
@@ -75,17 +70,16 @@ export default function App() {
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",
-  ]); //this is the list that will be seen by the user when the title of the app is selected. For different persona selection
+  ]);
 
-  // set adUnitId based on platform
   let adUnitId = "";
   if (Platform.OS === "ios") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID; // iOS Ad Unit ID
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
   } else if (Platform.OS === "android") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID; // Android Ad Unit ID
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
   }
 
-  const flatListRef = useRef(null); // Create a reference to the FlatList component.
+  const flatListRef = useRef(null);
 
   useEffect(() => {
     if (loaded === true && messageCount % 4 == 3) {
