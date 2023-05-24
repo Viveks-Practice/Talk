@@ -1,9 +1,10 @@
 // MessageEntry.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correct icon library
 import themes from "../themes.json";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MessageEntry = ({
   theme,
@@ -35,6 +36,8 @@ const MessageEntry = ({
           // More than 24 hours have passed, reset the counter
           setMessageCount(0);
           setFirstMessageTime(null);
+          await AsyncStorage.setItem("messageCount", "0");
+          await AsyncStorage.removeItem("firstMessageTime");
         } else {
           setMessageLimitExceeded(true);
           // Calculate the time remaining
@@ -59,7 +62,7 @@ const MessageEntry = ({
         }
       }
     }
-
+    //proceed with the rest of the send message code
     if (!message || message.trim().length === 0) {
       return;
     }
@@ -136,11 +139,34 @@ const MessageEntry = ({
       }
 
       setMessageCount(messageCount + 1); //Loads interstitial message - triggers useEffect
+      await AsyncStorage.setItem("messageCount", (messageCount + 1).toString());
+      if (messageCount === 0) {
+        const now = new Date();
+        setFirstMessageTime(now);
+        await AsyncStorage.setItem("firstMessageTime", now.toISOString());
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("There was an error processing your message. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const getMessageCount = async () => {
+      const storedMessageCount = await AsyncStorage.getItem("messageCount");
+      const storedFirstMessageTime = await AsyncStorage.getItem(
+        "firstMessageTime"
+      );
+      if (storedMessageCount !== null) {
+        setMessageCount(Number(storedMessageCount));
+      }
+      if (storedFirstMessageTime !== null) {
+        setFirstMessageTime(new Date(storedFirstMessageTime));
+      }
+    };
+
+    getMessageCount();
+  }, []);
 
   return (
     <View

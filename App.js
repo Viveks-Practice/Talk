@@ -1,4 +1,4 @@
-//message-limit-phase2 branch
+//chad-p2 branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
+
 import {
   AppOpenAd,
   InterstitialAd,

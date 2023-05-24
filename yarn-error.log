@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarnpkg add expo-dev-client@~2.2.1 react-native@0.71.7
+  /usr/local/bin/node /usr/local/bin/yarn add @react-native-async-storage/async-storage
 
 PATH: 
-  /Users/vivek/Downloads/Talk/node_modules/.bin:/Users/vivek/Downloads/Talk/node_modules/.bin:/Users/vivek/Downloads/node_modules/.bin:/Users/vivek/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/platform-tools
+  /Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin
 
 Yarn version: 
   1.22.19
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/vivek/Downloads/Talk/node_modules/axios/LICENSE'
+  Error: EACCES: permission denied, mkdir '/Users/vivek/Downloads/Talk/node_modules/@babel/core/node_modules'
 
 npm manifest: 
   {
