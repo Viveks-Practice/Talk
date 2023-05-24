@@ -1,6 +1,6 @@
 // MessageEntry.js
 
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correct icon library
 import themes from "../themes.json";
@@ -17,8 +17,35 @@ const MessageEntry = ({
   adIndex,
   loaded,
 }) => {
+  const [firstMessageTime, setFirstMessageTime] = useState(null);
+  const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
+
   const url = "https://api.openai.com/v1/chat/completions";
+
   const sendMessage = async () => {
+    // Check message limit and timestamp before sending
+    if (messageCount >= 25) {
+      if (!firstMessageTime) {
+        setFirstMessageTime(new Date());
+      } else {
+        const currentTime = new Date();
+        const timeDifference = currentTime - firstMessageTime;
+        const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
+        if (timeDifferenceInHours >= 24) {
+          // More than 24 hours have passed, reset the counter
+          setMessageCount(0);
+          setFirstMessageTime(null);
+        } else {
+          setMessageLimitExceeded(true);
+          // Display a message to the user that they have reached their limit
+          alert(
+            "You have reached the daily limit of 25 messages. Please try again after 24 hours."
+          );
+          return;
+        }
+      }
+    }
+
     if (!message || message.trim().length === 0) {
       return;
     }
