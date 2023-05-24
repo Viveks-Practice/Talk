@@ -1,7 +1,12 @@
 //message-limit branch
 
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, StatusBar, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  StatusBar,
+  SafeAreaView,
+  KeyboardAvoidingView,
+} from "react-native";
 import {
   AppOpenAd,
   InterstitialAd,
