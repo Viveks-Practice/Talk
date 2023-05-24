@@ -25,7 +25,7 @@ const MessageEntry = ({
 
   const sendMessage = async () => {
     // Check message limit and timestamp before sending
-    if (messageCount >= 25) {
+    if (messageCount >= 150) {
       if (!firstMessageTime) {
         setFirstMessageTime(new Date());
       } else {
@@ -55,7 +55,7 @@ const MessageEntry = ({
 
           // Display a message to the user that they have reached their limit
           alert(
-            `You have reached the daily limit of 25 messages. Please try again in ${hoursRemaining} hours, ${minutesRemaining} minutes and ${secondsRemaining} seconds.`
+            `You have reached the daily limit of 150 messages. Please try again in ${hoursRemaining} hours, ${minutesRemaining} minutes and ${secondsRemaining} seconds.`
           );
 
           return;
