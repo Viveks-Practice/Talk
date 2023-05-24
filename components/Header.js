@@ -44,7 +44,11 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
           <Pressable
             style={[
               styles.loginButton,
-              { backgroundColor: themes[theme].colorSchemes.sixth },
+              {
+                backgroundColor: themes[theme].colorSchemes.sixth,
+                shadowColor: themes[theme].colorSchemes.first,
+                borderColor: themes[theme].colorSchemes.fourth,
+              },
             ]}
             onPress={() => setLoginModalVisible(true)}
           >
@@ -79,18 +83,17 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   loginButton: {
+    borderWidth: 1, // Adjust the value as per your preference
+    borderColor: "black", // Set the color of the outline
+    padding: 10,
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 10,
     backgroundColor: "#161d27",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowColor: "#ffda2f",
     shadowOpacity: 0.9,
-    shadowRadius: 2.22,
-    elevation: 3,
+    shadowRadius: 10.22,
+    elevation: 5,
   },
   loginButtonText: {
     color: "white",
