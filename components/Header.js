@@ -1,12 +1,12 @@
 import React from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, View } from "react-native";
 import { Header } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 
-const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
+const NeoHeader = ({ selectedOption, setModalVisible, theme, navigation }) => {
   return (
     <Header
       placement="center"
@@ -17,6 +17,16 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
             <Ionicons name="chevron-down-outline" size={18} color="#fff" />
           </Text>
         </Pressable>
+      }
+      rightComponent={
+        <View style={styles.loginButtonContainer}>
+          <Pressable
+            style={styles.loginButton}
+            onPress={() => navigation.navigate("YourLoginScreen")}
+          >
+            <Text style={styles.loginButtonText}>Log In</Text>
+          </Pressable>
+        </View>
       }
       containerStyle={{
         backgroundColor: themes[theme].colorSchemes.seventh,
@@ -34,6 +44,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: "#fff",
+  },
+  loginButtonContainer: {
+    marginRight: 10,
+  },
+  loginButton: {
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+  },
+  loginButtonText: {
+    color: "black",
+    fontWeight: "bold",
   },
 });
 
