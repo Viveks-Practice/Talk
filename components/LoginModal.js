@@ -22,35 +22,42 @@ const LoginModal = ({ isVisible, onClose }) => {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={isVisible}
       onRequestClose={onClose}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <TextInput
-            style={styles.input}
-            placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-          <Button title="Log In" onPress={handleLogin} />
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={onClose}
-          >
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </Pressable>
+      <Pressable style={styles.modalOverlay} onPress={onClose}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              value={username}
+              onChangeText={setUsername}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={handleLogin}
+            >
+              <Text style={styles.textStyle}>Login</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              //   onPress={handleLogin}
+            >
+              <Text style={styles.textStyle}> Need an account? Sign Up</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };
@@ -62,9 +69,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: "#161d27",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -81,9 +94,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    backgroundColor: "#3e6088",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#3e6088",
+    width: 200,
+    marginTop: 20,
   },
   textStyle: {
     color: "white",
@@ -96,6 +112,8 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    backgroundColor: "#3e6088",
+    color: "#fff",
   },
 });
 
