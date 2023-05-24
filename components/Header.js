@@ -22,7 +22,7 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme, navigation }) => {
         <View style={styles.loginButtonContainer}>
           <Pressable
             style={styles.loginButton}
-            onPress={() => navigation.navigate("YourLoginScreen")}
+            // onPress={() => navigation.navigate("YourLoginScreen")}
           >
             <Text style={styles.loginButtonText}>Log In</Text>
           </Pressable>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: "#fff",
+    marginTop: 8,
   },
   loginButtonContainer: {
     marginRight: 10,
@@ -51,8 +52,8 @@ const styles = StyleSheet.create({
   loginButton: {
     borderRadius: 20,
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    backgroundColor: "#161d27",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   loginButtonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
   },
 });
