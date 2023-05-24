@@ -42,7 +42,10 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
       rightComponent={
         <View style={styles.loginButtonContainer}>
           <Pressable
-            style={styles.loginButton}
+            style={[
+              styles.loginButton,
+              { backgroundColor: themes[theme].colorSchemes.sixth },
+            ]}
             onPress={() => setLoginModalVisible(true)}
           >
             <Text style={styles.loginButtonText}>Log In</Text>
