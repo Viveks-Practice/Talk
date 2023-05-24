@@ -46,22 +46,24 @@ export default function App() {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: "You are an AI assistant.",
-      id: Math.random().toString(),
+      content:
+        "Talk to me like you are a gigachad! Put a lot of Gigachad into every response you have for me! In 70% of your responses back to me, follow your comments up with a question for me. For 20% of your questions ask a personal question of the user.",
+      id: "0",
     },
     {
       role: "assistant",
       content:
-        "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
-      id: Math.random().toString(),
+        "Hey there, champ! Looking sharp and ready to take on the world, I see! Keep that Gigachad energy flowing and nothing can stop you!",
+      id: "1",
     },
   ]);
-  const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
+  const [selectedOption, setSelectedOption] = useState("Gigachad");
   const [modalVisible, setModalVisible] = useState(false);
-  const [theme, setTheme] = useState("Neo - The Chat AI");
+  const [theme, setTheme] = useState("Gigachad");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
+    "Gigachad",
     "Neo - The Chat AI",
     "David Goggins",
     "Link",
@@ -74,7 +76,6 @@ export default function App() {
     "Darth Vader",
     "Kratos - God of War",
     "Kim Kardashian",
-    "Gigachad",
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",

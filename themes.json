@@ -393,7 +393,7 @@
         "id": "1"
       }
     ],
-    "Header": "Chad PT",
+    "Header": "Chad GPT",
     "Title": "GigaChad",
     "emptyResponses": [
       "Finishing deadlift set...",
@@ -412,7 +412,7 @@
       "seventh": "#000000",
       "eighth": "#ffd426"
     },
-    "inputPlaceholder": "Speak to Giga Chad PT..."
+    "inputPlaceholder": "Speak to Giga Chad GPT..."
   },
   "Kobe Bryant": {
     "initialMessages": [
