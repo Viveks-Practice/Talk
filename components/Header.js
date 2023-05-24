@@ -39,23 +39,23 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
           </Text>
         </Pressable>
       }
-      rightComponent={
-        <View style={styles.loginButtonContainer}>
-          <Pressable
-            style={[
-              styles.loginButton,
-              {
-                backgroundColor: themes[theme].colorSchemes.sixth,
-                shadowColor: themes[theme].colorSchemes.first,
-                borderColor: themes[theme].colorSchemes.fourth,
-              },
-            ]}
-            onPress={() => setLoginModalVisible(true)}
-          >
-            <Text style={styles.loginButtonText}>Log In</Text>
-          </Pressable>
-        </View>
-      }
+      // rightComponent={
+      //   <View style={styles.loginButtonContainer}>
+      //     <Pressable
+      //       style={[
+      //         styles.loginButton,
+      //         {
+      //           backgroundColor: themes[theme].colorSchemes.sixth,
+      //           shadowColor: themes[theme].colorSchemes.first,
+      //           borderColor: themes[theme].colorSchemes.fourth,
+      //         },
+      //       ]}
+      //       onPress={() => setLoginModalVisible(true)}
+      //     >
+      //       <Text style={styles.loginButtonText}>Log In</Text>
+      //     </Pressable>
+      //   </View>
+      // }
       containerStyle={{
         backgroundColor: themes[theme].colorSchemes.seventh,
         borderBottomColor: themes[theme].colorSchemes.eighth,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: "#fff",
-    marginTop: 8,
+    marginTop: 4,
   },
   loginButtonContainer: {
     marginRight: 10,
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 10,
   },
 });
 

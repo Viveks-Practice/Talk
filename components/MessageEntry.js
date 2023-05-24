@@ -37,10 +37,24 @@ const MessageEntry = ({
           setFirstMessageTime(null);
         } else {
           setMessageLimitExceeded(true);
+          // Calculate the time remaining
+          const timeRemaining = 24 * 60 * 60 * 1000 - timeDifference; // in milliseconds
+          const hoursRemaining = Math.floor(timeRemaining / (1000 * 60 * 60));
+          const minutesRemaining = Math.floor(
+            (timeRemaining - hoursRemaining * 1000 * 60 * 60) / (1000 * 60)
+          );
+          const secondsRemaining = Math.floor(
+            (timeRemaining -
+              hoursRemaining * 1000 * 60 * 60 -
+              minutesRemaining * 1000 * 60) /
+              1000
+          );
+
           // Display a message to the user that they have reached their limit
           alert(
-            "You have reached the daily limit of 25 messages. Please try again after 24 hours."
+            `You have reached the daily limit of 25 messages. Please try again in ${hoursRemaining} hours, ${minutesRemaining} minutes and ${secondsRemaining} seconds.`
           );
+
           return;
         }
       }
