@@ -1,28 +1,28 @@
 {
   "expo": {
-    "name": "Chad GPT",
-    "slug": "chadgpt",
-    "version": "2.2.23",
+    "name": "Neo - The Chat AI",
+    "slug": "talk",
+    "version": "2.2.22",
     "orientation": "portrait",
-    "icon": "./assets/icon-chad.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-chad.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.viveks_7764.ChadGPT"
+      "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "versionCode": 61,
+      "versionCode": 63,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon-chad.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.viveks_7764.ChadGPT",
+      "package": "com.viveks_7764.talk",
       "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
@@ -30,12 +30,12 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f6f2a0de-e807-40a1-b6fa-f5795a569552"
+        "projectId": "cc037b85-88ca-4802-89bd-d0a15237684e"
       }
     }
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-5578644815986311~7154388442",
-    "ios_app_id": "ca-app-pub-5578644815986311~7831339009"
+    "android_app_id": "ca-app-pub-5578644815986311~2108120524",
+    "ios_app_id": "ca-app-pub-5578644815986311~4116773559"
   }
 }

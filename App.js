@@ -1,4 +1,4 @@
-//chad-p2 branch
+//message-limit-phase2 branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-
 import {
   AppOpenAd,
   InterstitialAd,
@@ -35,9 +34,9 @@ if (Platform.OS === "ios") {
     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
 }
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-  requestNonPersonalizedAdsOnly: true,
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+//   requestNonPersonalizedAdsOnly: true,
+// });
 
 export default function App() {
   const [messageCount, setMessageCount] = useState(0);
@@ -46,24 +45,22 @@ export default function App() {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content:
-        "Talk to me like you are a gigachad! Put a lot of Gigachad into every response you have for me! In 70% of your responses back to me, follow your comments up with a question for me. For 20% of your questions ask a personal question of the user.",
-      id: "0",
+      content: "You are an AI assistant.",
+      id: Math.random().toString(),
     },
     {
       role: "assistant",
       content:
-        "Hey there, champ! Looking sharp and ready to take on the world, I see! Keep that Gigachad energy flowing and nothing can stop you!",
-      id: "1",
+        "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
+      id: Math.random().toString(),
     },
   ]);
-  const [selectedOption, setSelectedOption] = useState("Gigachad");
+  const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
-  const [theme, setTheme] = useState("Gigachad");
+  const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
-    "Gigachad",
     "Neo - The Chat AI",
     "David Goggins",
     "Link",
@@ -76,6 +73,7 @@ export default function App() {
     "Darth Vader",
     "Kratos - God of War",
     "Kim Kardashian",
+    "Gigachad",
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",
@@ -90,24 +88,24 @@ export default function App() {
 
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    if (loaded === true && messageCount % 4 == 3) {
-      interstitial.show();
-    }
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        console.log("Interstitial ad loaded!");
-      }
-    );
+  // useEffect(() => {
+  //   if (loaded === true && messageCount % 4 == 3) {
+  //     interstitial.show();
+  //   }
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       console.log("Interstitial ad loaded!");
+  //     }
+  //   );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+  //   // Start loading the interstitial straight away
+  //   interstitial.load();
 
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, [messageCount]);
+  //   // Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -140,7 +138,7 @@ export default function App() {
         options={options}
         setOptions={setOptions}
       />
-      <Banner theme={theme} />
+      {/* <Banner theme={theme} /> */}
       <StatusBar
         barStyle="light-content"
         backgroundColor={themes[theme].colorSchemes.sixth}
