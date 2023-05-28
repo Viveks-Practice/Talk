@@ -1,4 +1,4 @@
-//message-limit-phase2 branch
+//data-logging branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
