@@ -18,6 +18,7 @@
     "expo-dev-client": "~2.1.5",
     "expo-status-bar": "~1.4.4",
     "fbjs": "^3.0.4",
+    "firebase": "^9.22.1",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "openai": "^3.2.1",

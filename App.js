@@ -16,6 +16,8 @@ import {
   BannerAdSize,
   AdEventType,
 } from "react-native-google-mobile-ads";
+import firebase from "./firebase";
+
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/PersonaModal";
@@ -112,6 +114,23 @@ export default function App() {
       flatListRef.current.scrollToEnd({ animated: true }); // Scroll to the end of the list after a new message is received
     }
   }, [messages]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const collectionRef = firebase.firestore().collection("chats");
+        const snapshot = await collectionRef.get();
+
+        snapshot.forEach((doc) => {
+          console.log(doc.id, "=>", doc.data());
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView
