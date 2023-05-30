@@ -18,3 +18,4 @@ firebase.js
 .metro-health-check*
 
 .env
+firebase.js

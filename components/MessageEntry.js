@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correct icon library
+
+import Constants from "expo-constants";
 import themes from "../themes.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { updateFirestoreChat } from "../firebaseFunctions/firebaseOperations";
 
 const MessageEntry = ({
   theme,
@@ -73,6 +76,12 @@ const MessageEntry = ({
       role: "user",
     };
 
+    // Define the ID of the chat session. This could be a fixed value, a user ID, etc.
+    // For this example, we'll use a fixed value.
+    const deviceId = Constants.installationId;
+    // Write the new user message to Firestore
+    updateFirestoreChat(message, "user", deviceId, theme);
+
     const emptyResponseMessage = {
       id: Math.random().toString(),
       content:
@@ -113,6 +122,8 @@ const MessageEntry = ({
       const data = await response.json();
 
       const aiMessage = data.choices[0].message.content.trim();
+      // Write the new AI response to Firestore
+      updateFirestoreChat(aiMessage, "assistant", deviceId, theme);
       const tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT
