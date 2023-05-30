@@ -3,6 +3,17 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correct icon library
+import {
+  doc,
+  setDoc,
+  addDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  arrayUnion,
+} from "firebase/firestore";
+import { app, db } from "../firebase";
+import Constants from "expo-constants";
 import themes from "../themes.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -22,6 +33,60 @@ const MessageEntry = ({
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
 
   const url = "https://api.openai.com/v1/chat/completions";
+
+  const updateFirestoreChat = async (message, role, chatId, aiName) => {
+    const messageDocument = {
+      content: message,
+      createdAt: new Date(),
+      role: role,
+    };
+
+    // User document reference
+    const userRef = doc(db, "users", chatId);
+
+    // Get user document
+    const userDoc = await getDoc(userRef);
+
+    // Check if the document exists
+    if (!userDoc.exists()) {
+      // If it does not exist, create it
+      await setDoc(userRef, {
+        createdAt: new Date(), // Set the created at timestamp
+        lastActiveAt: new Date(), // Set the last active timestamp
+      });
+    } else {
+      // If it exists, update it
+      await updateDoc(userRef, {
+        lastActiveAt: new Date(), // Update the last active timestamp
+      });
+    }
+
+    // Chat document reference
+    const chatRef = doc(userRef, "chats", aiName);
+
+    // Get chat document
+    const chatDoc = await getDoc(chatRef);
+
+    // Check if the document exists
+    if (!chatDoc.exists()) {
+      // If it does not exist, create it
+      await setDoc(chatRef, {
+        createdAt: new Date(), // Set the created at timestamp
+        lastMessageAt: new Date(), // Set the last message timestamp
+      });
+    } else {
+      // If it exists, update it
+      await updateDoc(chatRef, {
+        lastMessageAt: new Date(), // Update the last message timestamp
+      });
+    }
+
+    // Messages collection reference
+    const messagesCollectionRef = collection(chatRef, "messages");
+
+    // Add the message document to the messages collection
+    await addDoc(messagesCollectionRef, messageDocument);
+  };
 
   const sendMessage = async () => {
     // Check message limit and timestamp before sending
@@ -73,6 +138,12 @@ const MessageEntry = ({
       role: "user",
     };
 
+    // Define the ID of the chat session. This could be a fixed value, a user ID, etc.
+    // For this example, we'll use a fixed value.
+    const deviceId = Constants.installationId;
+    // Write the new user message to Firestore
+    await updateFirestoreChat(message, "user", deviceId, theme);
+
     const emptyResponseMessage = {
       id: Math.random().toString(),
       content:
@@ -113,6 +184,8 @@ const MessageEntry = ({
       const data = await response.json();
 
       const aiMessage = data.choices[0].message.content.trim();
+      // Write the new AI response to Firestore
+      await updateFirestoreChat(aiMessage, "assistant", deviceId, theme);
       const tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT

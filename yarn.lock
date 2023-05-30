@@ -3612,7 +3612,7 @@ expo-asset@~8.9.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-constants@~14.2.0, expo-constants@~14.2.1:
+expo-constants@^14.2.1, expo-constants@~14.2.0, expo-constants@~14.2.1:
   version "14.2.1"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-14.2.1.tgz"
   integrity sha512-DD5u4QmBds2U7uYo409apV7nX+XjudARcgqe7S9aRFJ/6kyftmuxvk1DpaU4X42Av8z/tfKwEpuxl+vl7HHx/Q==
@@ -6239,6 +6239,11 @@ react-native-config@^1.5.0:
   version "1.5.0"
   resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.0.tgz"
   integrity sha512-slecooA/0tCwhb+RuWEbwLqtKirGh9vWPRpgDfH7uPAraCciqHNH2XjS9ylW+Spn4FUrHg5KWTqUGs9BdBADHg==
+
+react-native-device-info@^10.6.0:
+  version "10.6.0"
+  resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.6.0.tgz"
+  integrity sha512-/MmINdojWdw2/9rwYpH/dX+1gFP0o78p8yYPjwxiPhoySSL2rZaNi+Mq9VwC+zFi/yQmJUvHntkKSw2KUc7rFw==
 
 react-native-dotenv@^3.4.8:
   version "3.4.8"

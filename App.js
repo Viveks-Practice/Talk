@@ -119,7 +119,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const collectionRef = collection(db, "chats");
+        const collectionRef = collection(db, "users");
         const snapshot = await getDocs(collectionRef);
         snapshot.forEach((doc) => {
           console.log(doc.id, "=>", doc.data());
