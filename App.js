@@ -116,21 +116,22 @@ export default function App() {
     }
   }, [messages]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const collectionRef = collection(db, "users");
-        const snapshot = await getDocs(collectionRef);
-        snapshot.forEach((doc) => {
-          console.log(doc.id, "=>", doc.data());
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //test read from the Firestore database
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const collectionRef = collection(db, "users");
+  //       const snapshot = await getDocs(collectionRef);
+  //       snapshot.forEach((doc) => {
+  //         console.log(doc.id, "=>", doc.data());
+  //       });
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <SafeAreaView
