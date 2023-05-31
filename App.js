@@ -37,9 +37,9 @@ if (Platform.OS === "ios") {
     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
 }
 
-// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-//   requestNonPersonalizedAdsOnly: true,
-// });
+const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+  requestNonPersonalizedAdsOnly: true,
+});
 
 export default function App() {
   const [messageCount, setMessageCount] = useState(0);
@@ -91,24 +91,24 @@ export default function App() {
 
   const flatListRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (loaded === true && messageCount % 4 == 3) {
-  //     interstitial.show();
-  //   }
-  //   const unsubscribe = interstitial.addAdEventListener(
-  //     AdEventType.LOADED,
-  //     () => {
-  //       setLoaded(true);
-  //       console.log("Interstitial ad loaded!");
-  //     }
-  //   );
+  useEffect(() => {
+    if (loaded === true && messageCount % 4 == 3) {
+      interstitial.show();
+    }
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        console.log("Interstitial ad loaded!");
+      }
+    );
 
-  //   // Start loading the interstitial straight away
-  //   interstitial.load();
+    // Start loading the interstitial straight away
+    interstitial.load();
 
-  //   // Unsubscribe from events on unmount
-  //   return unsubscribe;
-  // }, [messageCount]);
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -157,7 +157,7 @@ export default function App() {
         options={options}
         setOptions={setOptions}
       />
-      {/* <Banner theme={theme} /> */}
+      <Banner theme={theme} />
       <StatusBar
         barStyle="light-content"
         backgroundColor={themes[theme].colorSchemes.sixth}
