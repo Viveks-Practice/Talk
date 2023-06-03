@@ -16,8 +16,9 @@ import {
   BannerAdSize,
   AdEventType,
 } from "react-native-google-mobile-ads";
-import { app, db } from "./firebase";
+import { app, db, auth } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { signInAnonymously } from "firebase/auth";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
@@ -45,6 +46,7 @@ export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [message, setMessage] = useState("");
+  const [anonId, setAnonId] = useState("");
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -116,6 +118,25 @@ export default function App() {
     }
   }, [messages]);
 
+  useEffect(() => {
+    signInAnonymously(auth)
+      .then((user) => {
+        // Signed in..
+        console.log("User signed in anonymously");
+        console.log(user);
+        let userId = user.user.uid;
+        console.log(userId);
+        setAnonId(userId);
+        console.log("The user's anonymous ID: ", anonId);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error code: ", errorCode);
+        console.log("Error message: ", errorMessage);
+      });
+  }, []);
+
   //test read from the Firestore database
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -181,6 +202,7 @@ export default function App() {
         setAdIndex={setAdIndex}
         adIndex={adIndex}
         loaded={loaded}
+        anonId={anonId}
       />
     </SafeAreaView>
   );

@@ -20,6 +20,7 @@ const MessageEntry = ({
   setAdIndex,
   adIndex,
   loaded,
+  anonId,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
@@ -80,7 +81,7 @@ const MessageEntry = ({
     // For this example, we'll use a fixed value.
     const deviceId = Constants.installationId;
     // Write the new user message to Firestore
-    updateFirestoreChat(message, "user", deviceId, theme);
+    updateFirestoreChat(message, "user", anonId, theme);
 
     const emptyResponseMessage = {
       id: Math.random().toString(),
@@ -123,7 +124,7 @@ const MessageEntry = ({
 
       const aiMessage = data.choices[0].message.content.trim();
       // Write the new AI response to Firestore
-      updateFirestoreChat(aiMessage, "assistant", deviceId, theme);
+      updateFirestoreChat(aiMessage, "assistant", anonId, theme);
       const tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT
