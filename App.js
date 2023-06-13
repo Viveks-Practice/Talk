@@ -19,7 +19,6 @@ import {
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 import themes from "./themes.json";
@@ -175,23 +174,6 @@ export default function App() {
       }
     });
   }, []);
-
-  //test read from the Firestore database
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const collectionRef = collection(db, "users");
-  //       const snapshot = await getDocs(collectionRef);
-  //       snapshot.forEach((doc) => {
-  //         console.log(doc.id, "=>", doc.data());
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <SafeAreaView

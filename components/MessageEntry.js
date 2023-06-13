@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correc
 
 import themes from "../themes.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { updateFirestoreChat } from "../firebaseFunctions/firebaseOperations";
+import { updateFirestoreChat } from "../firebaseFunctions/firebaseOperations";
 
 const MessageEntry = ({
   theme,
@@ -19,7 +19,7 @@ const MessageEntry = ({
   setAdIndex,
   adIndex,
   loaded,
-  // anonId,
+  anonId,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
@@ -77,7 +77,7 @@ const MessageEntry = ({
     };
 
     // Write the new user message to Firestore
-    // updateFirestoreChat(message, "user", anonId, theme);
+    updateFirestoreChat(message, "user", anonId, theme);
 
     const emptyResponseMessage = {
       id: Math.random().toString(),
@@ -120,7 +120,7 @@ const MessageEntry = ({
 
       const aiMessage = data.choices[0].message.content.trim();
       // Write the new AI response to Firestore
-      // updateFirestoreChat(aiMessage, "assistant", anonId, theme);
+      updateFirestoreChat(aiMessage, "assistant", anonId, theme);
       const tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT
