@@ -128,14 +128,14 @@ export default function App() {
         const uid = user.uid;
         setAnonId(uid);
         console.log("User is already logged in as: ", uid);
-        alert("User is already logged in as: ", uid);
+        alert("User is already logged in as: " + uid);
       } else {
         console.log("onAuthStateChanged: user is not signed in");
         signInAnonymously(auth)
           .then((user) => {
             // Signed in..
             console.log("User signed in anonymously");
-            alert("User signed in anonymously as: ", user);
+            alert("User signed in anonymously as: " + user);
             console.log(user);
             let userId = user.user.uid;
             console.log(userId);
