@@ -224,6 +224,9 @@ export default function App() {
         adIndex={adIndex}
         loaded={loaded}
         anonId={anonId}
+        app={app}
+        db={db}
+        auth={auth}
       />
     </SafeAreaView>
   );

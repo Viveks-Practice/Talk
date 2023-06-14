@@ -8,9 +8,15 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
-import { app, db } from "../firebase";
+// import { app, db } from "../firebase";
 
-export const updateFirestoreChat = async (message, role, chatId, aiName) => {
+export const updateFirestoreChat = async (
+  message,
+  role,
+  chatId,
+  aiName,
+  db
+) => {
   const messageDocument = {
     content: message,
     createdAt: new Date(),
