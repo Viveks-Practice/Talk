@@ -39,9 +39,9 @@ if (Platform.OS === "ios") {
     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
 }
 
-// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-//   requestNonPersonalizedAdsOnly: true,
-// });
+const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+  requestNonPersonalizedAdsOnly: true,
+});
 
 /*****Firebase Config Start****** */
 // Your web app's Firebase configuration
@@ -60,9 +60,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-if (app && db && auth) {
-  alert("firebase is successfully initialized!");
-}
+// if (app && db && auth) {
+//   alert("firebase is successfully initialized!");
+// }
 
 /*****Firebase Config End******** */
 
@@ -117,24 +117,24 @@ export default function App() {
 
   const flatListRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (loaded === true && messageCount % 4 == 3) {
-  //     interstitial.show();
-  //   }
-  //   const unsubscribe = interstitial.addAdEventListener(
-  //     AdEventType.LOADED,
-  //     () => {
-  //       setLoaded(true);
-  //       console.log("Interstitial ad loaded!");
-  //     }
-  //   );
+  useEffect(() => {
+    if (loaded === true && messageCount % 4 == 3) {
+      interstitial.show();
+    }
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        // console.log("Interstitial ad loaded!");
+      }
+    );
 
-  //   // Start loading the interstitial straight away
-  //   interstitial.load();
+    // Start loading the interstitial straight away
+    interstitial.load();
 
-  //   // Unsubscribe from events on unmount
-  //   return unsubscribe;
-  // }, [messageCount]);
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -147,29 +147,29 @@ export default function App() {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        console.log("onAuthStateChanged: user is signed in");
-        alert("onAuthStateChanged: user is signed in");
+        // console.log("onAuthStateChanged: user is signed in");
+        // alert("onAuthStateChanged: user is signed in");
         const uid = user.uid;
         setAnonId(uid);
-        console.log("User is already logged in as: ", uid);
-        alert("User is already logged in as: " + uid);
+        // console.log("User is already logged in as: ", uid);
+        // alert("User is already logged in as: " + uid);
       } else {
-        console.log("onAuthStateChanged: user is not signed in");
+        // console.log("onAuthStateChanged: user is not signed in");
         signInAnonymously(auth)
           .then((user) => {
             // Signed in..
-            console.log("User signed in anonymously");
-            alert("User signed in anonymously as: " + user);
-            console.log(user);
+            // console.log("User signed in anonymously");
+            // alert("User signed in anonymously as: " + user);
+            // console.log(user);
             let userId = user.user.uid;
-            console.log(userId);
+            // console.log(userId);
             setAnonId(userId);
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log("Error code: ", errorCode);
-            console.log("Error message: ", errorMessage);
+            // console.log("Error code: ", errorCode);
+            // console.log("Error message: ", errorMessage);
           });
       }
     });
@@ -200,7 +200,7 @@ export default function App() {
         options={options}
         setOptions={setOptions}
       />
-      {/* <Banner theme={theme} /> */}
+      <Banner theme={theme} />
       <StatusBar
         barStyle="light-content"
         backgroundColor={themes[theme].colorSchemes.sixth}
