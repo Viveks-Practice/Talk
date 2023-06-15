@@ -8,6 +8,9 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 
+// import { Platform } from "react-native";
+import Constants from "expo-constants";
+
 // import { app, db } from "../firebase";
 
 export const updateFirestoreChat = async (
@@ -23,6 +26,8 @@ export const updateFirestoreChat = async (
     role: role,
   };
 
+  const { name } = Constants.manifest;
+
   // User document reference
   const userRef = doc(db, "users", chatId);
 
@@ -35,6 +40,8 @@ export const updateFirestoreChat = async (
     await setDoc(userRef, {
       createdAt: new Date(), // Set the created at timestamp
       lastActiveAt: new Date(), // Set the last active timestamp
+      platform: Platform.OS,
+      appVariant: name,
     });
   } else {
     // If it exists, update it
