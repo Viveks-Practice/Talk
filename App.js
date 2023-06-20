@@ -16,13 +16,10 @@ import {
   BannerAdSize,
   AdEventType,
 } from "react-native-google-mobile-ads";
-import { initializeApp } from "@react-native-firebase/app";
-import { getFirestore } from "@react-native-firebase/firestore";
-import { getAuth } from "@react-native-firebase/auth";
-import {
-  signInAnonymously,
-  onAuthStateChanged,
-} from "@react-native-firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
