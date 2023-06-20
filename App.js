@@ -1,4 +1,4 @@
-//firebase-removal-not-working branch
+//main branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
