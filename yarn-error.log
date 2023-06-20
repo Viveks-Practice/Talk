@@ -1,11 +1,11 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add @react-native-async-storage/async-storage
+  /usr/local/bin/node /Users/vivek/Downloads/Talk/.yarn/releases/yarn-1.22.11.cjs add firebase
 
 PATH: 
   /Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/vivek/Library/Android/sdk/tools/bin:/Users/vivek/Library/Android/sdk/tools:/Users/vivek/Library/Android/sdk/platform-tools:/Users/vivek/Library/Android/sdk/emulator:/opt/homebrew/bin:/opt/homebrew/sbin
 
 Yarn version: 
-  1.22.19
+  1.22.11
 
 Node version: 
   18.15.0
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/Users/vivek/Downloads/Talk/node_modules/@babel/core/node_modules'
+  Error: EACCES: permission denied, unlink '/Users/vivek/Downloads/Talk/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
@@ -29,7 +29,11 @@ npm manifest:
     },
     "dependencies": {
       "@expo/react-native-action-sheet": "^4.0.1",
+      "@react-native-async-storage/async-storage": "^1.18.1",
       "@react-native-clipboard/clipboard": "^1.11.2",
+      "@react-native-firebase/app": "^18.0.0",
+      "@react-native-firebase/auth": "^18.0.0",
+      "@react-native-firebase/firestore": "^18.0.0",
       "axios": "^1.3.6",
       "dayjs": "^1.11.7",
       "expo": "^48.0.10",
@@ -43,6 +47,7 @@ npm manifest:
       "react-native": "0.71.6",
       "react-native-communications": "^2.2.1",
       "react-native-config": "^1.5.0",
+      "react-native-device-info": "^10.6.0",
       "react-native-elements": "^3.4.3",
       "react-native-gifted-chat": "^1.1.1",
       "react-native-google-mobile-ads": "^10.1.0",
@@ -1599,6 +1604,13 @@ Lockfile:
       mkdirp "^1.0.4"
       rimraf "^3.0.2"
   
+  "@react-native-async-storage/async-storage@^1.18.1":
+    version "1.18.1"
+    resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.18.1.tgz"
+    integrity sha512-70aFW8fVCKl+oA1AKPFDpE6s4t9pulj2QeLX+MabEmzfT3urd/3cckv45WJvtocdoIH/oXA3Y+YcCRJCcNa8mA==
+    dependencies:
+      merge-options "^3.0.4"
+  
   "@react-native-clipboard/clipboard@^1.11.2":
     version "1.11.2"
     resolved "https://registry.npmjs.org/@react-native-clipboard/clipboard/-/clipboard-1.11.2.tgz"
@@ -1765,6 +1777,26 @@ Lockfile:
       graceful-fs "^4.1.3"
       prompts "^2.4.0"
       semver "^6.3.0"
+  
+  "@react-native-firebase/app@^18.0.0", "@react-native-firebase/app@18.0.0":
+    version "18.0.0"
+    resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-18.0.0.tgz"
+    integrity sha512-jvxitPNkcxE6IyGHiOGaURA42ZHBesTeSLbOfqQL6ZtTkQ0sPkFk6VPM2OR5s5S2NfOCfd9dddOhFLIX5VE3ig==
+    dependencies:
+      opencollective-postinstall "^2.0.1"
+      superstruct "^0.6.2"
+  
+  "@react-native-firebase/auth@^18.0.0":
+    version "18.0.0"
+    resolved "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-18.0.0.tgz"
+    integrity sha512-9FOsvNH/w5+Cr48nxuJ3Lb85vxFe2A45w37OMxzfZCnLYXJJBvlF1espy3SCMKzwA31RN9+D0jH7OavacKbpzw==
+    dependencies:
+      plist "^3.0.5"
+  
+  "@react-native-firebase/firestore@^18.0.0":
+    version "18.0.0"
+    resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-18.0.0.tgz"
+    integrity sha512-jGalEquLZGvn2iM1pGQsC0tFnUlA1mRt7hqYbrSSo8eVdcr05NhlNwNvBu2ShcVi1MCQvtsPmEQ8ppu3pt0srw==
   
   "@react-native/assets@1.0.0":
     version "1.0.0"
@@ -2629,6 +2661,16 @@ Lockfile:
       strip-ansi "^6.0.1"
       wrap-ansi "^7.0.0"
   
+  clone-deep@^2.0.1:
+    version "2.0.2"
+    resolved "https://registry.npmjs.org/clone-deep/-/clone-deep-2.0.2.tgz"
+    integrity sha512-SZegPTKjCgpQH63E+eN6mVEEPdQBOUzjyJm5Pora4lrwWRFS8I0QAxV/KD6vV/i0WuijHZWQC1fMsPEdxfdVCQ==
+    dependencies:
+      for-own "^1.0.0"
+      is-plain-object "^2.0.4"
+      kind-of "^6.0.0"
+      shallow-clone "^1.0.0"
+  
   clone-deep@^4.0.1:
     version "4.0.1"
     resolved "https://registry.npmjs.org/clone-deep/-/clone-deep-4.0.1.tgz"
@@ -3293,7 +3335,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/expo-updates-interface/-/expo-updates-interface-0.9.1.tgz"
     integrity sha512-wk88LLhseQ7LJvxdN7BTKiryyqALxnrvr+lyHK3/prg76Yy0EGi2Q/oE/rtFyyZ1JmQDRbO/5pdX0EE6QqVQXQ==
   
-  expo@*, expo@^48.0.10:
+  expo@*, expo@^48.0.10, expo@>=47.0.0:
     version "48.0.10"
     resolved "https://registry.npmjs.org/expo/-/expo-48.0.10.tgz"
     integrity sha512-8YXG6um3ld36nu/ONEC0NNkMatdj4k/HwR7OUd3dKUt3PJSkZHsCeLXIu8za7WSWpgPAU/xAj35noPFEFnjO1w==
@@ -3504,10 +3546,22 @@ Lockfile:
     resolved "https://registry.npmjs.org/fontfaceobserver/-/fontfaceobserver-2.3.0.tgz"
     integrity sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==
   
-  for-in@^1.0.2:
+  for-in@^0.1.3:
+    version "0.1.8"
+    resolved "https://registry.npmjs.org/for-in/-/for-in-0.1.8.tgz"
+    integrity sha512-F0to7vbBSHP8E3l6dCjxNOLuSFAACIxFy3UehTUlG7svlXi37HHsDkyVcHo0Pq8QwrE+pXvWSVX3ZT1T9wAZ9g==
+  
+  for-in@^1.0.1, for-in@^1.0.2:
     version "1.0.2"
     resolved "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz"
     integrity sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==
+  
+  for-own@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.npmjs.org/for-own/-/for-own-1.0.0.tgz"
+    integrity sha512-0OABksIGrxKK8K4kynWkQ7y1zounQxP+CWnyclVwj81KW3vlLlGUx57DKGcP/LH216GzqnstnPocF16Nxs0Ycg==
+    dependencies:
+      for-in "^1.0.1"
   
   form-data@^3.0.1:
     version "3.0.1"
@@ -4001,11 +4055,6 @@ Lockfile:
     resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-0.1.1.tgz"
     integrity sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==
   
-  is-extendable@^0.1.1:
-    version "0.1.1"
-    resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-0.1.1.tgz"
-    integrity sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==
-  
   is-extendable@^1.0.1:
     version "1.0.1"
     resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-1.0.1.tgz"
@@ -4080,6 +4129,11 @@ Lockfile:
     version "3.0.3"
     resolved "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz"
     integrity sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==
+  
+  is-plain-obj@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-2.1.0.tgz"
+    integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
   
   is-plain-object@^2.0.3, is-plain-object@^2.0.4:
     version "2.0.4"
@@ -4405,7 +4459,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/kind-of/-/kind-of-5.1.0.tgz"
     integrity sha512-NGEErnH6F2vUuXDh+OlbcKW7/wOcfdRHaZ7VWtqCztfHri/++YKmP51OdWeGPuqCOba6kk2OTe5d02VmTB80Pw==
   
-  kind-of@^6.0.0, kind-of@^6.0.2:
+  kind-of@^6.0.0, kind-of@^6.0.1, kind-of@^6.0.2:
     version "6.0.3"
     resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
     integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
@@ -4583,6 +4637,13 @@ Lockfile:
     version "0.2.0"
     resolved "https://registry.npmjs.org/memory-cache/-/memory-cache-0.2.0.tgz"
     integrity sha512-OcjA+jzjOYzKmKS6IQVALHLVz+rNTMPoJvCztFaZxwG14wtAW7VRZjwTQu06vKCYOxh4jVnik7ya0SXTB0W+xA==
+  
+  merge-options@^3.0.4:
+    version "3.0.4"
+    resolved "https://registry.npmjs.org/merge-options/-/merge-options-3.0.4.tgz"
+    integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+    dependencies:
+      is-plain-obj "^2.1.0"
   
   merge-stream@^2.0.0:
     version "2.0.0"
@@ -4991,6 +5052,14 @@ Lockfile:
       for-in "^1.0.2"
       is-extendable "^1.0.1"
   
+  mixin-object@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.npmjs.org/mixin-object/-/mixin-object-2.0.1.tgz"
+    integrity sha512-ALGF1Jt9ouehcaXaHhn6t1yGWRqGaHkPFndtFVHfZXOvkIZ/yoGaSi0AHVTafb3ZBGg4dr/bDwnaEKqCXzchMA==
+    dependencies:
+      for-in "^0.1.3"
+      is-extendable "^0.1.1"
+  
   mkdirp@^0.5.1, mkdirp@~0.5.1:
     version "0.5.6"
     resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz"
@@ -5263,7 +5332,7 @@ Lockfile:
       axios "^0.26.0"
       form-data "^4.0.0"
   
-  opencollective-postinstall@^2.0.3:
+  opencollective-postinstall@^2.0.1, opencollective-postinstall@^2.0.3:
     version "2.0.3"
     resolved "https://registry.npmjs.org/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz"
     integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
@@ -5687,6 +5756,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.5.0.tgz"
     integrity sha512-slecooA/0tCwhb+RuWEbwLqtKirGh9vWPRpgDfH7uPAraCciqHNH2XjS9ylW+Spn4FUrHg5KWTqUGs9BdBADHg==
   
+  react-native-device-info@^10.6.0:
+    version "10.6.0"
+    resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.6.0.tgz"
+    integrity sha512-/MmINdojWdw2/9rwYpH/dX+1gFP0o78p8yYPjwxiPhoySSL2rZaNi+Mq9VwC+zFi/yQmJUvHntkKSw2KUc7rFw==
+  
   react-native-dotenv@^3.4.8:
     version "3.4.8"
     resolved "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.4.8.tgz"
@@ -5804,7 +5878,7 @@ Lockfile:
       prop-types "^15.7.2"
       yargs "^16.1.1"
   
-  react-native@*, react-native@>=0.42.0, react-native@>=0.57.0, react-native@>=0.61.0, react-native@0.71.6:
+  react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@>=0.42.0, react-native@>=0.57.0, react-native@>=0.61.0, react-native@0.71.6:
     version "0.71.6"
     resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.6.tgz"
     integrity sha512-gHrDj7qaAaiE41JwaFCh3AtvOqOLuRgZtHKzNiwxakG/wvPAYmG73ECfWHGxjxIx/QT17Hp37Da3ipCei/CayQ==
@@ -6232,6 +6306,15 @@ Lockfile:
     resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
     integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
   
+  shallow-clone@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.npmjs.org/shallow-clone/-/shallow-clone-1.0.0.tgz"
+    integrity sha512-oeXreoKR/SyNJtRJMAKPDSvd28OqEwG4eR/xc856cRGBII7gX9lvAqDxusPm0846z/w/hWYjI1NpKwJ00NHzRA==
+    dependencies:
+      is-extendable "^0.1.1"
+      kind-of "^5.0.0"
+      mixin-object "^2.0.1"
+  
   shallow-clone@^3.0.0:
     version "3.0.1"
     resolved "https://registry.npmjs.org/shallow-clone/-/shallow-clone-3.0.1.tgz"
@@ -6540,6 +6623,14 @@ Lockfile:
       inpath "~1.0.2"
       pidof "~1.0.2"
       read "~1.0.3"
+  
+  superstruct@^0.6.2:
+    version "0.6.2"
+    resolved "https://registry.npmjs.org/superstruct/-/superstruct-0.6.2.tgz"
+    integrity sha512-lvA97MFAJng3rfjcafT/zGTSWm6Tbpk++DP6It4Qg7oNaeM+2tdJMuVgGje21/bIpBEs6iQql1PJH6dKTjl4Ig==
+    dependencies:
+      clone-deep "^2.0.1"
+      kind-of "^6.0.1"
   
   supports-color@^5.3.0:
     version "5.5.0"

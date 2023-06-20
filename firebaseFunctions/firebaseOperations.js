@@ -6,7 +6,7 @@ import {
   updateDoc,
   collection,
   arrayUnion,
-} from "firebase/firestore";
+} from "@react-native-firebase/firestore";
 
 // import { Platform } from "react-native";
 import Constants from "expo-constants";
