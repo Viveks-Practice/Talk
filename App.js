@@ -7,44 +7,41 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  AppOpenAd,
-  InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize,
-  AdEventType,
-} from "react-native-google-mobile-ads";
-import { initializeApp } from "@react-native-firebase/app";
-import { getFirestore } from "@react-native-firebase/firestore";
-import { getAuth } from "@react-native-firebase/auth";
-import {
-  signInAnonymously,
-  onAuthStateChanged,
-} from "@react-native-firebase/auth";
+// import {
+//   AppOpenAd,
+//   InterstitialAd,
+//   RewardedAd,
+//   BannerAd,
+//   TestIds,
+//   BannerAdSize,
+//   AdEventType,
+// } from "react-native-google-mobile-ads";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/PersonaModal";
-import Banner from "./components/Banner";
+// import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 
-let adUnitIdInterstitial = "";
-if (Platform.OS === "ios") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.IOS_ADMOB_INTERSTITIAL_ID;
-} else if (Platform.OS === "android") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
-}
+// let adUnitIdInterstitial = "";
+// if (Platform.OS === "ios") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.IOS_ADMOB_INTERSTITIAL_ID;
+// } else if (Platform.OS === "android") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
+// }
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-  requestNonPersonalizedAdsOnly: true,
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+//   requestNonPersonalizedAdsOnly: true,
+// });
 
 /*****Firebase Config Start****** */
 // Your web app's Firebase configuration
@@ -111,33 +108,33 @@ export default function App() {
     "Sam Harris",
   ]);
 
-  let adUnitId = "";
-  if (Platform.OS === "ios") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
-  } else if (Platform.OS === "android") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
-  }
+  // let adUnitId = "";
+  // if (Platform.OS === "ios") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
+  // } else if (Platform.OS === "android") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
+  // }
 
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    if (loaded === true && messageCount % 4 == 3) {
-      interstitial.show();
-    }
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        // console.log("Interstitial ad loaded!");
-      }
-    );
+  // useEffect(() => {
+  //   if (loaded === true && messageCount % 4 == 3) {
+  //     interstitial.show();
+  //   }
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       // console.log("Interstitial ad loaded!");
+  //     }
+  //   );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+  //   // Start loading the interstitial straight away
+  //   interstitial.load();
 
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, [messageCount]);
+  //   // Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -203,7 +200,7 @@ export default function App() {
         options={options}
         setOptions={setOptions}
       />
-      <Banner theme={theme} />
+      {/* <Banner theme={theme} /> */}
       <StatusBar
         barStyle="light-content"
         backgroundColor={themes[theme].colorSchemes.sixth}
