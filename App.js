@@ -1,4 +1,4 @@
-//main branch
+//anon-acc-persistence branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
