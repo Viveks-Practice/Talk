@@ -7,41 +7,47 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  AppOpenAd,
-  InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize,
-  AdEventType,
-} from "react-native-google-mobile-ads";
-import { initializeApp } from "firebase/app";
+// import {
+//   AppOpenAd,
+//   InterstitialAd,
+//   RewardedAd,
+//   BannerAd,
+//   TestIds,
+//   BannerAdSize,
+//   AdEventType,
+// } from "react-native-google-mobile-ads";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getApps, initializeApp, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInAnonymously,
+  onAuthStateChanged,
+  initializeAuth,
+  getReactNativePersistence,
+} from "firebase/auth";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-import PersonaModal from "./components/PersonaModal";
-import Banner from "./components/Banner";
+import PersonaModal from "./components/personaModal";
+// import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 
-let adUnitIdInterstitial = "";
-if (Platform.OS === "ios") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.IOS_ADMOB_INTERSTITIAL_ID;
-} else if (Platform.OS === "android") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
-}
+// let adUnitIdInterstitial = "";
+// if (Platform.OS === "ios") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.IOS_ADMOB_INTERSTITIAL_ID;
+// } else if (Platform.OS === "android") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
+// }
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-  requestNonPersonalizedAdsOnly: true,
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+//   requestNonPersonalizedAdsOnly: true,
+// });
 
 /*****Firebase Config Start****** */
 // Your web app's Firebase configuration
@@ -56,13 +62,22 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+let app;
+let auth;
 
-// if (app && db && auth) {
-//   alert("firebase is successfully initialized!");
-// }
+if (getApps().length === 0) {
+  // Initialize app and auth if they have not been initialized
+  app = initializeApp(firebaseConfig);
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+  });
+} else {
+  // Get the existing app and auth instances if they have been initialized
+  app = getApp(); // get the default app
+  auth = getAuth(app);
+}
+
+const db = getFirestore(app);
 
 /*****Firebase Config End******** */
 
@@ -108,33 +123,33 @@ export default function App() {
     "Sam Harris",
   ]);
 
-  let adUnitId = "";
-  if (Platform.OS === "ios") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
-  } else if (Platform.OS === "android") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
-  }
+  // let adUnitId = "";
+  // if (Platform.OS === "ios") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
+  // } else if (Platform.OS === "android") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
+  // }
 
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    if (loaded === true && messageCount % 4 == 3) {
-      interstitial.show();
-    }
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        // console.log("Interstitial ad loaded!");
-      }
-    );
+  // useEffect(() => {
+  //   if (loaded === true && messageCount % 4 == 3) {
+  //     interstitial.show();
+  //   }
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       // console.log("Interstitial ad loaded!");
+  //     }
+  //   );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+  //   // Start loading the interstitial straight away
+  //   interstitial.load();
 
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, [messageCount]);
+  //   // Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, [messageCount]);
 
   useEffect(() => {
     if (flatListRef.current) {
@@ -147,22 +162,22 @@ export default function App() {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        // console.log("onAuthStateChanged: user is signed in");
+        console.log("onAuthStateChanged: user is signed in");
         // alert("onAuthStateChanged: user is signed in");
         const uid = user.uid;
         setAnonId(uid);
-        // console.log("User is already logged in as: ", uid);
+        console.log("User is already logged in as: ", uid);
         // alert("User is already logged in as: " + uid);
       } else {
-        // console.log("onAuthStateChanged: user is not signed in");
+        console.log("onAuthStateChanged: user is not signed in");
         signInAnonymously(auth)
           .then((user) => {
             // Signed in..
-            // console.log("User signed in anonymously");
+            console.log("User signed in anonymously");
             // alert("User signed in anonymously as: " + user);
-            // console.log(user);
+            console.log(user);
             let userId = user.user.uid;
-            // console.log(userId);
+            console.log(userId);
             setAnonId(userId);
           })
           .catch((error) => {
@@ -202,7 +217,7 @@ export default function App() {
             options={options}
             setOptions={setOptions}
           />
-          <Banner theme={theme} />
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
@@ -256,7 +271,7 @@ export default function App() {
             options={options}
             setOptions={setOptions}
           />
-          <Banner theme={theme} />
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}

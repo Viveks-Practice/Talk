@@ -36,7 +36,6 @@ const PersonaModal = ({
       );
 
       const { data } = response;
-      console.log("The response is: ", response);
       if (data.itemListElement.length < 1) {
         alert("A person with that name/description was not found. Try again");
       } else if (themes[data.itemListElement[0].result.name]) {
@@ -51,9 +50,6 @@ const PersonaModal = ({
         const person = data.itemListElement[0].result;
         const name = person.name;
         const description = person.description;
-        // Use the person's name and description in your app
-        console.log(name, description);
-        console.log(person);
         themes[name] = {
           initialMessages: [
             {
@@ -83,9 +79,8 @@ const PersonaModal = ({
           inputPlaceholder: "Type your message...",
         };
         setOptions((prevOptions) => [name, ...prevOptions]);
-        console.log(options);
       } else {
-        console.log("No results found");
+        alert("A person with that name/description was not found. Try again");
       }
     } catch (error) {
       console.error("Error:", error);
