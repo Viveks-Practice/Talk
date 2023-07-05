@@ -10,6 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 firebase.js
+my-upload-key.keystore
+upload_certificate.pem
 
 # macOS
 .DS_Store
