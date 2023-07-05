@@ -43,7 +43,7 @@ import MessageEntry from "./components/MessageEntry";
 //   adUnitIdInterstitial = __DEV__
 //     ? TestIds.INTERSTITIAL
 //     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
-}
+// }
 
 // const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
 //   requestNonPersonalizedAdsOnly: true,
