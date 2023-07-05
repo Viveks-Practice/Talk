@@ -18,7 +18,15 @@ import {
 // } from "react-native-google-mobile-ads";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getApps, initializeApp, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  getDoc,
+  query,
+} from "firebase/firestore";
 import {
   getAuth,
   signInAnonymously,
@@ -84,8 +92,9 @@ const db = getFirestore(app);
 export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [firebaseDataLoading, setFirebaseDataLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [anonId, setAnonId] = useState("");
+  const [anonId, setAnonId] = useState(null);
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -194,6 +203,68 @@ export default function App() {
     });
   }, []);
 
+  //fetch messages from the firestore database, everytime the selectedOption changes or the userID changes
+  useEffect(() => {
+    // When anonId or selectedOption changes, fetch the messages
+    if (anonId && selectedOption) {
+      const fetchMessages = async () => {
+        setFirebaseDataLoading(true); // Set loading state to true before starting fetch
+        console.log("anonId:", anonId);
+        console.log("selectedOption:", selectedOption);
+        try {
+          const messagesCollectionRef = collection(
+            db,
+            "users",
+            anonId,
+            "chats",
+            selectedOption,
+            "messages"
+          );
+          const queryDatabase = query(
+            messagesCollectionRef,
+            orderBy("createdAt")
+          );
+          const messagesSnapshot = await getDocs(queryDatabase);
+
+          const messagesArray = messagesSnapshot.docs.map((doc) => {
+            return {
+              role: doc.data().role,
+              content: doc.data().content,
+              id: doc.id,
+            };
+          });
+
+          console.log(messagesArray);
+
+          // Updates the 'messages' state variable with the new 'messagesArray', while keeping the first entry.
+          setMessages((prevMessages) => [
+            prevMessages[0],
+            prevMessages[1],
+            ...messagesArray,
+          ]);
+
+          // const messageRef = doc(db, "users", anonId, "chats", selectedOption);
+          // const messageCol = collection(messageRef, "messages");
+          // const messageSnapshot = await getDocs(
+          //   orderBy(messageCol, "createdAt")
+          // );
+
+          // const newMessages = messageSnapshot.docs.map((doc) => ({
+          //   ...doc.data(),
+          //   id: Math.random().toString(),
+          // }));
+
+          // setMessages(newMessages);
+        } catch (error) {
+          console.error("Error fetching messages: ", error);
+        }
+        setFirebaseDataLoading(false); // Set loading state to false after fetch is complete
+      };
+
+      fetchMessages();
+    }
+  }, [anonId, selectedOption]);
+
   return (
     <>
       {Platform.OS === "ios" ? (
@@ -232,6 +303,7 @@ export default function App() {
             theme={theme}
             flatListRef={flatListRef}
             themes={themes}
+            setFirebaseDataLoading={setFirebaseDataLoading}
           />
           <MessageEntry
             theme={theme}
@@ -248,6 +320,7 @@ export default function App() {
             app={app}
             db={db}
             auth={auth}
+            setFirebaseDataLoading={setFirebaseDataLoading}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -286,6 +359,7 @@ export default function App() {
             theme={theme}
             flatListRef={flatListRef}
             themes={themes}
+            firebaseDataLoading={firebaseDataLoading}
           />
           <MessageEntry
             theme={theme}
@@ -302,6 +376,7 @@ export default function App() {
             app={app}
             db={db}
             auth={auth}
+            firebaseDataLoading={firebaseDataLoading}
           />
         </SafeAreaView>
       )}

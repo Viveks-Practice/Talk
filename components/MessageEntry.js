@@ -23,6 +23,7 @@ const MessageEntry = ({
   app,
   db,
   auth,
+  firebaseDataLoading,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);

@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 
-const ChatWindow = ({ messages, theme, flatListRef, themes }) => {
+const ChatWindow = ({
+  messages,
+  theme,
+  flatListRef,
+  themes,
+  firebaseDataLoading,
+}) => {
   return (
     <View
       style={[
