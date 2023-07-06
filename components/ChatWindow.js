@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 
 const ChatWindow = ({
   messages,
@@ -9,67 +15,78 @@ const ChatWindow = ({
   firebaseDataLoading,
 }) => {
   return (
-    <View
-      style={[
-        ChatWindowStyles.messages,
-        { backgroundColor: themes[theme].colorSchemes.first },
-      ]}
-    >
-      {messages.length > 0 && (
-        <FlatList
-          data={messages.filter((msg) => msg.role !== "system")}
-          renderItem={({ item }) => (
-            <>
-              <View
-                style={[
-                  {
-                    ...ChatWindowStyles.message,
-                    backgroundColor: themes[theme].colorSchemes.second,
-                  },
-                  item.role === "assistant"
-                    ? {
-                        ...ChatWindowStyles.assistantMessage,
-                        backgroundColor: themes[theme].colorSchemes.second,
-                      }
-                    : {
-                        ...ChatWindowStyles.userMessage,
-                        backgroundColor: themes[theme].colorSchemes.third,
-                      },
-                ]}
-              >
-                {item.role === "assistant" && (
-                  <Text
-                    style={[
-                      ChatWindowStyles.assistantTitle,
-                      { color: themes[theme].colorSchemes.fourth },
-                    ]}
-                  >
-                    {themes[theme].Title}
+    <View style={{ flex: 1 }}>
+      <View
+        style={[
+          ChatWindowStyles.messages,
+          { backgroundColor: themes[theme].colorSchemes.first },
+        ]}
+      >
+        {messages.length > 0 && (
+          <FlatList
+            data={messages.filter((msg) => msg.role !== "system")}
+            renderItem={({ item }) => (
+              <>
+                <View
+                  style={[
+                    {
+                      ...ChatWindowStyles.message,
+                      backgroundColor: themes[theme].colorSchemes.second,
+                    },
+                    item.role === "assistant"
+                      ? {
+                          ...ChatWindowStyles.assistantMessage,
+                          backgroundColor: themes[theme].colorSchemes.second,
+                        }
+                      : {
+                          ...ChatWindowStyles.userMessage,
+                          backgroundColor: themes[theme].colorSchemes.third,
+                        },
+                  ]}
+                >
+                  {item.role === "assistant" && (
+                    <Text
+                      style={[
+                        ChatWindowStyles.assistantTitle,
+                        { color: themes[theme].colorSchemes.fourth },
+                      ]}
+                    >
+                      {themes[theme].Title}
+                    </Text>
+                  )}
+                  {item.role === "user" && (
+                    <Text
+                      style={[
+                        ChatWindowStyles.userTitle,
+                        { color: themes[theme].colorSchemes.fifth },
+                      ]}
+                    >
+                      You
+                    </Text>
+                  )}
+                  <Text style={ChatWindowStyles.messageText} selectable>
+                    {item.content}
                   </Text>
-                )}
-                {item.role === "user" && (
-                  <Text
-                    style={[
-                      ChatWindowStyles.userTitle,
-                      { color: themes[theme].colorSchemes.fifth },
-                    ]}
-                  >
-                    You
-                  </Text>
-                )}
-                <Text style={ChatWindowStyles.messageText} selectable>
-                  {item.content}
-                </Text>
-              </View>
-            </>
-          )}
-          keyExtractor={(item) => item.id}
-          ref={flatListRef}
-          onContentSizeChange={() =>
-            flatListRef.current.scrollToEnd({ animated: true })
-          }
-          onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
-        />
+                </View>
+              </>
+            )}
+            keyExtractor={(item) => item.id}
+            ref={flatListRef}
+            onContentSizeChange={() =>
+              flatListRef.current.scrollToEnd({ animated: true })
+            }
+            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
+          />
+        )}
+      </View>
+
+      {firebaseDataLoading && (
+        <View style={ChatWindowStyles.loadingOverlay}>
+          <ActivityIndicator
+            size="large"
+            color={themes[theme].colorSchemes.first}
+          />
+        </View>
       )}
     </View>
   );
@@ -112,6 +129,13 @@ const ChatWindowStyles = StyleSheet.create({
   messageText: {
     fontSize: 16,
     color: "#fff",
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
   },
 });
 

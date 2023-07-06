@@ -1,7 +1,13 @@
 // MessageEntry.js
 
 import React, { useState, useEffect } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correct icon library
 
 import themes from "../themes.json";
@@ -182,22 +188,27 @@ const MessageEntry = ({
   }, []);
 
   return (
-    <View
-      style={[
-        messageEntryStyles.input,
-        { backgroundColor: themes[theme].colorSchemes.sixth },
-      ]}
-    >
-      <TextInput
-        style={messageEntryStyles.inputText}
-        value={message}
-        onChangeText={setMessage}
-        placeholder={themes[theme].inputPlaceholder}
-        placeholderTextColor="#657284"
-      />
-      <TouchableOpacity onPress={sendMessage}>
-        <Ionicons name="send" size={24} color="#fff" />
-      </TouchableOpacity>
+    <View>
+      <View
+        style={[
+          messageEntryStyles.input,
+          { backgroundColor: themes[theme].colorSchemes.sixth },
+        ]}
+      >
+        <TextInput
+          style={messageEntryStyles.inputText}
+          value={message}
+          onChangeText={setMessage}
+          placeholder={themes[theme].inputPlaceholder}
+          placeholderTextColor="#657284"
+        />
+        <TouchableOpacity onPress={sendMessage}>
+          <Ionicons name="send" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+      {firebaseDataLoading && (
+        <View style={messageEntryStyles.loadingOverlay}></View>
+      )}
     </View>
   );
 };
@@ -219,6 +230,13 @@ const messageEntryStyles = StyleSheet.create({
     borderColor: "#ccc",
     color: "#fff",
     fontSize: 18,
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
   },
 });
 
