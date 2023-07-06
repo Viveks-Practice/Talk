@@ -113,6 +113,8 @@ const MessageEntry = ({
       messages: updatedMessage.map(({ id, ...rest }) => ({ ...rest })),
     };
 
+    let tokenCount = 0;
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -132,7 +134,7 @@ const MessageEntry = ({
       const aiMessage = data.choices[0].message.content.trim();
       // Write the new AI response to Firestore
       updateFirestoreChat(aiMessage, "assistant", anonId, theme, db);
-      const tokenCount = data.usage.total_tokens;
+      tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT
       //but the response is removing the Thinking... element that was added to the array, to have the thinking effect.
@@ -143,19 +145,19 @@ const MessageEntry = ({
           ...updatedPrevMessages[lastIndex],
           content: aiMessage,
         };
+
+        console.log(
+          "The messages array first message ",
+          updatedPrevMessages[1]
+        );
+        console.log(
+          "The messages array last message ",
+          updatedPrevMessages[updatedPrevMessages.length - 1]
+        );
         return updatedPrevMessages;
       });
 
-      if (tokenCount > 4090) {
-        if (messages.length == 2 || messages.length == 3) {
-          setMessages([messages[0]]);
-        }
-        const halfIndex = Math.ceil(messages.length / 2);
-        const secondHalfMessages = messages.slice(halfIndex);
-        const newMessages = [messages[0], ...secondHalfMessages];
-
-        setMessages(newMessages);
-      }
+      console.log("Token Count: ", data.usage.total_tokens);
 
       setMessageCount(messageCount + 1); //Loads interstitial message - triggers useEffect
       await AsyncStorage.setItem("messageCount", (messageCount + 1).toString());
@@ -167,6 +169,22 @@ const MessageEntry = ({
     } catch (error) {
       console.error("Error:", error);
       alert("There was an error processing your message. Please try again.");
+    } finally {
+      if (tokenCount > 4090) {
+        if (messages.length == 2 || messages.length == 3) {
+          setMessages([messages[0]]);
+        } else {
+          setMessages((prevMessages) => {
+            const halfIndex = Math.ceil(prevMessages.length / 2);
+            const secondHalfMessages = prevMessages.slice(halfIndex);
+            const newMessages = [prevMessages[0], ...secondHalfMessages];
+
+            return newMessages;
+          });
+        }
+
+        console.log("The conversation has been truncated.");
+      }
     }
   };
 

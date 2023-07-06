@@ -24,6 +24,7 @@ const PersonaModal = ({
   setMessages,
   options,
   setOptions,
+  selectedOption,
 }) => {
   const searchPerson = async (query) => {
     try {
@@ -126,9 +127,11 @@ const PersonaModal = ({
                     },
                   ]}
                   onPress={() => {
-                    setSelectedOption(item);
-                    setTheme(item);
-                    setMessages(themes[item].initialMessages);
+                    if (item !== selectedOption) {
+                      setSelectedOption(item);
+                      setTheme(item);
+                      setMessages(themes[item].initialMessages);
+                    }
                     setModalVisible(!modalVisible);
                   }}
                 >

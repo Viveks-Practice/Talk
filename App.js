@@ -165,9 +165,16 @@ export default function App() {
   // }, [messageCount]);
 
   useEffect(() => {
+    let timeoutId;
     if (flatListRef.current) {
-      flatListRef.current.scrollToEnd({ animated: true }); // Scroll to the end of the list after a new message is received
+      timeoutId = setTimeout(() => {
+        flatListRef.current.scrollToEnd({ animated: true });
+      }, 180); // or even 500ms depending on your case
     }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [messages]);
 
   useEffect(() => {
@@ -234,7 +241,7 @@ export default function App() {
             };
           });
 
-          console.log(messagesArray);
+          // console.log(messagesArray);
 
           // Updates the 'messages' state variable with the new 'messagesArray', while keeping the first entry.
           setMessages((prevMessages) => [
@@ -279,6 +286,7 @@ export default function App() {
             setMessages={setMessages}
             options={options}
             setOptions={setOptions}
+            selectedOption={selectedOption}
           />
           {/* <Banner theme={theme} /> */}
           <StatusBar
@@ -335,6 +343,7 @@ export default function App() {
             setMessages={setMessages}
             options={options}
             setOptions={setOptions}
+            selectedOption={selectedOption}
           />
           {/* <Banner theme={theme} /> */}
           <StatusBar

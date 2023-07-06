@@ -72,10 +72,10 @@ const ChatWindow = ({
             )}
             keyExtractor={(item) => item.id}
             ref={flatListRef}
-            onContentSizeChange={() =>
-              flatListRef.current.scrollToEnd({ animated: true })
-            }
-            onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
+            // onContentSizeChange={() =>
+            //   flatListRef.current.scrollToEnd({ animated: true })
+            // }
+            // onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
           />
         )}
       </View>
