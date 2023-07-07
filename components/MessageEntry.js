@@ -33,7 +33,6 @@ const MessageEntry = ({
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
-  const [prunedMessageLength, setPrunedMessageLength] = useState(1);
 
   const url = "https://api.openai.com/v1/chat/completions";
 
@@ -78,6 +77,9 @@ const MessageEntry = ({
     // }
 
     //proceed with the rest of the send message code
+
+    let contextSize = messages.length;
+
     if (!message || message.trim().length === 0) {
       return;
     }
@@ -89,8 +91,11 @@ const MessageEntry = ({
     };
 
     // Write the new user message to Firestore
-    updateFirestoreChat(message, "user", anonId, theme, db, messages.length);
-    console.log("Messages length: ", messages.length);
+    updateFirestoreChat(message, "user", anonId, theme, db, contextSize);
+    console.log(
+      "Messages length (pre-addition of new messages): ",
+      contextSize
+    );
 
     const emptyResponseMessage = {
       id: Math.random().toString(),
@@ -141,9 +146,12 @@ const MessageEntry = ({
         anonId,
         theme,
         db,
-        messages.length
+        contextSize + 1
       );
-      console.log("messages length (2nd): ", messages.length);
+      console.log(
+        "messages length pre addition of new messages (2nd): ",
+        contextSize
+      );
       tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT

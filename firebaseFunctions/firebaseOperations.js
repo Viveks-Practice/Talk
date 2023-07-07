@@ -66,13 +66,13 @@ export const updateFirestoreChat = async (
     await setDoc(chatRef, {
       createdAt: new Date(), // Set the created at timestamp
       lastMessageAt: new Date(), // Set the last message timestamp
-      aiContextLength: contextLength + 1,
+      aiContextLength: contextLength,
     });
   } else {
     // If it exists, update it
     await updateDoc(chatRef, {
       lastMessageAt: new Date(), // Update the last message timestamp
-      aiContextLength: contextLength + 1,
+      aiContextLength: contextLength,
     });
   }
 
