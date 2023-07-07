@@ -6,6 +6,7 @@ import {
   updateDoc,
   collection,
   arrayUnion,
+  increment,
 } from "firebase/firestore";
 
 // import { Platform } from "react-native";
@@ -18,13 +19,16 @@ export const updateFirestoreChat = async (
   role,
   chatId,
   aiName,
-  db
+  db,
+  contextLength
 ) => {
   const messageDocument = {
     content: message,
     createdAt: new Date(),
     role: role,
   };
+
+  console.log("Context length: ", contextLength);
 
   const { name } = Constants.manifest;
 
@@ -62,11 +66,13 @@ export const updateFirestoreChat = async (
     await setDoc(chatRef, {
       createdAt: new Date(), // Set the created at timestamp
       lastMessageAt: new Date(), // Set the last message timestamp
+      aiContextLength: contextLength + 1,
     });
   } else {
     // If it exists, update it
     await updateDoc(chatRef, {
       lastMessageAt: new Date(), // Update the last message timestamp
+      aiContextLength: contextLength + 1,
     });
   }
 
