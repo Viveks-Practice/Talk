@@ -12,7 +12,10 @@ import { Ionicons } from "@expo/vector-icons"; // Make sure to import the correc
 
 import themes from "../themes.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { updateFirestoreChat } from "../firebaseFunctions/firebaseOperations";
+import {
+  updateFirestoreChat,
+  updateFirestoreContext,
+} from "../firebaseFunctions/firebaseOperations";
 
 const MessageEntry = ({
   theme,
@@ -30,6 +33,8 @@ const MessageEntry = ({
   db,
   auth,
   firebaseDataLoading,
+  context,
+  setContext,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
   const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
@@ -78,7 +83,8 @@ const MessageEntry = ({
 
     //proceed with the rest of the send message code
 
-    let contextSize = messages.length;
+    let contextSize = context;
+    let userFirestoreOperation, aiFirestoreOperation;
 
     if (!message || message.trim().length === 0) {
       return;
@@ -91,7 +97,14 @@ const MessageEntry = ({
     };
 
     // Write the new user message to Firestore
-    updateFirestoreChat(message, "user", anonId, theme, db, contextSize);
+    userFirestoreOperation = updateFirestoreChat(
+      message,
+      "user",
+      anonId,
+      theme,
+      db,
+      contextSize + 1
+    );
     console.log(
       "Messages length (pre-addition of new messages): ",
       contextSize
@@ -106,8 +119,14 @@ const MessageEntry = ({
       role: "assistant",
     };
 
-    const updatedMessage = [...messages, newMessage]; //setting the new message for the API call to GPT
+    console.log("Context size being sent to GPT: ", contextSize);
+    const firstMessage = messages[0];
+    const slicedMessages = messages.slice(-contextSize);
+    const updatedMessage = [firstMessage, ...slicedMessages, newMessage]; //setting the new message for the API call to GPT
+
+    console.log("Size of the message going to GPT: ", updatedMessage.length);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setContext(context + 1);
     setMessage("");
     setAdIndex(adIndex + 1);
     setTimeout(async () => {
@@ -140,13 +159,13 @@ const MessageEntry = ({
 
       const aiMessage = data.choices[0].message.content.trim();
       // Write the new AI response to Firestore
-      updateFirestoreChat(
+      aiFirestoreOperation = updateFirestoreChat(
         aiMessage,
         "assistant",
         anonId,
         theme,
         db,
-        contextSize + 1
+        contextSize + 2
       );
       console.log(
         "messages length pre addition of new messages (2nd): ",
@@ -163,6 +182,8 @@ const MessageEntry = ({
           ...updatedPrevMessages[lastIndex],
           content: aiMessage,
         };
+
+        setContext(context + 2);
 
         console.log(
           "The messages array first message ",
@@ -189,16 +210,26 @@ const MessageEntry = ({
       alert("There was an error processing your message. Please try again.");
     } finally {
       if (tokenCount > 4090) {
+        await Promise.all([userFirestoreOperation, aiFirestoreOperation]);
         if (messages.length == 2 || messages.length == 3) {
-          setMessages([messages[0]]);
+          // setMessages([messages[0]]);
+          updateFirestoreContext(anonId, theme, db, 1);
+          setContext(0);
         } else {
-          setMessages((prevMessages) => {
-            const halfIndex = Math.ceil(prevMessages.length / 2);
-            const secondHalfMessages = prevMessages.slice(halfIndex);
-            const newMessages = [prevMessages[0], ...secondHalfMessages];
+          // setMessages((prevMessages) => {
+          //   const halfIndex = Math.ceil(prevMessages.length / 2);
+          //   const secondHalfMessages = prevMessages.slice(halfIndex);
+          //   const newMessages = [prevMessages[0], ...secondHalfMessages];
 
-            return newMessages;
-          });
+          //   return newMessages;
+          // });
+          updateFirestoreContext(
+            anonId,
+            theme,
+            db,
+            Math.floor((contextSize + 2) / 2)
+          );
+          setContext(Math.floor((contextSize + 2) / 2));
         }
 
         console.log("The conversation has been truncated.");

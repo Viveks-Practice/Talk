@@ -26,6 +26,7 @@ import {
   orderBy,
   getDoc,
   query,
+  hasOwnProperty,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -95,6 +96,7 @@ export default function App() {
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [anonId, setAnonId] = useState(null);
+  const [context, setContext] = useState(0);
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -241,6 +243,18 @@ export default function App() {
             };
           });
 
+          // Fetch the aiContextLength from the chat document
+          const chatDocRef = doc(db, "users", anonId, "chats", selectedOption);
+          const chatDoc = await getDoc(chatDocRef);
+          let aiContextLength = 8; //if the context limit was not set, but there were messages, default to 8
+          if (chatDoc.exists() && chatDoc.data().aiContextLength) {
+            aiContextLength = chatDoc.data().aiContextLength;
+          }
+
+          // Update the context state
+          setContext(aiContextLength);
+          console.log("Context from firebase download : ", aiContextLength);
+
           // console.log(messagesArray);
 
           // Updates the 'messages' state variable with the new 'messagesArray', while keeping the first entry.
@@ -257,6 +271,17 @@ export default function App() {
       };
 
       fetchMessages();
+
+      let timeoutId;
+      if (flatListRef.current) {
+        timeoutId = setTimeout(() => {
+          flatListRef.current.scrollToEnd({ animated: true });
+        }, 500); // or even 500ms depending on your case
+      }
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   }, [anonId, selectedOption]);
 
@@ -317,6 +342,8 @@ export default function App() {
             db={db}
             auth={auth}
             setFirebaseDataLoading={setFirebaseDataLoading}
+            context={context}
+            setContext={setContext}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -374,6 +401,8 @@ export default function App() {
             db={db}
             auth={auth}
             firebaseDataLoading={firebaseDataLoading}
+            context={context}
+            setContext={setContext}
           />
         </SafeAreaView>
       )}

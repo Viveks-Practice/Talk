@@ -82,3 +82,29 @@ export const updateFirestoreChat = async (
   // Add the message document to the messages collection
   await addDoc(messagesCollectionRef, messageDocument);
 };
+
+export const updateFirestoreContext = async (
+  chatId,
+  aiName,
+  db,
+  contextLength
+) => {
+  // User document reference
+  const userRef = doc(db, "users", chatId);
+
+  // Chat document reference
+  const chatRef = doc(userRef, "chats", aiName);
+
+  // Get chat document
+  const chatDoc = await getDoc(chatRef);
+
+  // Check if the document exists
+  if (!chatDoc.exists()) {
+    //do nothing
+  } else {
+    // If it exists just update the context length
+    await updateDoc(chatRef, {
+      aiContextLength: contextLength,
+    });
+  }
+};
