@@ -1,4 +1,4 @@
-//firebase-reading-context-limit branch
+//main branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -7,15 +7,15 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-// import {
-//   AppOpenAd,
-//   InterstitialAd,
-//   RewardedAd,
-//   BannerAd,
-//   TestIds,
-//   BannerAdSize,
-//   AdEventType,
-// } from "react-native-google-mobile-ads";
+import {
+  AppOpenAd,
+  InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize,
+  AdEventType,
+} from "react-native-google-mobile-ads";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import {
@@ -39,24 +39,24 @@ import {
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/personaModal";
-// import Banner from "./components/Banner";
+import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 
-// let adUnitIdInterstitial = "";
-// if (Platform.OS === "ios") {
-//   adUnitIdInterstitial = __DEV__
-//     ? TestIds.INTERSTITIAL
-//     : process.env.IOS_ADMOB_INTERSTITIAL_ID;
-// } else if (Platform.OS === "android") {
-//   adUnitIdInterstitial = __DEV__
-//     ? TestIds.INTERSTITIAL
-//     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
-// }
+let adUnitIdInterstitial = "";
+if (Platform.OS === "ios") {
+  adUnitIdInterstitial = __DEV__
+    ? TestIds.INTERSTITIAL
+    : process.env.IOS_ADMOB_INTERSTITIAL_ID;
+} else if (Platform.OS === "android") {
+  adUnitIdInterstitial = __DEV__
+    ? TestIds.INTERSTITIAL
+    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
+}
 
-// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-//   requestNonPersonalizedAdsOnly: true,
-// });
+const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+  requestNonPersonalizedAdsOnly: true,
+});
 
 /*****Firebase Config Start****** */
 // Your web app's Firebase configuration
@@ -138,33 +138,33 @@ export default function App() {
     "Sam Harris",
   ]);
 
-  // let adUnitId = "";
-  // if (Platform.OS === "ios") {
-  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
-  // } else if (Platform.OS === "android") {
-  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
-  // }
+  let adUnitId = "";
+  if (Platform.OS === "ios") {
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
+  } else if (Platform.OS === "android") {
+    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
+  }
 
   const flatListRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (loaded === true && messageCount % 4 == 3) {
-  //     interstitial.show();
-  //   }
-  //   const unsubscribe = interstitial.addAdEventListener(
-  //     AdEventType.LOADED,
-  //     () => {
-  //       setLoaded(true);
-  //       // console.log("Interstitial ad loaded!");
-  //     }
-  //   );
+  useEffect(() => {
+    if (loaded === true && messageCount % 4 == 3) {
+      interstitial.show();
+    }
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+        // console.log("Interstitial ad loaded!");
+      }
+    );
 
-  //   // Start loading the interstitial straight away
-  //   interstitial.load();
+    // Start loading the interstitial straight away
+    interstitial.load();
 
-  //   // Unsubscribe from events on unmount
-  //   return unsubscribe;
-  // }, [messageCount]);
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, [messageCount]);
 
   let loadingCircle = true;
 
@@ -221,8 +221,6 @@ export default function App() {
       const fetchMessages = async () => {
         setFirebaseDataLoading(true); // Set loading state to true before starting fetch
         loadingCircle = true;
-        console.log("anonId:", anonId);
-        console.log("selectedOption:", selectedOption);
         try {
           const messagesCollectionRef = collection(
             db,
@@ -256,9 +254,6 @@ export default function App() {
 
           // Update the context state
           setContext(aiContextLength);
-          console.log("Context from firebase download : ", aiContextLength);
-
-          // console.log(messagesArray);
 
           // Updates the 'messages' state variable with the new 'messagesArray', while keeping the first entry.
           setMessages((prevMessages) => [
@@ -317,7 +312,7 @@ export default function App() {
             setOptions={setOptions}
             selectedOption={selectedOption}
           />
-          {/* <Banner theme={theme} /> */}
+          <Banner theme={theme} />
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
@@ -376,7 +371,7 @@ export default function App() {
             setOptions={setOptions}
             selectedOption={selectedOption}
           />
-          {/* <Banner theme={theme} /> */}
+          <Banner theme={theme} />
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}

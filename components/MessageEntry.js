@@ -105,10 +105,6 @@ const MessageEntry = ({
       db,
       contextSize + 1
     );
-    console.log(
-      "Messages length (pre-addition of new messages): ",
-      contextSize
-    );
 
     const emptyResponseMessage = {
       id: Math.random().toString(),
@@ -119,12 +115,10 @@ const MessageEntry = ({
       role: "assistant",
     };
 
-    console.log("Context size being sent to GPT: ", contextSize);
     const firstMessage = messages[0];
     const slicedMessages = messages.slice(-contextSize);
     const updatedMessage = [firstMessage, ...slicedMessages, newMessage]; //setting the new message for the API call to GPT
 
-    console.log("Size of the message going to GPT: ", updatedMessage.length);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setContext(context + 1);
     setMessage("");
@@ -167,10 +161,7 @@ const MessageEntry = ({
         db,
         contextSize + 2
       );
-      console.log(
-        "messages length pre addition of new messages (2nd): ",
-        contextSize
-      );
+
       tokenCount = data.usage.total_tokens;
 
       //setting the messages array to the old array plus the response from GPT
@@ -185,18 +176,8 @@ const MessageEntry = ({
 
         setContext(context + 2);
 
-        console.log(
-          "The messages array first message ",
-          updatedPrevMessages[1]
-        );
-        console.log(
-          "The messages array last message ",
-          updatedPrevMessages[updatedPrevMessages.length - 1]
-        );
         return updatedPrevMessages;
       });
-
-      console.log("Token Count: ", data.usage.total_tokens);
 
       setMessageCount(messageCount + 1); //Loads interstitial message - triggers useEffect
       await AsyncStorage.setItem("messageCount", (messageCount + 1).toString());
