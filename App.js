@@ -166,8 +166,6 @@ export default function App() {
     return unsubscribe;
   }, [messageCount]);
 
-  let loadingCircle = true;
-
   useEffect(() => {
     let timeoutId;
     if (flatListRef.current) {
@@ -220,7 +218,6 @@ export default function App() {
     if (anonId && selectedOption) {
       const fetchMessages = async () => {
         setFirebaseDataLoading(true); // Set loading state to true before starting fetch
-        loadingCircle = true;
         try {
           const messagesCollectionRef = collection(
             db,
@@ -266,7 +263,6 @@ export default function App() {
         }
 
         setFirebaseDataLoading(false); // Set loading state to false after fetch is complete
-        loadingCircle = false;
       };
 
       fetchMessages();
