@@ -84,7 +84,7 @@ const ChatWindow = ({
         <View style={ChatWindowStyles.loadingOverlay}>
           <ActivityIndicator
             size="large"
-            color={themes[theme].colorSchemes.first}
+            color={themes[theme].colorSchemes.fourth}
           />
         </View>
       )}

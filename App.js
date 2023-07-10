@@ -93,7 +93,7 @@ const db = getFirestore(app);
 export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [firebaseDataLoading, setFirebaseDataLoading] = useState(false);
+  const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [anonId, setAnonId] = useState(null);
   const [context, setContext] = useState(0);
@@ -166,6 +166,8 @@ export default function App() {
   //   return unsubscribe;
   // }, [messageCount]);
 
+  let loadingCircle = true;
+
   useEffect(() => {
     let timeoutId;
     if (flatListRef.current) {
@@ -218,6 +220,7 @@ export default function App() {
     if (anonId && selectedOption) {
       const fetchMessages = async () => {
         setFirebaseDataLoading(true); // Set loading state to true before starting fetch
+        loadingCircle = true;
         console.log("anonId:", anonId);
         console.log("selectedOption:", selectedOption);
         try {
@@ -268,6 +271,7 @@ export default function App() {
         }
 
         setFirebaseDataLoading(false); // Set loading state to false after fetch is complete
+        loadingCircle = false;
       };
 
       fetchMessages();
@@ -324,7 +328,7 @@ export default function App() {
             theme={theme}
             flatListRef={flatListRef}
             themes={themes}
-            setFirebaseDataLoading={setFirebaseDataLoading}
+            firebaseDataLoading={firebaseDataLoading}
           />
           <MessageEntry
             theme={theme}
@@ -341,7 +345,7 @@ export default function App() {
             app={app}
             db={db}
             auth={auth}
-            setFirebaseDataLoading={setFirebaseDataLoading}
+            firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
           />
