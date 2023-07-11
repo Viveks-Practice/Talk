@@ -271,7 +271,7 @@ export default function App() {
       if (flatListRef.current) {
         timeoutId = setTimeout(() => {
           flatListRef.current.scrollToEnd({ animated: true });
-        }, 500); // or even 500ms depending on your case
+        }, 4000); // or even 500ms depending on your case
       }
 
       return () => {
