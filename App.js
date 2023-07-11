@@ -117,6 +117,7 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     "Neo - The Chat AI",
+    "Gigachad",
     "David Goggins",
     "Link",
     "Princess Zelda",
@@ -132,7 +133,6 @@ export default function App() {
     "Darth Vader",
     "Kratos - God of War",
     "Kim Kardashian",
-    "Gigachad",
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",
