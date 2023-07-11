@@ -146,6 +146,20 @@ const MessageEntry = ({
       });
 
       if (!response.ok) {
+        // half the context in case that was the issue
+        updateFirestoreContext(
+          anonId,
+          theme,
+          db,
+          Math.floor((contextSize + 2) / 2)
+        );
+        setContext(Math.floor((contextSize + 2) / 2));
+        console.log(
+          "The conversation has been truncated, as the message made the context too long: ",
+          contextSize
+        );
+
+        //throw the error, but it should not occur again if the issue was the context size
         throw new Error("Network response was not ok");
       }
 
@@ -163,6 +177,7 @@ const MessageEntry = ({
       );
 
       tokenCount = data.usage.total_tokens;
+      console.log("tokenCount: ", tokenCount);
 
       //setting the messages array to the old array plus the response from GPT
       //but the response is removing the Thinking... element that was added to the array, to have the thinking effect.
@@ -193,17 +208,9 @@ const MessageEntry = ({
       if (tokenCount > 4090) {
         await Promise.all([userFirestoreOperation, aiFirestoreOperation]);
         if (messages.length == 2 || messages.length == 3) {
-          // setMessages([messages[0]]);
           updateFirestoreContext(anonId, theme, db, 1);
           setContext(0);
         } else {
-          // setMessages((prevMessages) => {
-          //   const halfIndex = Math.ceil(prevMessages.length / 2);
-          //   const secondHalfMessages = prevMessages.slice(halfIndex);
-          //   const newMessages = [prevMessages[0], ...secondHalfMessages];
-
-          //   return newMessages;
-          // });
           updateFirestoreContext(
             anonId,
             theme,

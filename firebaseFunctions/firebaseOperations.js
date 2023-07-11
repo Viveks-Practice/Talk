@@ -28,8 +28,6 @@ export const updateFirestoreChat = async (
     role: role,
   };
 
-  console.log("Context length: ", contextLength);
-
   const { name } = Constants.manifest;
 
   // User document reference
