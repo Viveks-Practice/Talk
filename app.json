@@ -2,7 +2,7 @@
   "expo": {
     "name": "Neo - The Chat AI",
     "slug": "talk",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
       "bundleIdentifier": "com.viveksharma.talk"
     },
     "android": {
-      "versionCode": 94,
+      "versionCode": 95,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
