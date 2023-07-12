@@ -2,7 +2,7 @@
   "expo": {
     "name": "Top-G-PT",
     "slug": "Top-G-PT",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon-top-g.png",
     "userInterfaceStyle": "light",
@@ -16,7 +16,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 96,
+      "versionCode": 97,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-top-g.png",
         "backgroundColor": "#ffffff"

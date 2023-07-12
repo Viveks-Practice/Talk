@@ -15,7 +15,7 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 import LoginModal from "./LoginModal";
-import avatarImage from "../assets/icon-tate-face.png";
+import avatarImage from "../assets/icon-top-g.png";
 
 const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
