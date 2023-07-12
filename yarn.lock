@@ -4194,6 +4194,11 @@ expo-font@~11.1.1:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-in-app-purchases@~14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/expo-in-app-purchases/-/expo-in-app-purchases-14.1.1.tgz#315188fb59724a1e6e450d80653c590117b7b340"
+  integrity sha512-koY+XJLqP5DVBAALas2IHWnIh9B3JP/0ZQAaiZzoFc6VP0yXZOmVDsuNyqiPIvdzXf/dKqXwdiYnpot4MQ6zlQ==
+
 expo-json-utils@~0.5.0:
   version "0.5.1"
   resolved "https://registry.npmjs.org/expo-json-utils/-/expo-json-utils-0.5.1.tgz"
