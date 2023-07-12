@@ -7,6 +7,7 @@ import {
   Modal,
   TextInput,
   Button,
+  Image,
 } from "react-native";
 import { Header } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +15,7 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 import LoginModal from "./LoginModal";
+import avatarImage from "../assets/icon-tate-face.png";
 
 const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
@@ -32,12 +34,34 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
     <Header
       placement="center"
       centerComponent={
-        <Pressable onPress={() => setModalVisible(true)}>
-          <Text style={[styles.headerTitle]}>
-            {selectedOption}
-            <Ionicons name="chevron-down-outline" size={18} color="#fff" />
-          </Text>
-        </Pressable>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              overflow: "hidden",
+              marginRight: 10,
+              borderWidth: 2,
+              borderColor: themes[theme].colorSchemes.eighth,
+            }}
+          >
+            <Image
+              source={avatarImage}
+              style={{ width: "100%", height: "100%" }}
+              resizeMode="cover"
+            />
+          </View>
+          <Pressable>
+            <Text style={[styles.headerTitle]}>{selectedOption}</Text>
+          </Pressable>
+        </View>
       }
       // rightComponent={
       //   <View style={styles.loginButtonContainer}>

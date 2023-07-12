@@ -1,28 +1,27 @@
 {
   "expo": {
-    "name": "Neo - The Chat AI",
-    "slug": "talk",
+    "name": "Top-G-PT",
+    "slug": "Top-G-PT",
     "version": "4.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-top-g.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-chad.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.viveksharma.talk"
+      "supportsTablet": true
     },
     "android": {
       "versionCode": 95,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon-top-g.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.viveks_7764.talk",
+      "package": "com.viveks_7764.TopGPT",
       "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
@@ -30,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "cc037b85-88ca-4802-89bd-d0a15237684e"
+        "projectId": "dcbb0233-f570-438f-a9df-f7484f3ef967"
       }
     },
     "plugins": [
@@ -45,7 +44,6 @@
     ]
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-5578644815986311~2108120524",
-    "ios_app_id": "ca-app-pub-5578644815986311~4116773559"
+    "android_app_id": "ca-app-pub-5578644815986311~9709752607"
   }
 }

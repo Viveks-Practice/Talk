@@ -110,11 +110,11 @@ const PersonaModal = ({
               },
             ]}
           >
-            <PersonSearch
+            {/* <PersonSearch
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               searchPerson={searchPerson}
-            />
+            /> */}
             <FlatList
               data={options}
               renderItem={({ item }) => (
@@ -126,14 +126,14 @@ const PersonaModal = ({
                         themes["Neo - The Chat AI"].colorSchemes.sixth,
                     },
                   ]}
-                  onPress={() => {
-                    if (item !== selectedOption) {
-                      setSelectedOption(item);
-                      setTheme(item);
-                      setMessages(themes[item].initialMessages);
-                    }
-                    setModalVisible(!modalVisible);
-                  }}
+                  // onPress={() => {
+                  //   if (item !== selectedOption) {
+                  //     setSelectedOption(item);
+                  //     setTheme(item);
+                  //     setMessages(themes[item].initialMessages);
+                  //   }
+                  //   setModalVisible(!modalVisible);
+                  // }}
                 >
                   <Text style={PersonaModalStyles.optionText}>{item}</Text>
                 </TouchableOpacity>

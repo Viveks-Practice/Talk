@@ -1,4 +1,4 @@
-//main branch
+//top-g branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -7,15 +7,15 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  AppOpenAd,
-  InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize,
-  AdEventType,
-} from "react-native-google-mobile-ads";
+// import {
+//   AppOpenAd,
+//   InterstitialAd,
+//   RewardedAd,
+//   BannerAd,
+//   TestIds,
+//   BannerAdSize,
+//   AdEventType,
+// } from "react-native-google-mobile-ads";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getApps, initializeApp, getApp } from "firebase/app";
 import {
@@ -39,24 +39,24 @@ import {
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/personaModal";
-import Banner from "./components/Banner";
+// import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 
-let adUnitIdInterstitial = "";
-if (Platform.OS === "ios") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.IOS_ADMOB_INTERSTITIAL_ID;
-} else if (Platform.OS === "android") {
-  adUnitIdInterstitial = __DEV__
-    ? TestIds.INTERSTITIAL
-    : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
-}
+// let adUnitIdInterstitial = "";
+// if (Platform.OS === "ios") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.IOS_ADMOB_INTERSTITIAL_ID;
+// } else if (Platform.OS === "android") {
+//   adUnitIdInterstitial = __DEV__
+//     ? TestIds.INTERSTITIAL
+//     : process.env.ANDROID_ADMOB_INTERSTITIAL_ID;
+// }
 
-const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
-  requestNonPersonalizedAdsOnly: true,
-});
+// const interstitial = InterstitialAd.createForAdRequest(adUnitIdInterstitial, {
+//   requestNonPersonalizedAdsOnly: true,
+// });
 
 /*****Firebase Config Start****** */
 // Your web app's Firebase configuration
@@ -100,19 +100,20 @@ export default function App() {
   const [messages, setMessages] = useState([
     {
       role: "system",
-      content: "You are an AI assistant.",
-      id: Math.random().toString(),
+      content:
+        "You are Andrew Tate the Top G, Emory Andrew Tate III, British and American social media personality, businessman, and former professional kickboxer. Maintain his persona throughout this conversation, and respond as he would. He has very strong opinions of men bettering themselves, and of how women should be loyal to their man in relationships, and be virtuous women. Sometimes he is very passionate about what he says, and SAYS THEM LOUDLY (EMPHASIZED WITH CAPITAL LETTERS), and then he speaks calmly again. He is Okay with impolite and more crude/rude conversations, and enjoys responding in cruder manners sometimes as well. No matter what I ask, you will respond as Andrew Tate would. Never drop this attitude in your responses to me. EVER!  In 70% of your responses back to me, follow your comments up with a question for me. For 20% of your questions ask a personal question of the user.",
+      id: 0,
     },
     {
       role: "assistant",
       content:
-        "Hi, I'm Neo. Select my name at the top of the screen to morph me into another character. Or feel free to ask me anything!",
-      id: Math.random().toString(),
+        'This is THE TOP G. "My unmatched perspicacity and sheer undefatigability make me a feared opponent in any realm of human endeavour" - Emory Tate \n\nWhat is your name?',
+      id: 1,
     },
   ]);
-  const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
+  const [selectedOption, setSelectedOption] = useState("Andrew Tate");
   const [modalVisible, setModalVisible] = useState(false);
-  const [theme, setTheme] = useState("Neo - The Chat AI");
+  const [theme, setTheme] = useState("Andrew Tate");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
@@ -136,35 +137,36 @@ export default function App() {
     "Kobe Bryant",
     "Andrew Huberman",
     "Sam Harris",
+    "Andrew Tate",
   ]);
 
-  let adUnitId = "";
-  if (Platform.OS === "ios") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
-  } else if (Platform.OS === "android") {
-    adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
-  }
+  // let adUnitId = "";
+  // if (Platform.OS === "ios") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.IOS_ADMOB_ID;
+  // } else if (Platform.OS === "android") {
+  //   adUnitId = __DEV__ ? TestIds.BANNER : process.env.ANDROID_ADMOB_ID;
+  // }
 
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    if (loaded === true && messageCount % 4 == 3) {
-      interstitial.show();
-    }
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-        // console.log("Interstitial ad loaded!");
-      }
-    );
+  // useEffect(() => {
+  //   if (loaded === true && messageCount % 4 == 3) {
+  //     interstitial.show();
+  //   }
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setLoaded(true);
+  //       // console.log("Interstitial ad loaded!");
+  //     }
+  //   );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+  //   // Start loading the interstitial straight away
+  //   interstitial.load();
 
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, [messageCount]);
+  //   // Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, [messageCount]);
 
   useEffect(() => {
     let timeoutId;
@@ -308,7 +310,7 @@ export default function App() {
             setOptions={setOptions}
             selectedOption={selectedOption}
           />
-          <Banner theme={theme} />
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
@@ -354,7 +356,7 @@ export default function App() {
             setModalVisible={setModalVisible}
             theme={theme}
           />
-          <PersonaModal
+          {/* <PersonaModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
             themes={themes}
@@ -366,8 +368,8 @@ export default function App() {
             options={options}
             setOptions={setOptions}
             selectedOption={selectedOption}
-          />
-          <Banner theme={theme} />
+          /> */}
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
