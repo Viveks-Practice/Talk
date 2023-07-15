@@ -36,6 +36,8 @@ import {
   getReactNativePersistence,
 } from "firebase/auth";
 
+import * as InAppPurchases from "expo-in-app-purchases";
+
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
 import PersonaModal from "./components/personaModal";
@@ -97,6 +99,7 @@ export default function App() {
   const [message, setMessage] = useState("");
   const [anonId, setAnonId] = useState(null);
   const [context, setContext] = useState(0);
+  const [products, setProducts] = useState([]);
   const [messages, setMessages] = useState([
     {
       role: "system",
@@ -146,7 +149,7 @@ export default function App() {
   }
 
   const flatListRef = useRef(null);
-
+  //advertisement interstitial
   useEffect(() => {
     if (loaded === true && messageCount % 4 == 3) {
       interstitial.show();
@@ -165,6 +168,37 @@ export default function App() {
     // Unsubscribe from events on unmount
     return unsubscribe;
   }, [messageCount]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        console.log("Connecting to the app store...");
+        await InAppPurchases.connectAsync();
+        const { responseCode, results } = await InAppPurchases.getProductsAsync(
+          ["com.leaf.talk.1000coins"]
+        );
+        console.log("Connected to the app store!");
+        console.log(
+          "Response Code from Connection to the app store: ",
+          JSON.stringify(responseCode, null, 2)
+        );
+        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+          setProducts(results);
+          console.log(
+            "Products from the App Store: ",
+            JSON.stringify(results, null, 2)
+          ); // log the results in a readable format
+        }
+      } catch (error) {
+        console.log("Error connecting to the app store...");
+        console.log("Error fetching products:", error);
+      }
+    };
+
+    getProducts();
+
+    return () => InAppPurchases.disconnectAsync();
+  }, []);
 
   useEffect(() => {
     let timeoutId;
