@@ -1,4 +1,4 @@
-//main branch
+//iap-purchase branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
