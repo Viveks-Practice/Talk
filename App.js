@@ -6,6 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   KeyboardAvoidingView,
+  AppState,
 } from "react-native";
 import {
   AppOpenAd,
@@ -169,36 +170,57 @@ export default function App() {
     return unsubscribe;
   }, [messageCount]);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        console.log("Connecting to the app store...");
-        await InAppPurchases.connectAsync();
-        const { responseCode, results } = await InAppPurchases.getProductsAsync(
-          ["com.leaf.talk.1000coins"]
-        );
-        console.log("Connected to the app store!");
-        console.log(
-          "Response Code from Connection to the app store: ",
-          JSON.stringify(responseCode, null, 2)
-        );
-        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-          setProducts(results);
+  const YourComponent = () => {
+    useEffect(() => {
+      const getProducts = async () => {
+        try {
+          console.log("Connecting to the app store...");
+          await InAppPurchases.connectAsync();
+          const { responseCode, results } =
+            await InAppPurchases.getProductsAsync(["com.leaf.talk.1000coins"]);
+          console.log("Connected to the app store!");
           console.log(
-            "Products from the App Store: ",
-            JSON.stringify(results, null, 2)
-          ); // log the results in a readable format
+            "Response Code from Connection to the app store: ",
+            JSON.stringify(responseCode, null, 2)
+          );
+          if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+            setProducts(results);
+            console.log(
+              "Products from the App Store: ",
+              JSON.stringify(results, null, 2)
+            ); // log the results in a readable format
+          }
+        } catch (error) {
+          console.log("Error connecting to the app store...");
+          console.log("Error fetching products:", error);
         }
-      } catch (error) {
-        console.log("Error connecting to the app store...");
-        console.log("Error fetching products:", error);
+      };
+
+      async function handleAppStateChange(nextAppState) {
+        if (nextAppState === "background" || nextAppState === "inactive") {
+          // Disconnect from the app store
+          await InAppPurchases.disconnectAsync();
+        } else if (nextAppState === "active") {
+          // The app has come back to the foreground
+          await getProducts();
+        }
       }
-    };
 
-    getProducts();
+      // Add the listener when the component mounts
+      AppState.addEventListener("change", handleAppStateChange);
 
-    return () => InAppPurchases.disconnectAsync();
-  }, []);
+      // Fetch products initially
+      getProducts();
+
+      // Return a cleanup function that removes the listener when the component unmounts
+      return () => {
+        AppState.removeEventListener("change", handleAppStateChange);
+        InAppPurchases.disconnectAsync();
+      };
+    }, []); // Empty array means this effect runs once on mount and cleanup on unmount
+
+    // The rest of your component...
+  };
 
   useEffect(() => {
     let timeoutId;
