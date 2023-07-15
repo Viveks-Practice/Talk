@@ -14,20 +14,13 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 import LoginModal from "./LoginModal";
+import ProductsModal from "./ProductsModal";
 
-const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
+const NeoHeader = ({ selectedOption, setModalVisible, theme, products }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log(
-      `Logging in with username: ${username} and password: ${password}`
-    );
-    setLoginModalVisible(false);
-  };
-
+  const [purchaseModalVisible, setPurchaseModalVisible] = useState(false);
   return (
     <Header
       placement="center"
@@ -39,23 +32,40 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
           </Text>
         </Pressable>
       }
-      // rightComponent={
-      //   <View style={styles.loginButtonContainer}>
-      //     <Pressable
-      //       style={[
-      //         styles.loginButton,
-      //         {
-      //           backgroundColor: themes[theme].colorSchemes.sixth,
-      //           shadowColor: themes[theme].colorSchemes.first,
-      //           borderColor: themes[theme].colorSchemes.fourth,
-      //         },
-      //       ]}
-      //       onPress={() => setLoginModalVisible(true)}
-      //     >
-      //       <Text style={styles.loginButtonText}>Log In</Text>
-      //     </Pressable>
-      //   </View>
-      // }
+      rightComponent={
+        <View style={styles.loginButtonContainer}>
+          <Pressable
+            style={[
+              styles.loginButton,
+              {
+                backgroundColor: themes[theme].colorSchemes.sixth,
+                shadowColor: themes[theme].colorSchemes.first,
+                borderColor: themes[theme].colorSchemes.fourth,
+              },
+            ]}
+            onPress={() => setLoginModalVisible(true)}
+          >
+            <Text style={styles.loginButtonText}>Log In</Text>
+          </Pressable>
+        </View>
+      }
+      leftComponent={
+        <View style={styles.loginButtonContainer}>
+          <Pressable
+            style={[
+              styles.signupButton,
+              {
+                backgroundColor: themes[theme].colorSchemes.sixth,
+                shadowColor: themes[theme].colorSchemes.first,
+                borderColor: themes[theme].colorSchemes.fourth,
+              },
+            ]}
+            onPress={() => setPurchaseModalVisible(true)}
+          >
+            <Text style={styles.loginButtonText}>Buy Coins</Text>
+          </Pressable>
+        </View>
+      }
       containerStyle={{
         backgroundColor: themes[theme].colorSchemes.seventh,
         borderBottomColor: themes[theme].colorSchemes.eighth,
@@ -67,6 +77,11 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
       <LoginModal
         isVisible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
+      />
+      <ProductsModal
+        isVisible={purchaseModalVisible}
+        onClose={() => setPurchaseModalVisible(false)}
+        products={products}
       />
     </Header>
   );

@@ -6,6 +6,7 @@ import {
   StatusBar,
   SafeAreaView,
   KeyboardAvoidingView,
+  AppState,
 } from "react-native";
 import {
   AppOpenAd,
@@ -195,10 +196,30 @@ export default function App() {
       }
     };
 
+    async function handleAppStateChange(nextAppState) {
+      if (nextAppState === "background" || nextAppState === "inactive") {
+        // Disconnect from the app store
+        console.log("Disconnecting from the app store...");
+        await InAppPurchases.disconnectAsync();
+        console.log("Disconnected from the app store!");
+      } else if (nextAppState === "active") {
+        // The app has come back to the foreground
+        await getProducts();
+      }
+    }
+
+    // Add the listener when the component mounts
+    AppState.addEventListener("change", handleAppStateChange);
+
+    // Fetch products initially
     getProducts();
 
-    return () => InAppPurchases.disconnectAsync();
-  }, []);
+    // Return a cleanup function that removes the listener when the component unmounts
+    return () => {
+      AppState.removeEventListener("change", handleAppStateChange);
+      InAppPurchases.disconnectAsync();
+    };
+  }, []); // Empty array means this effect runs once on mount and cleanup on unmount
 
   useEffect(() => {
     let timeoutId;
@@ -328,6 +349,7 @@ export default function App() {
             selectedOption={selectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            products={products}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -387,6 +409,7 @@ export default function App() {
             selectedOption={selectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            products={products}
           />
           <PersonaModal
             modalVisible={modalVisible}
