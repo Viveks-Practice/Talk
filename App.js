@@ -170,57 +170,67 @@ export default function App() {
     return unsubscribe;
   }, [messageCount]);
 
-  const YourComponent = () => {
-    useEffect(() => {
-      const getProducts = async () => {
-        try {
-          console.log("Connecting to the app store...");
-          await InAppPurchases.connectAsync();
-          const { responseCode, results } =
-            await InAppPurchases.getProductsAsync(["com.leaf.talk.1000coins"]);
-          console.log("Connected to the app store!");
-          console.log(
-            "Response Code from Connection to the app store: ",
-            JSON.stringify(responseCode, null, 2)
-          );
-          if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-            setProducts(results);
-            console.log(
-              "Products from the App Store: ",
-              JSON.stringify(results, null, 2)
-            ); // log the results in a readable format
-          }
-        } catch (error) {
-          console.log("Error connecting to the app store...");
-          console.log("Error fetching products:", error);
-        }
-      };
+  useEffect(() => {
+    let isConnected = false;
+    let isConnecting = false;
 
-      async function handleAppStateChange(nextAppState) {
-        if (nextAppState === "background" || nextAppState === "inactive") {
-          // Disconnect from the app store
-          await InAppPurchases.disconnectAsync();
-        } else if (nextAppState === "active") {
-          // The app has come back to the foreground
-          await getProducts();
-        }
+    const getProducts = async () => {
+      if (isConnected || isConnecting) {
+        console.log("Already connected to the app store or connecting...");
+        return;
       }
+      try {
+        console.log("Connecting to the app store...");
+        isConnecting = true;
+        await InAppPurchases.connectAsync();
+        isConnected = true;
+        isConnecting = false;
+        console.log("Connected to the app store!");
 
-      // Add the listener when the component mounts
-      AppState.addEventListener("change", handleAppStateChange);
+        const { responseCode, results } = await InAppPurchases.getProductsAsync(
+          ["com.leaf.talk.1000coins"]
+        );
+        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+          setProducts(results);
+          console.log(
+            "Products retrieved successfully: ",
+            JSON.stringify(results)
+          );
+        }
+      } catch (error) {
+        console.log("Error connecting to the app store...");
+        console.log("Error fetching products:", error);
+        isConnected = false;
+        isConnecting = false;
+      }
+    };
 
-      // Fetch products initially
-      getProducts();
+    async function handleAppStateChange(nextAppState) {
+      if (
+        (nextAppState === "background" || nextAppState === "inactive") &&
+        isConnected
+      ) {
+        // Disconnect from the app store
+        console.log("Disconnecting from the app store...");
+        await InAppPurchases.disconnectAsync();
+        isConnected = false;
+        console.log("Disconnected from the app store!");
+      } else if (nextAppState === "active") {
+        await getProducts();
+      }
+    }
 
-      // Return a cleanup function that removes the listener when the component unmounts
-      return () => {
-        AppState.removeEventListener("change", handleAppStateChange);
+    AppState.addEventListener("change", handleAppStateChange);
+
+    getProducts();
+
+    return () => {
+      AppState.removeEventListener("change", handleAppStateChange);
+      if (isConnected) {
         InAppPurchases.disconnectAsync();
-      };
-    }, []); // Empty array means this effect runs once on mount and cleanup on unmount
-
-    // The rest of your component...
-  };
+      }
+    };
+  }, []);
 
   useEffect(() => {
     let timeoutId;
