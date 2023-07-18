@@ -14,61 +14,72 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 import LoginModal from "./LoginModal";
+import ProductModal from "./ProductModal";
 
-const NeoHeader = ({ selectedOption, setModalVisible, theme }) => {
+const NeoHeader = ({ selectedOption, setModalVisible, theme, products }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
+  const [productModalVisible, setProductModalVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log(
-      `Logging in with username: ${username} and password: ${password}`
-    );
-    setLoginModalVisible(false);
-  };
-
   return (
-    <Header
-      placement="center"
-      centerComponent={
-        <Pressable onPress={() => setModalVisible(true)}>
-          <Text style={[styles.headerTitle]}>
-            {selectedOption}
-            <Ionicons name="chevron-down-outline" size={18} color="#fff" />
-          </Text>
-        </Pressable>
-      }
-      // rightComponent={
-      //   <View style={styles.loginButtonContainer}>
-      //     <Pressable
-      //       style={[
-      //         styles.loginButton,
-      //         {
-      //           backgroundColor: themes[theme].colorSchemes.sixth,
-      //           shadowColor: themes[theme].colorSchemes.first,
-      //           borderColor: themes[theme].colorSchemes.fourth,
-      //         },
-      //       ]}
-      //       onPress={() => setLoginModalVisible(true)}
-      //     >
-      //       <Text style={styles.loginButtonText}>Log In</Text>
-      //     </Pressable>
-      //   </View>
-      // }
-      containerStyle={{
-        backgroundColor: themes[theme].colorSchemes.seventh,
-        borderBottomColor: themes[theme].colorSchemes.eighth,
-        borderBottomWidth: 1,
-        marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
-        paddingTop: Platform.OS == "android" ? 35 : null,
-      }}
-    >
+    <View>
+      <Header
+        placement="center"
+        centerComponent={
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Pressable
+              onPress={() => {
+                setProductModalVisible(true);
+              }}
+              style={{ marginRight: 50, marginTop: 4 }}
+            >
+              <Ionicons name="wallet-outline" size={24} color="#fff" />
+            </Pressable>
+            <Pressable onPress={() => setModalVisible(true)}>
+              <Text style={[styles.headerTitle]}>
+                {selectedOption}
+                <Ionicons name="chevron-down-outline" size={18} color="#fff" />
+              </Text>
+            </Pressable>
+            <View style={{ width: 24, marginLeft: 50 }} />
+          </View>
+        }
+        rightComponent={
+          <View style={styles.loginButtonContainer}>
+            <Pressable
+              style={[
+                styles.loginButton,
+                {
+                  backgroundColor: themes[theme].colorSchemes.sixth,
+                  shadowColor: themes[theme].colorSchemes.first,
+                  borderColor: themes[theme].colorSchemes.fourth,
+                },
+              ]}
+              onPress={() => setLoginModalVisible(true)}
+            >
+              <Text style={styles.loginButtonText}>Log In</Text>
+            </Pressable>
+          </View>
+        }
+        containerStyle={{
+          backgroundColor: themes[theme].colorSchemes.seventh,
+          borderBottomColor: themes[theme].colorSchemes.eighth,
+          borderBottomWidth: 1,
+          marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
+          paddingTop: Platform.OS == "android" ? 35 : null,
+        }}
+      />
       <LoginModal
         isVisible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
       />
-    </Header>
+      <ProductModal // Add the ProductModal here
+        isVisible={productModalVisible}
+        onClose={() => setProductModalVisible(false)}
+        products={products} // Pass the products as a prop
+      />
+    </View>
   );
 };
 

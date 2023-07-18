@@ -1,0 +1,118 @@
+import React from "react";
+import {
+  Modal,
+  View,
+  Pressable,
+  Text,
+  StyleSheet,
+  FlatList,
+} from "react-native";
+import * as InAppPurchases from "expo-in-app-purchases";
+
+const ProductModal = ({ isVisible, onClose, products }) => {
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={onClose}
+    >
+      <Pressable style={styles.modalOverlay} onPress={onClose}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <FlatList
+              data={products}
+              keyExtractor={(item) => item.productId}
+              renderItem={({ item }) => (
+                <View style={styles.productContainer}>
+                  <Text style={styles.productTitle}>{item.title}</Text>
+                  <Text style={styles.productDescription}>
+                    {item.description}
+                  </Text>
+                  <Text style={styles.productPrice}>{item.price}</Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={async () => {
+                      console.log("Product ID: " + item.productId);
+                      const { responseCode, results } =
+                        await InAppPurchases.purchaseItemAsync(item.productId);
+                      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+                        const purchase = results[0];
+                        // Handle purchase here
+                        console.log(purchase);
+                      }
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Buy</Text>
+                  </Pressable>
+                </View>
+              )}
+            />
+          </View>
+        </View>
+      </Pressable>
+    </Modal>
+  );
+};
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#161d27",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  productContainer: {
+    width: 200,
+    marginBottom: 20,
+  },
+  productTitle: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  productDescription: {
+    color: "white",
+  },
+  productPrice: {
+    color: "white",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "#3e6088",
+    marginTop: 10,
+  },
+  buttonClose: {
+    backgroundColor: "#3e6088",
+    width: 200,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+
+export default ProductModal;

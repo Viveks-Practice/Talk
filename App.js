@@ -188,7 +188,16 @@ export default function App() {
         console.log("Connected to the app store!");
 
         const { responseCode, results } = await InAppPurchases.getProductsAsync(
-          ["com.leaf.talk.1000coins"]
+          [
+            "com.leaf.talk.1000coins",
+            "com.leaf.talk.475coins",
+            "com.leaf.talk.1300coins",
+            "com.leaf.talk.2600coins",
+            "com.leaf.talk.4325coins",
+            "com.leaf.talk.6500coins",
+            "com.leaf.talk.11250coins",
+            "android.test.purchased",
+          ]
         );
         if (responseCode === InAppPurchases.IAPResponseCode.OK) {
           setProducts(results);
@@ -206,10 +215,7 @@ export default function App() {
     };
 
     async function handleAppStateChange(nextAppState) {
-      if (
-        (nextAppState === "background" || nextAppState === "inactive") &&
-        isConnected
-      ) {
+      if (nextAppState === "inactive" && isConnected) {
         // Disconnect from the app store
         console.log("Disconnecting from the app store...");
         await InAppPurchases.disconnectAsync();
@@ -360,6 +366,7 @@ export default function App() {
             selectedOption={selectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            products={products}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -419,6 +426,7 @@ export default function App() {
             selectedOption={selectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            products={products}
           />
           <PersonaModal
             modalVisible={modalVisible}
