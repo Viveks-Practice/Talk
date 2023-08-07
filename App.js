@@ -1,4 +1,4 @@
-//main branch
+//revenueCat branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
