@@ -38,6 +38,7 @@ import {
 } from "firebase/auth";
 
 import * as InAppPurchases from "expo-in-app-purchases";
+import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
@@ -170,73 +171,100 @@ export default function App() {
     return unsubscribe;
   }, [messageCount]);
 
+  // Initialize the RevenueCat SDK
   useEffect(() => {
-    let isConnected = false;
-    let isConnecting = false;
-
-    const getProducts = async () => {
-      if (isConnected || isConnecting) {
-        console.log("Already connected to the app store or connecting...");
-        return;
-      }
-      try {
-        console.log("Connecting to the app store...");
-        isConnecting = true;
-        await InAppPurchases.connectAsync();
-        isConnected = true;
-        isConnecting = false;
-        console.log("Connected to the app store!");
-
-        const { responseCode, results } = await InAppPurchases.getProductsAsync(
-          [
-            "com.leaf.talk.1000coins",
-            "com.leaf.talk.475coins",
-            "com.leaf.talk.1300coins",
-            "com.leaf.talk.2600coins",
-            "com.leaf.talk.4325coins",
-            "com.leaf.talk.6500coins",
-            "com.leaf.talk.11250coins",
-            "android.test.purchased",
-          ]
-        );
-        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-          setProducts(results);
-          console.log(
-            "Products retrieved successfully: ",
-            JSON.stringify(results)
-          );
-        }
-      } catch (error) {
-        console.log("Error connecting to the app store...");
-        console.log("Error fetching products:", error);
-        isConnected = false;
-        isConnecting = false;
-      }
-    };
-
-    async function handleAppStateChange(nextAppState) {
-      if (nextAppState === "inactive" && isConnected) {
-        // Disconnect from the app store
-        console.log("Disconnecting from the app store...");
-        await InAppPurchases.disconnectAsync();
-        isConnected = false;
-        console.log("Disconnected from the app store!");
-      } else if (nextAppState === "active") {
-        await getProducts();
-      }
+    // Purchases.setDebugLogsEnabled(true);
+    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+    if (Platform.OS === "android") {
+      Purchases.configure({ apiKey: "goog_RvHWMDGiJNVKTFuzggIhCVZkuuT" });
+    } else {
+      Purchases.configure({ apiKey: "appl_cOTKWjftumcDCLCkeDTkeCmfKTs" });
     }
 
-    AppState.addEventListener("change", handleAppStateChange);
-
-    getProducts();
-
-    return () => {
-      AppState.removeEventListener("change", handleAppStateChange);
-      if (isConnected) {
-        InAppPurchases.disconnectAsync();
+    // Retrieve the products from RevenueCat
+    const fetchData = async () => {
+      const offerings = await Purchases.getOfferings();
+      if (offerings.current !== null) {
+        console.log("RevenueCat Offerings: ", offerings.current);
+        console.log(
+          "RevenueCat Products: ",
+          offerings.current.availablePackages
+        );
+        setProducts(offerings.current.availablePackages);
       }
+      // setCurrentOffering(offerings.current);
     };
+
+    fetchData().catch(console.log);
   }, []);
+
+  // useEffect(() => {
+  //   let isConnected = false;
+  //   let isConnecting = false;
+
+  //   const getProducts = async () => {
+  //     if (isConnected || isConnecting) {
+  //       console.log("Already connected to the app store or connecting...");
+  //       return;
+  //     }
+  //     try {
+  //       console.log("Connecting to the app store...");
+  //       isConnecting = true;
+  //       await InAppPurchases.connectAsync();
+  //       isConnected = true;
+  //       isConnecting = false;
+  //       console.log("Connected to the app store!");
+
+  //       const { responseCode, results } = await InAppPurchases.getProductsAsync(
+  //         [
+  //           "com.leaf.talk.1000coins",
+  //           "com.leaf.talk.475coins",
+  //           "com.leaf.talk.1300coins",
+  //           "com.leaf.talk.2600coins",
+  //           "com.leaf.talk.4325coins",
+  //           "com.leaf.talk.6500coins",
+  //           "com.leaf.talk.11250coins",
+  //           "android.test.purchased",
+  //         ]
+  //       );
+  //       if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+  //         setProducts(results);
+  //         console.log(
+  //           "Products retrieved successfully: ",
+  //           JSON.stringify(results)
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.log("Error connecting to the app store...");
+  //       console.log("Error fetching products:", error);
+  //       isConnected = false;
+  //       isConnecting = false;
+  //     }
+  //   };
+
+  //   async function handleAppStateChange(nextAppState) {
+  //     if (nextAppState === "inactive" && isConnected) {
+  //       // Disconnect from the app store
+  //       console.log("Disconnecting from the app store...");
+  //       await InAppPurchases.disconnectAsync();
+  //       isConnected = false;
+  //       console.log("Disconnected from the app store!");
+  //     } else if (nextAppState === "active") {
+  //       await getProducts();
+  //     }
+  //   }
+
+  //   AppState.addEventListener("change", handleAppStateChange);
+
+  //   getProducts();
+
+  //   return () => {
+  //     AppState.removeEventListener("change", handleAppStateChange);
+  //     if (isConnected) {
+  //       InAppPurchases.disconnectAsync();
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     let timeoutId;

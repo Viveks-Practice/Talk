@@ -22,26 +22,26 @@ const ProductModal = ({ isVisible, onClose, products }) => {
           <View style={styles.modalView}>
             <FlatList
               data={products}
-              keyExtractor={(item) => item.productId}
+              keyExtractor={(item) => item.identifier}
               renderItem={({ item }) => (
                 <View style={styles.productContainer}>
-                  <Text style={styles.productTitle}>{item.title}</Text>
+                  <Text style={styles.productTitle}>{item.product.title}</Text>
                   <Text style={styles.productDescription}>
-                    {item.description}
+                    {item.product.description}
                   </Text>
-                  <Text style={styles.productPrice}>{item.price}</Text>
+                  <Text style={styles.productPrice}>{item.product.price}</Text>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={async () => {
-                      console.log("Product ID: " + item.productId);
-                      const { responseCode, results } =
-                        await InAppPurchases.purchaseItemAsync(item.productId);
-                      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                        const purchase = results[0];
-                        // Handle purchase here
-                        console.log(purchase);
-                      }
-                    }}
+                    // onPress={async () => {
+                    //   console.log("Product ID: " + item.identifer);
+                    //   const { responseCode, results } =
+                    //     await InAppPurchases.purchaseItemAsync(item.identifier);
+                    //   if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+                    //     const purchase = results[0];
+                    //     // Handle purchase here
+                    //     console.log(purchase);
+                    //   }
+                    // }}
                   >
                     <Text style={styles.textStyle}>Buy</Text>
                   </Pressable>
