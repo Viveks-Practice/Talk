@@ -183,14 +183,18 @@ export default function App() {
 
     // Retrieve the products from RevenueCat
     const fetchData = async () => {
-      const offerings = await Purchases.getOfferings();
-      if (offerings.current !== null) {
-        console.log("RevenueCat Offerings: ", offerings.current);
-        console.log(
-          "RevenueCat Products: ",
-          offerings.current.availablePackages
-        );
-        setProducts(offerings.current.availablePackages);
+      try {
+        const offerings = await Purchases.getOfferings();
+        if (offerings.current !== null) {
+          console.log("RevenueCat Offerings: ", offerings.current);
+          console.log(
+            "RevenueCat Products: ",
+            offerings.current.availablePackages
+          );
+          setProducts(offerings.current.availablePackages);
+        }
+      } catch (error) {
+        console.log("Error in fetching products from RevenueCat: ", error);
       }
       // setCurrentOffering(offerings.current);
     };

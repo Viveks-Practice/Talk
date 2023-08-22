@@ -8,6 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import * as InAppPurchases from "expo-in-app-purchases";
+import Purchases from "react-native-purchases";
 
 const ProductModal = ({ isVisible, onClose, products }) => {
   return (
@@ -32,16 +33,43 @@ const ProductModal = ({ isVisible, onClose, products }) => {
                   <Text style={styles.productPrice}>{item.product.price}</Text>
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    // onPress={async () => {
-                    //   console.log("Product ID: " + item.identifer);
-                    //   const { responseCode, results } =
-                    //     await InAppPurchases.purchaseItemAsync(item.identifier);
-                    //   if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                    //     const purchase = results[0];
-                    //     // Handle purchase here
-                    //     console.log(purchase);
-                    //   }
-                    // }}
+                    onPress={async () => {
+                      try {
+                        // const { customerInfo, productIdentifier } =
+                        const purchaseResponse =
+                          await Purchases.purchasePackage(item);
+
+                        console.log(
+                          "RevenueCat Purchase Response: ",
+                          purchaseResponse
+                        );
+                        // if (
+                        //   typeof customerInfo.entitlements.active[
+                        //     ENTITLEMENT_ID
+                        //   ] !== "undefined"
+                        // ) {
+                        //   console.log("Error regarding entitlements: ");
+                        // }
+                        console.log("RevenueCat Purchase completed");
+                      } catch (error) {
+                        console.log(
+                          "Error with trying to make a purchase with RevenueCat",
+                          error
+                        );
+                        if (!error.userCancelled) {
+                          // Alert.alert("Error purchasing package", e.message);
+                        }
+                      }
+
+                      //   console.log("Product ID: " + item.identifer);
+                      //   const { responseCode, results } =
+                      //     await InAppPurchases.purchaseItemAsync(item.identifier);
+                      //   if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+                      //     const purchase = results[0];
+                      //     // Handle purchase here
+                      //     console.log(purchase);
+                      //   }
+                    }}
                   >
                     <Text style={styles.textStyle}>Buy</Text>
                   </Pressable>
