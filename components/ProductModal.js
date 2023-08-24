@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import * as InAppPurchases from "expo-in-app-purchases";
 import Purchases from "react-native-purchases";
+import inAppProducts from "./inAppProducts.js";
 
-const ProductModal = ({ isVisible, onClose, products }) => {
+const ProductModal = ({ isVisible, onClose, products, id, db }) => {
   return (
     <Modal
       animationType="fade"
@@ -39,6 +40,7 @@ const ProductModal = ({ isVisible, onClose, products }) => {
                         const purchaseResponse =
                           await Purchases.purchasePackage(item);
 
+                        console.log("Purchased item: ", item);
                         console.log(
                           "RevenueCat Purchase Response: ",
                           purchaseResponse
@@ -51,6 +53,15 @@ const ProductModal = ({ isVisible, onClose, products }) => {
                         //   console.log("Error regarding entitlements: ");
                         // }
                         console.log("RevenueCat Purchase completed");
+                        // Deliver purchased content
+                        // deliverContent(item, id, db, iapProducts).then(
+                        //   (result) => {
+                        //     // successfully delivered purchased content
+                        //     console.log(
+                        //       "(#3 deliverContent) - The content has been delivered successfully!"
+                        //     );
+                        //   }
+                        // );
                       } catch (error) {
                         console.log(
                           "Error with trying to make a purchase with RevenueCat",

@@ -203,72 +203,10 @@ export default function App() {
   }, []);
 
   // useEffect(() => {
-  //   let isConnected = false;
-  //   let isConnecting = false;
 
   //   const getProducts = async () => {
-  //     if (isConnected || isConnecting) {
-  //       console.log("Already connected to the app store or connecting...");
-  //       return;
-  //     }
-  //     try {
-  //       console.log("Connecting to the app store...");
-  //       isConnecting = true;
-  //       await InAppPurchases.connectAsync();
-  //       isConnected = true;
-  //       isConnecting = false;
-  //       console.log("Connected to the app store!");
-
-  //       const { responseCode, results } = await InAppPurchases.getProductsAsync(
-  //         [
-  //           "com.leaf.talk.1000coins",
-  //           "com.leaf.talk.475coins",
-  //           "com.leaf.talk.1300coins",
-  //           "com.leaf.talk.2600coins",
-  //           "com.leaf.talk.4325coins",
-  //           "com.leaf.talk.6500coins",
-  //           "com.leaf.talk.11250coins",
-  //           "android.test.purchased",
-  //         ]
-  //       );
-  //       if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-  //         setProducts(results);
-  //         console.log(
-  //           "Products retrieved successfully: ",
-  //           JSON.stringify(results)
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.log("Error connecting to the app store...");
-  //       console.log("Error fetching products:", error);
-  //       isConnected = false;
-  //       isConnecting = false;
-  //     }
-  //   };
-
-  //   async function handleAppStateChange(nextAppState) {
-  //     if (nextAppState === "inactive" && isConnected) {
-  //       // Disconnect from the app store
-  //       console.log("Disconnecting from the app store...");
-  //       await InAppPurchases.disconnectAsync();
-  //       isConnected = false;
-  //       console.log("Disconnected from the app store!");
-  //     } else if (nextAppState === "active") {
-  //       await getProducts();
-  //     }
-  //   }
 
   //   AppState.addEventListener("change", handleAppStateChange);
-
-  //   getProducts();
-
-  //   return () => {
-  //     AppState.removeEventListener("change", handleAppStateChange);
-  //     if (isConnected) {
-  //       InAppPurchases.disconnectAsync();
-  //     }
-  //   };
-  // }, []);
 
   useEffect(() => {
     let timeoutId;
@@ -399,6 +337,8 @@ export default function App() {
             setModalVisible={setModalVisible}
             theme={theme}
             products={products}
+            id={anonId}
+            db={db}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -459,6 +399,8 @@ export default function App() {
             setModalVisible={setModalVisible}
             theme={theme}
             products={products}
+            id={anonId}
+            db={db}
           />
           <PersonaModal
             modalVisible={modalVisible}

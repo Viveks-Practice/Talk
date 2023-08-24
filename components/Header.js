@@ -16,7 +16,14 @@ import themes from "../themes.json";
 import LoginModal from "./LoginModal";
 import ProductModal from "./ProductModal";
 
-const NeoHeader = ({ selectedOption, setModalVisible, theme, products }) => {
+const NeoHeader = ({
+  selectedOption,
+  setModalVisible,
+  theme,
+  products,
+  id,
+  db,
+}) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
   const [username, setUsername] = useState("");
@@ -78,6 +85,8 @@ const NeoHeader = ({ selectedOption, setModalVisible, theme, products }) => {
         isVisible={productModalVisible}
         onClose={() => setProductModalVisible(false)}
         products={products} // Pass the products as a prop
+        id={id} // Pass the id as a prop
+        db={db} // Pass the db as a prop
       />
     </View>
   );
