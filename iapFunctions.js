@@ -74,7 +74,7 @@ export async function deliverContent(purchase, id, db, selectedProductDetails) {
       {
         createdAt: new Date(),
         purchaseType: "currencyPurchase",
-        amount: additionalCoins,
+        coinsAmount: additionalCoins,
         offeringIdentifier: selectedProductDetails.offeringIdentifier,
         currency: selectedProductDetails.product.currencyCode,
         description: selectedProductDetails.product.description,

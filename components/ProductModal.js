@@ -7,9 +7,8 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import * as InAppPurchases from "expo-in-app-purchases";
 import Purchases from "react-native-purchases";
-// import inAppProducts from "./inAppProducts.js";
+import { deliverContent } from "../iapFunctions";
 
 const ProductModal = ({ isVisible, onClose, products, id, db }) => {
   return (
@@ -54,23 +53,23 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                           purchaseResponse.customerInfo
                             .nonSubscriptionTransactions
                         );
-                        // if (
-                        //   typeof customerInfo.entitlements.active[
-                        //     ENTITLEMENT_ID
-                        //   ] !== "undefined"
-                        // ) {
-                        //   console.log("Error regarding entitlements: ");
-                        // }
                         console.log("RevenueCat Purchase completed");
                         // Deliver purchased content
-                        // deliverContent(purchaseResponse, id, db, item).then(
-                        //   (result) => {
-                        //     // successfully delivered purchased content
-                        //     console.log(
-                        //       "(#3 deliverContent) - The content has been delivered successfully!"
-                        //     );
-                        //   }
-                        // );
+                        deliverContent(purchaseResponse, id, db, item)
+                          .then((result) => {
+                            // successfully delivered purchased content
+                            console.log(
+                              "(#3 deliverContent) - The content has been delivered successfully!",
+                              result
+                            );
+                          })
+                          .catch((error) => {
+                            // failed to deliver purchased content
+                            console.log(
+                              "(#3 deliverContent) - The content has failed to deliver!",
+                              error
+                            );
+                          });
                       } catch (error) {
                         console.log(
                           "Error with trying to make a purchase with RevenueCat",
@@ -80,15 +79,6 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                           // Alert.alert("Error purchasing package", e.message);
                         }
                       }
-
-                      //   console.log("Product ID: " + item.identifer);
-                      //   const { responseCode, results } =
-                      //     await InAppPurchases.purchaseItemAsync(item.identifier);
-                      //   if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-                      //     const purchase = results[0];
-                      //     // Handle purchase here
-                      //     console.log(purchase);
-                      //   }
                     }}
                   >
                     <Text style={styles.textStyle}>Buy</Text>
