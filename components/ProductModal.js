@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as InAppPurchases from "expo-in-app-purchases";
 import Purchases from "react-native-purchases";
-import inAppProducts from "./inAppProducts.js";
+// import inAppProducts from "./inAppProducts.js";
 
 const ProductModal = ({ isVisible, onClose, products, id, db }) => {
   return (
@@ -45,6 +45,15 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                           "RevenueCat Purchase Response: ",
                           purchaseResponse
                         );
+                        console.log(
+                          "Purchase Response all entitlements",
+                          purchaseResponse.customerInfo.entitlements.all
+                        );
+                        console.log(
+                          "Purchase Response all entitlements",
+                          purchaseResponse.customerInfo
+                            .nonSubscriptionTransactions
+                        );
                         // if (
                         //   typeof customerInfo.entitlements.active[
                         //     ENTITLEMENT_ID
@@ -54,7 +63,7 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                         // }
                         console.log("RevenueCat Purchase completed");
                         // Deliver purchased content
-                        // deliverContent(item, id, db, iapProducts).then(
+                        // deliverContent(purchaseResponse, id, db, item).then(
                         //   (result) => {
                         //     // successfully delivered purchased content
                         //     console.log(

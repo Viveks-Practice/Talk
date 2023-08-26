@@ -10,23 +10,11 @@ import { Platform, Alert } from "react-native";
 import productIdToCoins from "./productIdToCoins.json";
 import Constants from "expo-constants";
 
-export async function deliverContent(purchase, id, db, iapProducts) {
-  // Update the database with the user's purchase data (coins)
-  //   console.log("Userid in deliverContent: ", id);
-  //   console.log("Purchase in deliverContent: ", purchase);
-
-  const selectedProductDetails = iapProducts.find(
-    (item) => item.productId === purchase.productId
-  );
-
-  //   console.log(
-  //     "In deliverContent, selectedproductdetails: ",
-  //     selectedProductDetails
-  //   );
-
+// Update the database with the user's purchase data (coins)
+export async function deliverContent(purchase, id, db, selectedProductDetails) {
   const userRef = doc(db, "users", id);
+  //start a batch write operation
   try {
-    //start a batch write operation
     const batch = writeBatch(db);
     const { name } = Constants.manifest;
 
@@ -46,9 +34,9 @@ export async function deliverContent(purchase, id, db, iapProducts) {
       }
     }
 
-    const additionalCoins = productIdToCoins[purchase.productId]; // Fetch the amount of coins from the map
+    const additionalCoins = productIdToCoins[purchase.productIdentifier]; // Fetch the amount of coins from the map
     if (!additionalCoins) {
-      //   console.log(`Unknown product ID ${purchase.productId}`);
+      console.log(`Unknown product ID ${purchase.productIdentifier}`);
       return;
     }
     const newCoins = currentCoins + additionalCoins;
@@ -75,7 +63,7 @@ export async function deliverContent(purchase, id, db, iapProducts) {
       });
     }
 
-    const purchaseTimeDate = new Date(purchase.purchaseTime); // Convert Unix timestamp to JavaScript Date
+    const purchaseTimeDate = new Date(purchase.customerInfo.requestDate); // Convert Unix timestamp to JavaScript Date
     const purchaseTimeTimestamp = Timestamp.fromDate(purchaseTimeDate); // Convert Date to Firestore Timestamp
 
     //Create a new purchase document in the 'purchases' collection
@@ -87,31 +75,30 @@ export async function deliverContent(purchase, id, db, iapProducts) {
         createdAt: new Date(),
         purchaseType: "currencyPurchase",
         amount: additionalCoins,
-        currency: selectedProductDetails.priceCurrencyCode,
-        price: selectedProductDetails.price || 0, // The  real-world money cost
-        description: selectedProductDetails.description,
-        title: selectedProductDetails.title,
-        type: selectedProductDetails.type,
-        subscriptionPeriod: selectedProductDetails.subscriptionPeriod,
-        acknowledged: purchase.acknowledged,
-        orderId: purchase.orderId,
-        productId: purchase.productId,
-        purchaseState: purchase.purchaseState,
+        offeringIdentifier: selectedProductDetails.offeringIdentifier,
+        currency: selectedProductDetails.product.currencyCode,
+        description: selectedProductDetails.product.description,
+        price: selectedProductDetails.product.price || 0, // The  real-world money cost
+        productCategory: selectedProductDetails.product.productCategory || "",
+        productType: selectedProductDetails.product.productType || "",
+        title: selectedProductDetails.product.title,
+        subscriptionPeriod: selectedProductDetails.subscriptionPeriod || "",
+        productId: purchase.productIdentifier,
         purchaseTime: purchaseTimeTimestamp,
 
         // platform-specific fields
         ...(Platform.OS === "android"
           ? {
-              packageName: purchase.packageName || "", //fallback to empty string if undefined
-              purchaseToken: purchase.purchaseToken || "", //fallback to empty string if undefined
+              //   packageName: purchase.packageName || "", //fallback to empty string if undefined
+              //   purchaseToken: purchase.purchaseToken || "", //fallback to empty string if undefined
               platform: "android",
             }
           : {}), // include fields for Android
         ...(Platform.OS === "ios"
           ? {
-              transactionReceipt: purchase.transactionReceipt || "", //fallback to empty string if undefined
-              originalPurchaseTime: purchase.originalPurchaseTime || "", //fallback to empty string if undefined
-              originalOrderId: purchase.originalOrderId || "", //fallback to empty string if undefined
+              //   transactionReceipt: purchase.transactionReceipt || "", //fallback to empty string if undefined
+              //   originalPurchaseTime: purchase.originalPurchaseTime || "", //fallback to empty string if undefined
+              //   originalOrderId: purchase.originalOrderId || "", //fallback to empty string if undefined
               platform: "ios",
 
               // other iOS-specific fields here
