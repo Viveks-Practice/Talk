@@ -1,4 +1,4 @@
-//revenueCat branch
+//revenueCat_coinsTracking branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
