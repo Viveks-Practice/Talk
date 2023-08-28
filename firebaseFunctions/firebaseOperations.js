@@ -106,3 +106,13 @@ export const updateFirestoreContext = async (
     });
   }
 };
+
+// used to update the user's coins in the database whenever the app starts, or when the user makes a purchase
+export const fetchCoins = async (db, userId) => {
+  const userRef = doc(db, "users", userId);
+  const userDoc = await getDoc(userRef);
+  if (userDoc.exists()) {
+    return userDoc.data().coins;
+  }
+  return 0; // default to 0 if the user has no coins
+};

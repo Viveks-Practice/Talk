@@ -36,8 +36,8 @@ import {
   initializeAuth,
   getReactNativePersistence,
 } from "firebase/auth";
+import { fetchCoins } from "./firebaseFunctions/firebaseOperations";
 
-import * as InAppPurchases from "expo-in-app-purchases";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 import themes from "./themes.json";
@@ -99,6 +99,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [coins, setCoins] = useState(0);
   const [anonId, setAnonId] = useState(null);
   const [context, setContext] = useState(0);
   const [products, setProducts] = useState([]);
@@ -221,6 +222,9 @@ export default function App() {
     };
   }, [messages]);
 
+  // set the anonymous user id
+  // if the user is already logged in, use the existing user id
+  // if the user is not logged in, log them in anonymously and use the new user id
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -253,6 +257,21 @@ export default function App() {
       }
     });
   }, []);
+
+  // read coins from the database and update the coins state
+  // run when the anonymous user id changes
+  useEffect(() => {
+    const getCoins = async () => {
+      if (anonId) {
+        // If anonId is set
+        const coinCount = await fetchCoins(db, anonId);
+        setCoins(coinCount);
+        console.log("Coins: ", coinCount);
+      }
+    };
+
+    getCoins();
+  }, [anonId]); // This useEffect runs whenever anonId changes
 
   //fetch messages from the firestore database, everytime the selectedOption changes or the userID changes
   useEffect(() => {

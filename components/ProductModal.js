@@ -49,7 +49,7 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                           purchaseResponse.customerInfo.entitlements.all
                         );
                         console.log(
-                          "Purchase Response all entitlements",
+                          "Purchase Response non-subscription transactions",
                           purchaseResponse.customerInfo
                             .nonSubscriptionTransactions
                         );
