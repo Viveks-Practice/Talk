@@ -358,6 +358,8 @@ export default function App() {
             products={products}
             id={anonId}
             db={db}
+            coins={coins}
+            setCoins={setCoins}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -420,6 +422,8 @@ export default function App() {
             products={products}
             id={anonId}
             db={db}
+            coins={coins}
+            setCoins={setCoins}
           />
           <PersonaModal
             modalVisible={modalVisible}

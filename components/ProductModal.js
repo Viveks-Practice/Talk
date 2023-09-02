@@ -9,8 +9,18 @@ import {
 } from "react-native";
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
+import { fetchCoins } from "../firebaseFunctions/firebaseOperations";
+import productIdToCoins from "../productIdToCoins.json";
 
-const ProductModal = ({ isVisible, onClose, products, id, db }) => {
+const ProductModal = ({
+  isVisible,
+  onClose,
+  products,
+  id,
+  db,
+  coins,
+  setCoins,
+}) => {
   return (
     <Modal
       animationType="fade"
@@ -61,6 +71,15 @@ const ProductModal = ({ isVisible, onClose, products, id, db }) => {
                             console.log(
                               "(#3 deliverContent) - The content has been delivered successfully!",
                               result
+                            );
+                            // increase coin count
+                            const coinsToAdd =
+                              productIdToCoins[item.identifier];
+                            const newCoins = coins + coinsToAdd;
+                            setCoins(newCoins);
+                            console.log(
+                              "New coin count after delivering the coins!",
+                              newCoins
                             );
                           })
                           .catch((error) => {

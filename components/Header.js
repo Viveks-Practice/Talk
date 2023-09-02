@@ -23,6 +23,8 @@ const NeoHeader = ({
   products,
   id,
   db,
+  coins,
+  setCoins,
 }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
@@ -39,8 +41,12 @@ const NeoHeader = ({
               onPress={() => {
                 setProductModalVisible(true);
               }}
-              style={{ marginRight: 50, marginTop: 4 }}
+              // style={{ marginRight: 50, marginTop: 4 }}
+              style={styles.container}
             >
+              <Text style={{ marginLeft: 5, color: "white", fontSize: 14 }}>
+                {coins}
+              </Text>
               <Ionicons name="wallet-outline" size={24} color="#fff" />
             </Pressable>
             <Pressable onPress={() => setModalVisible(true)}>
@@ -84,9 +90,11 @@ const NeoHeader = ({
       <ProductModal // Add the ProductModal here
         isVisible={productModalVisible}
         onClose={() => setProductModalVisible(false)}
-        products={products} // Pass the products as a prop
-        id={id} // Pass the id as a prop
-        db={db} // Pass the db as a prop
+        products={products}
+        id={id}
+        db={db}
+        coins={coins}
+        setCoins={setCoins}
       />
     </View>
   );
@@ -119,6 +127,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 10,
+  },
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginRight: 30,
+    marginTop: 0,
+  },
+  coinsText: {
+    color: "white",
+    fontSize: 16,
+    marginBottom: 5,
   },
 });
 
