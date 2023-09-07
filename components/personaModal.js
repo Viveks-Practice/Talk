@@ -127,18 +127,30 @@ const PersonaModal = ({
                     },
                   ]}
                   onPress={() => {
-                    if (item !== selectedOption) {
-                      setSelectedOption(item);
-                      setTheme(item);
-                      setMessages(themes[item].initialMessages);
+                    if (!item.owned) {
+                      // Handle the purchase logic here, if needed
+                      return;
+                    }
+                    if (item.name !== selectedOption) {
+                      setSelectedOption(item.name);
+                      setTheme(item.name);
+                      setMessages(themes[item.name].initialMessages);
                     }
                     setModalVisible(!modalVisible);
                   }}
                 >
-                  <Text style={PersonaModalStyles.optionText}>{item}</Text>
+                  <Text style={PersonaModalStyles.optionText}>
+                    {item.name}
+                    {!item.owned && ` - ${item.price}`}
+                  </Text>
+
+                  {/* Conditional overlay */}
+                  {!item.owned && (
+                    <View style={PersonaModalStyles.overlay}></View>
+                  )}
                 </TouchableOpacity>
               )}
-              keyExtractor={(item) => item}
+              keyExtractor={(item) => item.name}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ flexGrow: 1 }}
             />
@@ -194,6 +206,14 @@ const PersonaModalStyles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the alpha value as needed
   },
 });
 
