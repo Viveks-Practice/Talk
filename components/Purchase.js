@@ -1,13 +1,19 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import ProductModal from "./ProductModal";
 
-const PurchaseComponent = ({
+const Purchase = ({
   selectedPersona,
   currentCoins,
+  setCoins,
   onClose,
   onBuyCoins,
   onPurchase,
+  products,
+  id,
+  db,
 }) => {
+  const [productModalVisible, setProductModalVisible] = useState(false);
   const cost = selectedPersona.price;
   const balance = currentCoins - cost;
 
@@ -24,6 +30,15 @@ const PurchaseComponent = ({
         <Button title="Purchase" onPress={onPurchase} disabled={balance < 0} />
       </View>
       <Button title="Buy Coins" onPress={onBuyCoins} />
+      <ProductModal // Add the ProductModal here
+        isVisible={productModalVisible}
+        onClose={() => setProductModalVisible(false)}
+        products={products}
+        id={id}
+        db={db}
+        coins={currentCoins}
+        setCoins={setCoins}
+      />
     </View>
   );
 };
@@ -57,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PurchaseComponent;
+export default Purchase;

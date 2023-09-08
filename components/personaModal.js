@@ -12,6 +12,7 @@ import {
 import Constants from "expo-constants";
 import axios from "axios";
 import PersonSearch from "./PersonSearch";
+import Purchase from "./Purchase";
 
 const PersonaModal = ({
   modalVisible,
@@ -25,7 +26,12 @@ const PersonaModal = ({
   options,
   setOptions,
   selectedOption,
+  coins,
+  setCoins,
 }) => {
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [selectedPersona, setSelectedPersona] = useState(null);
+
   const searchPerson = async (query) => {
     try {
       const response = await axios.get(
@@ -129,6 +135,8 @@ const PersonaModal = ({
                   onPress={() => {
                     if (!item.owned) {
                       // Handle the purchase logic here, if needed
+                      setSelectedPersona(item);
+                      setShowPurchaseModal(true);
                       return;
                     }
                     if (item.name !== selectedOption) {
@@ -157,6 +165,16 @@ const PersonaModal = ({
           </View>
         </View>
       </Pressable>
+      {showPurchaseModal && (
+        <View style={PersonaModalStyles.purchaseOverlay}>
+          <Purchase
+            selectedPersona={selectedPersona}
+            currentCoins={coins}
+            setCoins={setCoins}
+            onClose={() => setShowPurchaseModal(false)}
+          />
+        </View>
+      )}
     </Modal>
   );
 };
@@ -214,6 +232,16 @@ const PersonaModalStyles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the alpha value as needed
+  },
+  purchaseOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.6)", // This will give a dim effect behind the Purchase component
   },
 });
 

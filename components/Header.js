@@ -20,14 +20,10 @@ const NeoHeader = ({
   selectedOption,
   setModalVisible,
   theme,
-  products,
-  id,
-  db,
   coins,
-  setCoins,
+  setProductModalVisible,
 }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [productModalVisible, setProductModalVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,7 +37,6 @@ const NeoHeader = ({
               onPress={() => {
                 setProductModalVisible(true);
               }}
-              // style={{ marginRight: 50, marginTop: 4 }}
               style={styles.container}
             >
               <Text style={{ marginLeft: 5, color: "white", fontSize: 14 }}>
@@ -86,15 +81,6 @@ const NeoHeader = ({
       <LoginModal
         isVisible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
-      />
-      <ProductModal // Add the ProductModal here
-        isVisible={productModalVisible}
-        onClose={() => setProductModalVisible(false)}
-        products={products}
-        id={id}
-        db={db}
-        coins={coins}
-        setCoins={setCoins}
       />
     </View>
   );

@@ -46,6 +46,7 @@ import PersonaModal from "./components/personaModal";
 import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
+import ProductModal from "./components/ProductModal";
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
@@ -98,6 +99,7 @@ export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
+  const [productModalVisible, setProductModalVisible] = useState(false);
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
   const [anonId, setAnonId] = useState(null);
@@ -123,7 +125,7 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     { name: "Neo - The Chat AI", owned: true, price: null },
-    { name: "Harry Styles", owned: false, price: "200 coins" },
+    { name: "Harry Styles", owned: false, price: 200 },
     { name: "Gigachad", owned: true, price: null },
     { name: "David Goggins", owned: true, price: null },
     { name: "Link", owned: true, price: null },
@@ -266,8 +268,12 @@ export default function App() {
       if (anonId) {
         // If anonId is set
         const coinCount = await fetchCoins(db, anonId);
-        setCoins(coinCount);
-        console.log("Coins: ", coinCount);
+        if (coinCount) {
+          setCoins(coinCount);
+          console.log("Coins: ", coinCount);
+        } else {
+          console.log("Coins: ", coins);
+        }
       }
     };
 
@@ -361,6 +367,7 @@ export default function App() {
             db={db}
             coins={coins}
             setCoins={setCoins}
+            setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -374,6 +381,8 @@ export default function App() {
             options={options}
             setOptions={setOptions}
             selectedOption={selectedOption}
+            coins={coins}
+            setCoins={setCoins}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -406,6 +415,15 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
+          />
+          <ProductModal
+            isVisible={productModalVisible}
+            onClose={() => setProductModalVisible(false)}
+            products={products}
+            id={anonId}
+            db={db}
+            coins={coins}
+            setCoins={setCoins}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -425,6 +443,7 @@ export default function App() {
             db={db}
             coins={coins}
             setCoins={setCoins}
+            setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
             modalVisible={modalVisible}
@@ -438,6 +457,8 @@ export default function App() {
             options={options}
             setOptions={setOptions}
             selectedOption={selectedOption}
+            coins={coins}
+            setCoins={setCoins}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -470,6 +491,15 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
+          />
+          <ProductModal // Add the ProductModal here
+            isVisible={productModalVisible}
+            onClose={() => setProductModalVisible(false)}
+            products={products}
+            id={anonId}
+            db={db}
+            coins={coins}
+            setCoins={setCoins}
           />
         </SafeAreaView>
       )}
