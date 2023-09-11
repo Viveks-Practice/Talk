@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import ProductModal from "./ProductModal";
 
 const Purchase = ({
+  isVisible,
   selectedPersona,
   currentCoins,
   setCoins,
@@ -18,28 +19,45 @@ const Purchase = ({
   const balance = currentCoins - cost;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Purchase {selectedPersona.name}</Text>
-      <Text>Current Coins: {currentCoins}</Text>
-      <Text>Cost: {cost}</Text>
-      <Text style={[styles.balance, balance < 0 && styles.negativeBalance]}>
-        Remaining Balance: {balance}
-      </Text>
-      <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={onClose} />
-        <Button title="Purchase" onPress={onPurchase} disabled={balance < 0} />
-      </View>
-      <Button title="Buy Coins" onPress={onBuyCoins} />
-      <ProductModal // Add the ProductModal here
-        isVisible={productModalVisible}
-        onClose={() => setProductModalVisible(false)}
-        products={products}
-        id={id}
-        db={db}
-        coins={currentCoins}
-        setCoins={setCoins}
-      />
-    </View>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={onClose}
+    >
+      <Pressable style={styles.modalOverlay} onPress={onClose}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.title}>Purchase {selectedPersona.name}</Text>
+            <Text>Current Coins: {currentCoins}</Text>
+            <Text>Cost: {cost}</Text>
+            <Text
+              style={[styles.balance, balance < 0 && styles.negativeBalance]}
+            >
+              Remaining Balance: {balance}
+            </Text>
+            <View style={styles.buttonContainer}>
+              <Button title="Cancel" onPress={onClose} />
+              <Button
+                title="Purchase"
+                onPress={onPurchase}
+                disabled={balance < 0}
+              />
+            </View>
+            <Button title="Buy Coins" onPress={onBuyCoins} />
+            <ProductModal // Add the ProductModal here
+              isVisible={productModalVisible}
+              onClose={() => setProductModalVisible(false)}
+              products={products}
+              id={id}
+              db={db}
+              coins={currentCoins}
+              setCoins={setCoins}
+            />
+          </View>
+        </View>
+      </Pressable>
+    </Modal>
   );
 };
 
@@ -69,6 +87,33 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     marginTop: 20,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#161d27",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

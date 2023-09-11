@@ -47,6 +47,7 @@ import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 import ProductModal from "./components/ProductModal";
+import Purchase from "./components/Purchase";
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
@@ -120,6 +121,8 @@ export default function App() {
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [purchasePersona, setPurchasePersona] = useState(null);
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
@@ -383,6 +386,8 @@ export default function App() {
             selectedOption={selectedOption}
             coins={coins}
             setCoins={setCoins}
+            setPurchasePersona={setPurchasePersona}
+            setShowPurchaseModal={setShowPurchaseModal}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -425,6 +430,13 @@ export default function App() {
             coins={coins}
             setCoins={setCoins}
           />
+          <Purchase
+            isVisible={showPurchaseModal}
+            purchasePersona={purchasePersona}
+            currentCoins={coins}
+            setCoins={setCoins}
+            onClose={() => setShowPurchaseModal(false)}
+          />
         </KeyboardAvoidingView>
       ) : (
         <SafeAreaView
@@ -459,6 +471,8 @@ export default function App() {
             selectedOption={selectedOption}
             coins={coins}
             setCoins={setCoins}
+            setPurchasePersona={setPurchasePersona}
+            setShowPurchaseModal={setShowPurchaseModal}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -492,7 +506,7 @@ export default function App() {
             context={context}
             setContext={setContext}
           />
-          <ProductModal // Add the ProductModal here
+          <ProductModal
             isVisible={productModalVisible}
             onClose={() => setProductModalVisible(false)}
             products={products}
@@ -500,6 +514,13 @@ export default function App() {
             db={db}
             coins={coins}
             setCoins={setCoins}
+          />
+          <Purchase
+            isVisible={showPurchaseModal}
+            purchasePersona={purchasePersona}
+            currentCoins={coins}
+            setCoins={setCoins}
+            onClose={() => setShowPurchaseModal(false)}
           />
         </SafeAreaView>
       )}
@@ -517,5 +538,15 @@ const styles = StyleSheet.create({
     height: 30,
     paddingHorizontal: 10,
     justifyContent: "center",
+  },
+  purchaseOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.6)", // This will give a dim effect behind the Purchase component
   },
 });

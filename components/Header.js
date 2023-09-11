@@ -14,7 +14,6 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import themes from "../themes.json";
 import LoginModal from "./LoginModal";
-import ProductModal from "./ProductModal";
 
 const NeoHeader = ({
   selectedOption,
@@ -24,8 +23,6 @@ const NeoHeader = ({
   setProductModalVisible,
 }) => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <View>
@@ -97,8 +94,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   loginButton: {
-    borderWidth: 1, // Adjust the value as per your preference
-    borderColor: "black", // Set the color of the outline
+    borderWidth: 1,
+    borderColor: "black",
     padding: 10,
     borderRadius: 20,
     paddingVertical: 10,
