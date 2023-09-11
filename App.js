@@ -122,7 +122,11 @@ export default function App() {
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const [purchasePersona, setPurchasePersona] = useState(null);
+  const [purchasePersona, setPurchasePersona] = useState({
+    name: "Harry Styles",
+    owned: false,
+    price: 200,
+  });
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
@@ -433,9 +437,15 @@ export default function App() {
           <Purchase
             isVisible={showPurchaseModal}
             purchasePersona={purchasePersona}
+            productModalVisible={productModalVisible}
+            setProductModalVisible={setProductModalVisible}
             currentCoins={coins}
             setCoins={setCoins}
             onClose={() => setShowPurchaseModal(false)}
+            onBuyCoins={() => {
+              setProductModalVisible(true);
+              // setShowPurchaseModal(false);
+            }}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -518,9 +528,15 @@ export default function App() {
           <Purchase
             isVisible={showPurchaseModal}
             purchasePersona={purchasePersona}
+            productModalVisible={productModalVisible}
+            setProductModalVisible={setProductModalVisible}
             currentCoins={coins}
             setCoins={setCoins}
             onClose={() => setShowPurchaseModal(false)}
+            onBuyCoins={() => {
+              setProductModalVisible(true);
+              // setShowPurchaseModal(false);
+            }}
           />
         </SafeAreaView>
       )}

@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Modal, Pressable } from "react-native";
 import ProductModal from "./ProductModal";
 
 const Purchase = ({
   isVisible,
-  selectedPersona,
+  purchasePersona,
   currentCoins,
-  setCoins,
   onClose,
   onBuyCoins,
   onPurchase,
-  products,
-  id,
-  db,
 }) => {
-  const [productModalVisible, setProductModalVisible] = useState(false);
-  const cost = selectedPersona.price;
+  const cost = purchasePersona.price;
   const balance = currentCoins - cost;
 
   return (
@@ -28,7 +23,7 @@ const Purchase = ({
       <Pressable style={styles.modalOverlay} onPress={onClose}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.title}>Purchase {selectedPersona.name}</Text>
+            <Text style={styles.title}>Purchase {purchasePersona.name}</Text>
             <Text>Current Coins: {currentCoins}</Text>
             <Text>Cost: {cost}</Text>
             <Text
@@ -45,15 +40,6 @@ const Purchase = ({
               />
             </View>
             <Button title="Buy Coins" onPress={onBuyCoins} />
-            <ProductModal // Add the ProductModal here
-              isVisible={productModalVisible}
-              onClose={() => setProductModalVisible(false)}
-              products={products}
-              id={id}
-              db={db}
-              coins={currentCoins}
-              setCoins={setCoins}
-            />
           </View>
         </View>
       </Pressable>
