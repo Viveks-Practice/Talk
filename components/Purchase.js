@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, Modal, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Modal,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import ProductModal from "./ProductModal";
 
 const Purchase = ({
@@ -9,6 +17,7 @@ const Purchase = ({
   onClose,
   onBuyCoins,
   onPurchase,
+  themes,
 }) => {
   const cost = purchasePersona.price;
   const balance = currentCoins - cost;
@@ -23,23 +32,74 @@ const Purchase = ({
       <Pressable style={styles.modalOverlay} onPress={onClose}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.title}>Purchase {purchasePersona.name}</Text>
-            <Text>Current Coins: {currentCoins}</Text>
-            <Text>Cost: {cost}</Text>
-            <Text
-              style={[styles.balance, balance < 0 && styles.negativeBalance]}
+            <TouchableOpacity
+              style={[
+                styles.optionButton,
+                styles.buyCoinsButton,
+                {
+                  backgroundColor:
+                    themes["Neo - The Chat AI"].colorSchemes.sixth,
+                },
+              ]}
+              onPress={onBuyCoins}
             >
-              Remaining Balance: {balance}
-            </Text>
-            <View style={styles.buttonContainer}>
-              <Button title="Cancel" onPress={onClose} />
-              <Button
-                title="Purchase"
-                onPress={onPurchase}
-                disabled={balance < 0}
-              />
+              <Text style={styles.optionText}>Buy Coins</Text>
+            </TouchableOpacity>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Purchase {purchasePersona.name}</Text>
             </View>
-            <Button title="Buy Coins" onPress={onBuyCoins} />
+            <View style={styles.table}>
+              <Text style={styles.tableLabel}>Current Coins:</Text>
+              <Text style={styles.tableValue}>{currentCoins}</Text>
+            </View>
+            <View style={styles.table}>
+              <Text style={styles.tableLabel}>Cost:</Text>
+              <Text style={styles.tableValue}>{cost}</Text>
+            </View>
+            <View style={styles.table}>
+              <Text style={styles.tableLabel}>Remaining Balance:</Text>
+              <Text
+                style={[
+                  styles.tableValue,
+                  balance < 0 && styles.negativeBalance,
+                ]}
+              >
+                {balance}
+              </Text>
+            </View>
+            <View style={styles.buttonContainer}>
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  style={[
+                    styles.optionButton,
+                    {
+                      backgroundColor:
+                        themes["Neo - The Chat AI"].colorSchemes.sixth,
+                    },
+                  ]}
+                  onPress={onClose}
+                >
+                  <Text style={styles.optionText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  style={[
+                    styles.optionButton,
+                    {
+                      backgroundColor:
+                        themes["Neo - The Chat AI"].colorSchemes.sixth,
+                    },
+                    balance < 0 ? styles.disabledButton : {},
+                  ]}
+                  onPress={onPurchase}
+                  disabled={balance < 0}
+                >
+                  <Text style={styles.optionText}>Purchase</Text>
+                  {balance < 0 && <View style={styles.overlay}></View>}
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
       </Pressable>
@@ -58,21 +118,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
-  title: {
-    fontSize: 20,
+  calcText: {
+    fontSize: 16,
     fontWeight: "bold",
+    color: "#fff",
   },
   balance: {
     marginTop: 10,
   },
   negativeBalance: {
-    color: "red",
+    color: "gray",
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center", // Center the button wrappers
     width: "100%",
     marginTop: 20,
+    alignItems: "center",
   },
   centeredView: {
     flex: 1,
@@ -84,14 +146,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
   },
   modalView: {
     margin: 20,
     backgroundColor: "#161d27",
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
+    width: "80%", // This helps ensure the modal remains within screen boundaries
+    alignSelf: "center", // This will center the modal horizontally on the screen
+    alignItems: "center", // Ensures children like the title are centered
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -100,6 +164,73 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    position: "relative", // Needed for absolutely positioning the Buy Coins button
+  },
+  optionButton: {
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 1,
+    alignItems: "center",
+    backgroundColor: "#2196F3",
+    height: 40,
+  },
+  optionText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    marginBottom: 20, // Adjust as needed for spacing between title and content below
+    position: "relative", // To allow for absolute positioning of children
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: 20, // Spacing below the title
+    marginTop: 20,
+  },
+  buyCoinsButton: {
+    position: "absolute",
+    right: 10, // Gives a 10 pixel spacing from the right edge
+    top: 10, // Gives a 10 pixel spacing from the top edge
+  },
+  buttonWrapper: {
+    flex: 1, // Each button wrapper takes up half the width of the container
+    justifyContent: "center", // Centers the button horizontally within its wrapper
+    alignItems: "center", // Centers the button vertically within its wrapper
+  },
+  table: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  tableLabel: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#fff",
+    flex: 4, // give it more space if needed
+  },
+  tableValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#fff",
+    flex: 1,
+    textAlign: "right",
+  },
+  overlay: {
+    // ...StyleSheet.absoluteFillObject, // will expand to cover the parent (button)
+    // backgroundColor: "rgba(128, 128, 128, 0.6)", // semi-transparent grey
+  },
+
+  disabledButton: {
+    opacity: 0.4, // Make the button slightly faded
   },
 });
 

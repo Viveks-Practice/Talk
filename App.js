@@ -446,6 +446,7 @@ export default function App() {
               setProductModalVisible(true);
               // setShowPurchaseModal(false);
             }}
+            themes={themes}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -537,6 +538,7 @@ export default function App() {
               setProductModalVisible(true);
               // setShowPurchaseModal(false);
             }}
+            themes={themes}
           />
         </SafeAreaView>
       )}
