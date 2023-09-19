@@ -133,7 +133,7 @@ export async function deliverContent(purchase, id, db, selectedProductDetails) {
  * @throws Will throw an error if the transaction fails or if user lacks sufficient coins.
  */
 
-export async function purchasePersona(id, db, selectedPersonaDetails) {
+export async function iapPersona(id, db, selectedPersonaDetails) {
   // Define a reference to the current user's document in the "users" collection.
   const userRef = doc(db, "users", id);
   try {

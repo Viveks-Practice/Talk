@@ -37,7 +37,7 @@ import {
   getReactNativePersistence,
 } from "firebase/auth";
 import { fetchCoins } from "./firebaseFunctions/firebaseOperations";
-import { purchasePersona } from "./iapFunctions";
+import { iapPersona } from "./iapFunctions";
 
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
@@ -448,7 +448,26 @@ export default function App() {
               // setShowPurchaseModal(false);
             }}
             onPurchase={() => {
-              purchasePersona(anonId, db, purchasePersona);
+              iapPersona(anonId, db, purchasePersona)
+                .then(() => {
+                  // update the options state to reflect the purchase
+                  const updatedOptions = options.map((option) => {
+                    if (option.name === purchasePersona.name) {
+                      return {
+                        ...option,
+                        owned: true,
+                      };
+                    }
+                    return option;
+                  });
+                  setOptions(updatedOptions);
+
+                  // update the coins state to reflect the purchase
+                  setCoins((prevCoins) => prevCoins - purchasePersona.price);
+                })
+                .catch((error) => {
+                  console.error("Error in making the purchase: ", error);
+                });
             }}
             themes={themes}
           />
@@ -543,7 +562,26 @@ export default function App() {
               // setShowPurchaseModal(false);
             }}
             onPurchase={() => {
-              purchasePersona(anonId, db, purchasePersona);
+              iapPersona(anonId, db, purchasePersona)
+                .then(() => {
+                  // update the options state to reflect the purchase
+                  const updatedOptions = options.map((option) => {
+                    if (option.name === purchasePersona.name) {
+                      return {
+                        ...option,
+                        owned: true,
+                      };
+                    }
+                    return option;
+                  });
+                  setOptions(updatedOptions);
+
+                  // update the coins state to reflect the purchase
+                  setCoins((prevCoins) => prevCoins - purchasePersona.price);
+                })
+                .catch((error) => {
+                  console.error("Error in making the purchase: ", error);
+                });
             }}
             themes={themes}
           />
