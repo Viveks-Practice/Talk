@@ -211,6 +211,8 @@ export async function iapPersona(id, db, selectedPersonaDetails) {
         productId: selectedPersonaDetails.name,
         purchaseDate: new Date(),
         purchaseId: newPurchaseRef.id,
+        productCategory: "persona",
+        productType: "PERMANENT", // PERMANENT || CONSUMABLE || SUBSCRIPTION
       },
       { merge: true }
     );

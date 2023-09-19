@@ -36,7 +36,10 @@ import {
   initializeAuth,
   getReactNativePersistence,
 } from "firebase/auth";
-import { fetchCoins } from "./firebaseFunctions/firebaseOperations";
+import {
+  fetchCoins,
+  fetchPersonas,
+} from "./firebaseFunctions/firebaseOperations";
 import { iapPersona } from "./iapFunctions";
 
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
@@ -198,11 +201,6 @@ export default function App() {
       try {
         const offerings = await Purchases.getOfferings();
         if (offerings.current !== null) {
-          console.log("RevenueCat Offerings: ", offerings.current);
-          console.log(
-            "RevenueCat Products: ",
-            offerings.current.availablePackages
-          );
           setProducts(offerings.current.availablePackages);
         }
       } catch (error) {
@@ -214,12 +212,7 @@ export default function App() {
     fetchData().catch(console.log);
   }, []);
 
-  // useEffect(() => {
-
-  //   const getProducts = async () => {
-
-  //   AppState.addEventListener("change", handleAppStateChange);
-
+  // scrolls to the bottom of the messages list when the messages state changes (may not be the most efficient way of achieving this)
   useEffect(() => {
     let timeoutId;
     if (flatListRef.current) {
@@ -269,12 +262,13 @@ export default function App() {
     });
   }, []);
 
-  // read coins from the database and update the coins state
-  // run when the anonymous user id changes
+  // state setter: set the coins state
+  // triggers: when the anonymous user id changes (or when the user logs in)
+  // method: read coins from the database and update the coins state
   useEffect(() => {
     const getCoins = async () => {
+      // If anonId is set
       if (anonId) {
-        // If anonId is set
         const coinCount = await fetchCoins(db, anonId);
         if (coinCount) {
           setCoins(coinCount);
@@ -288,7 +282,37 @@ export default function App() {
     getCoins();
   }, [anonId]); // This useEffect runs whenever anonId changes
 
-  //fetch messages from the firestore database, everytime the selectedOption changes or the userID changes
+  // state setter: set the persona options state
+  // triggers: when the anonymous user id changes (or when the user logs in)
+  // method: read the persona options from the database and update the options state
+  useEffect(() => {
+    fetchPersonas(db, anonId)
+      .then((ownedPersonasSet) => {
+        if (!ownedPersonasSet) return; // If null, don't do anything
+
+        const updatedOptions = options.map((option) => {
+          // If the current option is in the ownedPersonasSet, set owned to true, otherwise leave it unchanged
+          if (ownedPersonasSet.has(option.name)) {
+            return {
+              ...option,
+              owned: true,
+            };
+          }
+
+          // If it's not in the set, return the option as-is
+          return option;
+        });
+
+        setOptions(updatedOptions);
+      })
+      .catch((error) => {
+        console.error("Error fetching owned personas:", error);
+      });
+  }, [anonId]); // This useEffect runs whenever anonId changes
+
+  // state setter: set the messages state
+  // triggers: when the anonymous user id changes or the selectedOption changes
+  // fetch messages from the firestore database, everytime the selectedOption changes or the userID changes
   useEffect(() => {
     // When anonId or selectedOption changes, fetch the messages
     if (anonId && selectedOption) {
