@@ -37,6 +37,7 @@ import {
   getReactNativePersistence,
 } from "firebase/auth";
 import { fetchCoins } from "./firebaseFunctions/firebaseOperations";
+import { purchasePersona } from "./iapFunctions";
 
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
@@ -446,6 +447,9 @@ export default function App() {
               setProductModalVisible(true);
               // setShowPurchaseModal(false);
             }}
+            onPurchase={() => {
+              purchasePersona(anonId, db, purchasePersona);
+            }}
             themes={themes}
           />
         </KeyboardAvoidingView>
@@ -537,6 +541,9 @@ export default function App() {
             onBuyCoins={() => {
               setProductModalVisible(true);
               // setShowPurchaseModal(false);
+            }}
+            onPurchase={() => {
+              purchasePersona(anonId, db, purchasePersona);
             }}
             themes={themes}
           />

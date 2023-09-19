@@ -54,10 +54,10 @@ const Purchase = ({
             </View>
             <View style={styles.table}>
               <Text style={styles.tableLabel}>Cost:</Text>
-              <Text style={styles.tableValue}>{cost}</Text>
+              <Text style={styles.tableValue}>-{cost}</Text>
             </View>
             <View style={styles.table}>
-              <Text style={styles.tableLabel}>Remaining Balance:</Text>
+              <Text style={styles.tableLabel}>Remaining Coins:</Text>
               <Text
                 style={[
                   styles.tableValue,
