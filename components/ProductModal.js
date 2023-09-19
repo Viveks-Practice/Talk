@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
@@ -14,12 +15,17 @@ import productIdToCoins from "../productIdToCoins.json";
 
 const ProductModal = ({
   isVisible,
+  setIsVisible,
   onClose,
   products,
   id,
   db,
   coins,
   setCoins,
+  isPurchasingCoins,
+  setIsPurchasingCoins,
+  theme,
+  themes,
 }) => {
   return (
     <Modal
@@ -44,26 +50,11 @@ const ProductModal = ({
                   <Pressable
                     style={[styles.button, styles.buttonClose]}
                     onPress={async () => {
+                      setIsPurchasingCoins(true);
                       try {
                         // const { customerInfo, productIdentifier } =
                         const purchaseResponse =
                           await Purchases.purchasePackage(item);
-
-                        console.log("Purchased item: ", item);
-                        console.log(
-                          "RevenueCat Purchase Response: ",
-                          purchaseResponse
-                        );
-                        console.log(
-                          "Purchase Response all entitlements",
-                          purchaseResponse.customerInfo.entitlements.all
-                        );
-                        console.log(
-                          "Purchase Response non-subscription transactions",
-                          purchaseResponse.customerInfo
-                            .nonSubscriptionTransactions
-                        );
-                        console.log("RevenueCat Purchase completed");
                         // Deliver purchased content
                         deliverContent(purchaseResponse, id, db, item)
                           .then((result) => {
@@ -98,6 +89,8 @@ const ProductModal = ({
                           // Alert.alert("Error purchasing package", e.message);
                         }
                       }
+                      setIsPurchasingCoins(false);
+                      setIsVisible(false);
                     }}
                   >
                     <Text style={styles.textStyle}>Buy</Text>
@@ -108,6 +101,14 @@ const ProductModal = ({
           </View>
         </View>
       </Pressable>
+      {isPurchasingCoins && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator
+            size="large"
+            color={themes[theme].colorSchemes.fourth}
+          />
+        </View>
+      )}
     </Modal>
   );
 };
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
   },
   modalView: {
     margin: 20,
@@ -169,6 +170,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
   },
 });
 

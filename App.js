@@ -6,15 +6,10 @@ import {
   StatusBar,
   SafeAreaView,
   KeyboardAvoidingView,
-  AppState,
 } from "react-native";
 import {
-  AppOpenAd,
   InterstitialAd,
-  RewardedAd,
-  BannerAd,
   TestIds,
-  BannerAdSize,
   AdEventType,
 } from "react-native-google-mobile-ads";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -104,7 +99,9 @@ export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
+  const [isPurchasing, setIsPurchasing] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
+  const [isPurchasingCoins, setIsPurchasingCoins] = useState(false);
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
   const [anonId, setAnonId] = useState(null);
@@ -452,12 +449,17 @@ export default function App() {
           />
           <ProductModal
             isVisible={productModalVisible}
+            setIsVisible={setProductModalVisible}
             onClose={() => setProductModalVisible(false)}
             products={products}
             id={anonId}
             db={db}
             coins={coins}
             setCoins={setCoins}
+            isPurchasingCoins={isPurchasingCoins}
+            setIsPurchasingCoins={setIsPurchasingCoins}
+            theme={theme}
+            themes={themes}
           />
           <Purchase
             isVisible={showPurchaseModal}
@@ -469,9 +471,10 @@ export default function App() {
             onClose={() => setShowPurchaseModal(false)}
             onBuyCoins={() => {
               setProductModalVisible(true);
-              // setShowPurchaseModal(false);
             }}
             onPurchase={() => {
+              setIsPurchasing(true); // Set the loading state to true at the beginning
+
               iapPersona(anonId, db, purchasePersona)
                 .then(() => {
                   // update the options state to reflect the purchase
@@ -491,6 +494,10 @@ export default function App() {
                 })
                 .catch((error) => {
                   console.error("Error in making the purchase: ", error);
+                })
+                .finally(() => {
+                  setIsPurchasing(false); // Always set the loading state back to false at the end
+                  setShowPurchaseModal(false);
                 });
             }}
             themes={themes}
@@ -566,26 +573,33 @@ export default function App() {
           />
           <ProductModal
             isVisible={productModalVisible}
+            setIsVisible={setProductModalVisible}
             onClose={() => setProductModalVisible(false)}
             products={products}
             id={anonId}
             db={db}
             coins={coins}
             setCoins={setCoins}
+            isPurchasingCoins={isPurchasingCoins}
+            setIsPurchasingCoins={setIsPurchasingCoins}
+            theme={theme}
+            themes={themes}
           />
           <Purchase
             isVisible={showPurchaseModal}
             purchasePersona={purchasePersona}
-            productModalVisible={productModalVisible}
-            setProductModalVisible={setProductModalVisible}
             currentCoins={coins}
-            setCoins={setCoins}
             onClose={() => setShowPurchaseModal(false)}
             onBuyCoins={() => {
               setProductModalVisible(true);
               // setShowPurchaseModal(false);
             }}
+            isPurchasing={isPurchasing}
+            theme={theme}
+            themes={themes}
             onPurchase={() => {
+              setIsPurchasing(true); // Set the loading state to true at the beginning
+
               iapPersona(anonId, db, purchasePersona)
                 .then(() => {
                   // update the options state to reflect the purchase
@@ -605,9 +619,12 @@ export default function App() {
                 })
                 .catch((error) => {
                   console.error("Error in making the purchase: ", error);
+                })
+                .finally(() => {
+                  setIsPurchasing(false); // Always set the loading state back to false at the end
+                  setShowPurchaseModal(false);
                 });
             }}
-            themes={themes}
           />
         </SafeAreaView>
       )}

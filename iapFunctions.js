@@ -7,6 +7,7 @@ import {
   Timestamp,
 } from "@firebase/firestore"; // assuming you use @firebase/firestore
 import { Platform, Alert } from "react-native";
+import React from "react";
 import productIdToCoins from "./productIdToCoins.json";
 import Constants from "expo-constants";
 

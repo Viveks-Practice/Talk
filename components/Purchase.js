@@ -7,6 +7,7 @@ import {
   Modal,
   Pressable,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import ProductModal from "./ProductModal";
 
@@ -17,7 +18,9 @@ const Purchase = ({
   onClose,
   onBuyCoins,
   onPurchase,
+  isPurchasing,
   themes,
+  theme,
 }) => {
   const cost = purchasePersona.price;
   const balance = currentCoins - cost;
@@ -103,6 +106,14 @@ const Purchase = ({
           </View>
         </View>
       </Pressable>
+      {isPurchasing && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator
+            size="large"
+            color={themes[theme].colorSchemes.fourth}
+          />
+        </View>
+      )}
     </Modal>
   );
 };
@@ -231,6 +242,13 @@ const styles = StyleSheet.create({
 
   disabledButton: {
     opacity: 0.4, // Make the button slightly faded
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 2,
   },
 });
 

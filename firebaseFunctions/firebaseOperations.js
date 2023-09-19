@@ -123,19 +123,14 @@ export const fetchPersonas = async (db, userId) => {
   }
   try {
     // 1. Fetch all the documents from the `ownedProducts` sub-collection where `productCategory` is `"persona"`
-    console.log("test #1 - Querying owned products for user ID:", userId);
     const ref = collection(db, "users", userId, "ownedProducts");
-    console.log("test #2");
     const personaQuery = query(ref, where("productCategory", "==", "persona"));
     const querySnapshot = await getDocs(personaQuery);
-    console.log("test #3");
     // Check if the snapshot is empty
     if (querySnapshot.empty) {
       console.log("No owned products found for this user.");
       return null; // or return an empty Set for consistency: new Set();
     }
-
-    console.log("test #4");
     // 2. Extract the names of the personas from these documents and store them in a Set
     const ownedPersonasSet = new Set();
     querySnapshot.forEach((doc) => {
@@ -144,7 +139,6 @@ export const fetchPersonas = async (db, userId) => {
         ownedPersonasSet.add(data.productId);
       }
     });
-    console.log("test #5");
     // 3. Return the Set so you can use it to update your state
     return ownedPersonasSet;
   } catch (error) {
