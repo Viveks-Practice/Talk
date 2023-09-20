@@ -1,0 +1,59 @@
+import React from "react";
+import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+
+const SuccessModal = ({ isVisible, onAcknowledge, purchasedItem }) => {
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={onAcknowledge}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.successText}>
+            You have successfully purchased {purchasedItem}
+          </Text>
+          <TouchableOpacity
+            style={styles.acknowledgeButton}
+            onPress={onAcknowledge}
+          >
+            <Text style={styles.buttonText}>Ok</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+  },
+  modalView: {
+    width: "80%",
+    padding: 35,
+    backgroundColor: "#FFF",
+    borderRadius: 20,
+    alignItems: "center",
+  },
+  successText: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  acknowledgeButton: {
+    backgroundColor: "#2196F3",
+    padding: 10,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "#FFF",
+    fontWeight: "bold",
+  },
+});
+
+export default SuccessModal;

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import ProductModal from "./ProductModal";
+import SuccessModal from "./SuccessModal";
 
 const Purchase = ({
   isVisible,
