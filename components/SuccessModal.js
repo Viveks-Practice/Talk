@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const SuccessModal = ({ isVisible, onAcknowledge, purchasedItem }) => {
+const SuccessModal = ({ isVisible, onAcknowledge, purchasedItem, themes }) => {
   return (
     <Modal
       animationType="fade"
@@ -10,12 +10,25 @@ const SuccessModal = ({ isVisible, onAcknowledge, purchasedItem }) => {
       onRequestClose={onAcknowledge}
     >
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+        <View
+          style={[
+            styles.modalView,
+            {
+              backgroundColor: "#161d27",
+            },
+          ]}
+        >
           <Text style={styles.successText}>
-            You have successfully purchased {purchasedItem}
+            You have successfully purchased
           </Text>
+          <Text style={styles.itemText}>{purchasedItem}</Text>
           <TouchableOpacity
-            style={styles.acknowledgeButton}
+            style={[
+              styles.acknowledgeButton,
+              {
+                backgroundColor: themes["Neo - The Chat AI"].colorSchemes.sixth,
+              },
+            ]}
             onPress={onAcknowledge}
           >
             <Text style={styles.buttonText}>Ok</Text>
@@ -44,11 +57,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginBottom: 20,
+    color: "white",
+    fontWeight: "bold",
+  },
+  itemText: {
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "white",
+    fontWeight: "bold",
   },
   acknowledgeButton: {
     backgroundColor: "#2196F3",
-    padding: 10,
-    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 15,
   },
   buttonText: {
     color: "#FFF",

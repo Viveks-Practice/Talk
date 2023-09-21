@@ -199,6 +199,9 @@ export default function App() {
         const offerings = await Purchases.getOfferings();
         if (offerings.current !== null) {
           setProducts(offerings.current.availablePackages);
+          console.log(
+            console.log(JSON.stringify(offerings.current.availablePackages))
+          );
         }
       } catch (error) {
         console.log("Error in fetching products from RevenueCat: ", error);
@@ -462,44 +465,21 @@ export default function App() {
             themes={themes}
           />
           <Purchase
+            userId={anonId}
+            db={db}
+            options={options}
+            setOptions={setOptions}
+            setCoins={setCoins}
+            setShowPurchaseModal={setShowPurchaseModal}
             isVisible={showPurchaseModal}
             purchasePersona={purchasePersona}
-            productModalVisible={productModalVisible}
-            setProductModalVisible={setProductModalVisible}
             currentCoins={coins}
-            setCoins={setCoins}
             onClose={() => setShowPurchaseModal(false)}
             onBuyCoins={() => {
               setProductModalVisible(true);
             }}
-            onPurchase={() => {
-              setIsPurchasing(true); // Set the loading state to true at the beginning
-
-              iapPersona(anonId, db, purchasePersona)
-                .then(() => {
-                  // update the options state to reflect the purchase
-                  const updatedOptions = options.map((option) => {
-                    if (option.name === purchasePersona.name) {
-                      return {
-                        ...option,
-                        owned: true,
-                      };
-                    }
-                    return option;
-                  });
-                  setOptions(updatedOptions);
-
-                  // update the coins state to reflect the purchase
-                  setCoins((prevCoins) => prevCoins - purchasePersona.price);
-                })
-                .catch((error) => {
-                  console.error("Error in making the purchase: ", error);
-                })
-                .finally(() => {
-                  setIsPurchasing(false); // Always set the loading state back to false at the end
-                  setShowPurchaseModal(false);
-                });
-            }}
+            isPurchasing={isPurchasing}
+            theme={theme}
             themes={themes}
           />
         </KeyboardAvoidingView>
@@ -586,45 +566,22 @@ export default function App() {
             themes={themes}
           />
           <Purchase
+            userId={anonId}
+            db={db}
+            options={options}
+            setOptions={setOptions}
+            setCoins={setCoins}
+            setShowPurchaseModal={setShowPurchaseModal}
             isVisible={showPurchaseModal}
             purchasePersona={purchasePersona}
             currentCoins={coins}
             onClose={() => setShowPurchaseModal(false)}
             onBuyCoins={() => {
               setProductModalVisible(true);
-              // setShowPurchaseModal(false);
             }}
             isPurchasing={isPurchasing}
             theme={theme}
             themes={themes}
-            onPurchase={() => {
-              setIsPurchasing(true); // Set the loading state to true at the beginning
-
-              iapPersona(anonId, db, purchasePersona)
-                .then(() => {
-                  // update the options state to reflect the purchase
-                  const updatedOptions = options.map((option) => {
-                    if (option.name === purchasePersona.name) {
-                      return {
-                        ...option,
-                        owned: true,
-                      };
-                    }
-                    return option;
-                  });
-                  setOptions(updatedOptions);
-
-                  // update the coins state to reflect the purchase
-                  setCoins((prevCoins) => prevCoins - purchasePersona.price);
-                })
-                .catch((error) => {
-                  console.error("Error in making the purchase: ", error);
-                })
-                .finally(() => {
-                  setIsPurchasing(false); // Always set the loading state back to false at the end
-                  setShowPurchaseModal(false);
-                });
-            }}
           />
         </SafeAreaView>
       )}

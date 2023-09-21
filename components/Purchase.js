@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import SuccessModal from "./SuccessModal";
+import { iapPersona } from "../iapFunctions";
 
 const Purchase = ({
   isVisible,
@@ -17,104 +18,157 @@ const Purchase = ({
   currentCoins,
   onClose,
   onBuyCoins,
-  onPurchase,
-  isPurchasing,
   themes,
   theme,
+  userId,
+  db,
+  options,
+  setOptions,
+  setCoins,
+  setShowPurchaseModal,
 }) => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isPurchasing, setIsPurchasing] = useState(false);
+  // need one for setShowPurchaseModal once this component is migrated to be inside personaModal
+
   const cost = purchasePersona.price;
   const balance = currentCoins - cost;
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
-    >
-      <Pressable style={styles.modalOverlay} onPress={onClose}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TouchableOpacity
-              style={[
-                styles.optionButton,
-                styles.buyCoinsButton,
-                {
-                  backgroundColor:
-                    themes["Neo - The Chat AI"].colorSchemes.sixth,
-                },
-              ]}
-              onPress={onBuyCoins}
-            >
-              <Text style={styles.optionText}>Buy Coins</Text>
-            </TouchableOpacity>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Purchase {purchasePersona.name}</Text>
-            </View>
-            <View style={styles.table}>
-              <Text style={styles.tableLabel}>Current Coins:</Text>
-              <Text style={styles.tableValue}>{currentCoins}</Text>
-            </View>
-            <View style={styles.table}>
-              <Text style={styles.tableLabel}>Cost:</Text>
-              <Text style={styles.tableValue}>-{cost}</Text>
-            </View>
-            <View style={styles.table}>
-              <Text style={styles.tableLabel}>Remaining Coins:</Text>
-              <Text
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isVisible}
+        onRequestClose={onClose}
+      >
+        <Pressable style={styles.modalOverlay} onPress={onClose}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity
                 style={[
-                  styles.tableValue,
-                  balance < 0 && styles.negativeBalance,
+                  styles.optionButton,
+                  styles.buyCoinsButton,
+                  {
+                    backgroundColor:
+                      themes["Neo - The Chat AI"].colorSchemes.sixth,
+                  },
                 ]}
+                onPress={onBuyCoins}
               >
-                {balance}
-              </Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <View style={styles.buttonWrapper}>
-                <TouchableOpacity
-                  style={[
-                    styles.optionButton,
-                    {
-                      backgroundColor:
-                        themes["Neo - The Chat AI"].colorSchemes.sixth,
-                    },
-                  ]}
-                  onPress={onClose}
-                >
-                  <Text style={styles.optionText}>Cancel</Text>
-                </TouchableOpacity>
+                <Text style={styles.optionText}>Buy Coins</Text>
+              </TouchableOpacity>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>
+                  Purchase {purchasePersona.name}
+                </Text>
               </View>
-              <View style={styles.buttonWrapper}>
-                <TouchableOpacity
+              <View style={styles.table}>
+                <Text style={styles.tableLabel}>Current Coins:</Text>
+                <Text style={styles.tableValue}>{currentCoins}</Text>
+              </View>
+              <View style={styles.table}>
+                <Text style={styles.tableLabel}>Cost:</Text>
+                <Text style={styles.tableValue}>-{cost}</Text>
+              </View>
+              <View style={styles.table}>
+                <Text style={styles.tableLabel}>Remaining Coins:</Text>
+                <Text
                   style={[
-                    styles.optionButton,
-                    {
-                      backgroundColor:
-                        themes["Neo - The Chat AI"].colorSchemes.sixth,
-                    },
-                    balance < 0 ? styles.disabledButton : {},
+                    styles.tableValue,
+                    balance < 0 && styles.negativeBalance,
                   ]}
-                  onPress={onPurchase}
-                  disabled={balance < 0}
                 >
-                  <Text style={styles.optionText}>Purchase</Text>
-                  {balance < 0 && <View style={styles.overlay}></View>}
-                </TouchableOpacity>
+                  {balance}
+                </Text>
+              </View>
+              <View style={styles.buttonContainer}>
+                <View style={styles.buttonWrapper}>
+                  <TouchableOpacity
+                    style={[
+                      styles.optionButton,
+                      {
+                        backgroundColor:
+                          themes["Neo - The Chat AI"].colorSchemes.sixth,
+                      },
+                    ]}
+                    onPress={onClose}
+                  >
+                    <Text style={styles.optionText}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.buttonWrapper}>
+                  <TouchableOpacity
+                    style={[
+                      styles.optionButton,
+                      {
+                        backgroundColor:
+                          themes["Neo - The Chat AI"].colorSchemes.sixth,
+                      },
+                      balance < 0 ? styles.disabledButton : {},
+                    ]}
+                    onPress={() => {
+                      setIsPurchasing(true);
+
+                      iapPersona(userId, db, purchasePersona)
+                        .then(() => {
+                          // update the options state to reflect the purchase
+                          const updatedOptions = options.map((option) => {
+                            // if the option is a purchased persona, set owned to true
+                            if (option.name === purchasePersona.name) {
+                              return {
+                                ...option,
+                                owned: true,
+                              };
+                            }
+                            // if the option is not the purchased persona, return it as is
+                            return option;
+                          });
+                          setOptions(updatedOptions);
+
+                          // update the coins state to reflect the purchase
+                          setCoins(
+                            (prevCoins) => prevCoins - purchasePersona.price
+                          );
+                        })
+                        .catch((error) => {
+                          console.error(
+                            "Error in making the purchase: ",
+                            error
+                          );
+                        })
+                        .finally(() => {
+                          setIsPurchasing(false); // Always set the loading state back to false at the end
+                          setShowSuccessModal(true);
+                          onClose();
+                        });
+                    }}
+                    disabled={balance < 0}
+                  >
+                    <Text style={styles.optionText}>Purchase</Text>
+                    {balance < 0 && <View style={styles.overlay}></View>}
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </Pressable>
-      {isPurchasing && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator
-            size="large"
-            color={themes[theme].colorSchemes.fourth}
-          />
-        </View>
-      )}
-    </Modal>
+        </Pressable>
+        {isPurchasing && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator
+              size="large"
+              color={themes[theme].colorSchemes.fourth}
+            />
+          </View>
+        )}
+      </Modal>
+      <SuccessModal
+        isVisible={showSuccessModal}
+        onAcknowledge={() => setShowSuccessModal(false)}
+        purchasedItem={purchasePersona.name}
+        themes={themes}
+      />
+    </>
   );
 };
 

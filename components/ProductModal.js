@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
+import SuccessModal from "./SuccessModal";
 import { fetchCoins } from "../firebaseFunctions/firebaseOperations";
 import productIdToCoins from "../productIdToCoins.json";
 
@@ -27,89 +28,109 @@ const ProductModal = ({
   theme,
   themes,
 }) => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [selectedCoins, setSelectedCoins] = useState("");
+
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
-    >
-      <Pressable style={styles.modalOverlay} onPress={onClose}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <FlatList
-              data={products}
-              keyExtractor={(item) => item.identifier}
-              renderItem={({ item }) => (
-                <View style={styles.productContainer}>
-                  <Text style={styles.productTitle}>{item.product.title}</Text>
-                  <Text style={styles.productDescription}>
-                    {item.product.description}
-                  </Text>
-                  <Text style={styles.productPrice}>{item.product.price}</Text>
-                  <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={async () => {
-                      setIsPurchasingCoins(true);
-                      try {
-                        // const { customerInfo, productIdentifier } =
-                        const purchaseResponse =
-                          await Purchases.purchasePackage(item);
-                        // Deliver purchased content
-                        deliverContent(purchaseResponse, id, db, item)
-                          .then((result) => {
-                            // successfully delivered purchased content
-                            console.log(
-                              "(#3 deliverContent) - The content has been delivered successfully!",
-                              result
-                            );
-                            // increase coin count
-                            const coinsToAdd =
-                              productIdToCoins[item.identifier];
-                            const newCoins = coins + coinsToAdd;
-                            setCoins(newCoins);
-                            console.log(
-                              "New coin count after delivering the coins!",
-                              newCoins
-                            );
-                          })
-                          .catch((error) => {
-                            // failed to deliver purchased content
-                            console.log(
-                              "(#3 deliverContent) - The content has failed to deliver!",
-                              error
-                            );
-                          });
-                      } catch (error) {
-                        console.log(
-                          "Error with trying to make a purchase with RevenueCat",
-                          error
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isVisible}
+        onRequestClose={onClose}
+      >
+        <Pressable style={styles.modalOverlay} onPress={onClose}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <FlatList
+                data={products}
+                keyExtractor={(item) => item.identifier}
+                renderItem={({ item }) => (
+                  <View style={styles.productContainer}>
+                    <Text style={styles.productTitle}>
+                      {item.product.title}
+                    </Text>
+                    <Text style={styles.productDescription}>
+                      {item.product.description}
+                    </Text>
+                    <Text style={styles.productPrice}>
+                      {item.product.price}
+                    </Text>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={async () => {
+                        setSelectedCoins(
+                          productIdToCoins[item.identifier] + " Coins"
                         );
-                        if (!error.userCancelled) {
-                          // Alert.alert("Error purchasing package", e.message);
+                        setIsPurchasingCoins(true);
+                        try {
+                          // const { customerInfo, productIdentifier } =
+                          const purchaseResponse =
+                            await Purchases.purchasePackage(item);
+                          // Deliver purchased content
+                          deliverContent(purchaseResponse, id, db, item)
+                            .then((result) => {
+                              // successfully delivered purchased content
+                              console.log(
+                                "(#3 deliverContent) - The content has been delivered successfully!",
+                                result
+                              );
+                              // increase coin count
+                              const coinsToAdd =
+                                productIdToCoins[item.identifier];
+                              const newCoins = coins + coinsToAdd;
+                              setCoins(newCoins);
+                              console.log(
+                                "New coin count after delivering the coins!",
+                                newCoins
+                              );
+                            })
+                            .catch((error) => {
+                              // failed to deliver purchased content
+                              console.log(
+                                "(#3 deliverContent) - The content has failed to deliver!",
+                                error
+                              );
+                            });
+                        } catch (error) {
+                          console.log(
+                            "Error with trying to make a purchase with RevenueCat",
+                            error
+                          );
+                          if (!error.userCancelled) {
+                            // Alert.alert("Error purchasing package", e.message);
+                          }
+                        } finally {
+                          setIsPurchasingCoins(false);
+                          setIsVisible(false);
+                          setShowSuccessModal(true);
                         }
-                      }
-                      setIsPurchasingCoins(false);
-                      setIsVisible(false);
-                    }}
-                  >
-                    <Text style={styles.textStyle}>Buy</Text>
-                  </Pressable>
-                </View>
-              )}
+                      }}
+                    >
+                      <Text style={styles.textStyle}>Buy</Text>
+                    </Pressable>
+                  </View>
+                )}
+              />
+            </View>
+          </View>
+        </Pressable>
+        {isPurchasingCoins && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator
+              size="large"
+              color={themes[theme].colorSchemes.fourth}
             />
           </View>
-        </View>
-      </Pressable>
-      {isPurchasingCoins && (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator
-            size="large"
-            color={themes[theme].colorSchemes.fourth}
-          />
-        </View>
-      )}
-    </Modal>
+        )}
+      </Modal>
+      <SuccessModal
+        isVisible={showSuccessModal}
+        onAcknowledge={() => setShowSuccessModal(false)}
+        purchasedItem={selectedCoins}
+        themes={themes}
+      />
+    </>
   );
 };
 
