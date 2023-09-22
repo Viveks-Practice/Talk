@@ -17,6 +17,7 @@ import Purchase from "./Purchase";
 const PersonaModal = ({
   userId,
   db,
+  products,
   modalVisible,
   setModalVisible,
   theme,
@@ -31,7 +32,6 @@ const PersonaModal = ({
   selectedOption,
   coins,
   setCoins,
-  setProductModalVisible,
 }) => {
   const [purchasePersona, setPurchasePersona] = useState({
     name: "Harry Styles",
@@ -179,6 +179,8 @@ const PersonaModal = ({
       <Purchase
         userId={userId} // stored in App.js state
         db={db} // stored in App.js state
+        products={products} // stored in App.js state
+        coins={coins} // stored in App.js state
         options={options} // stored in App.js state
         setOptions={setOptions} // stored in App.js state
         setCoins={setCoins} // stored in App.js state
@@ -187,9 +189,6 @@ const PersonaModal = ({
         purchasePersona={purchasePersona} // stored in this comp
         currentCoins={coins} // stored in App.js state
         onClose={() => setShowPurchaseModal(false)} // stored in this comp
-        onBuyCoins={() => {
-          setProductModalVisible(true); // stored in App.js comp (for the time being)
-        }}
         theme={theme} // stored in App.js state
         themes={themes} // stored in App.js state
       />

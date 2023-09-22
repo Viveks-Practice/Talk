@@ -23,11 +23,10 @@ const ProductModal = ({
   db,
   coins,
   setCoins,
-  isPurchasingCoins,
-  setIsPurchasingCoins,
   theme,
   themes,
 }) => {
+  const [isPurchasingCoins, setIsPurchasingCoins] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selectedCoins, setSelectedCoins] = useState("");
 

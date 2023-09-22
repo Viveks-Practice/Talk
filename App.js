@@ -44,7 +44,6 @@ import PersonaModal from "./components/personaModal";
 import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
-import ProductModal from "./components/ProductModal";
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
@@ -97,9 +96,8 @@ export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
-  const [isPurchasing, setIsPurchasing] = useState(false);
-  const [productModalVisible, setProductModalVisible] = useState(false);
-  const [isPurchasingCoins, setIsPurchasingCoins] = useState(false);
+  const [isPurchasing, setIsPurchasing] = useState(false); // remove once refactored
+  const [productModalVisible, setProductModalVisible] = useState(false); // remove once refactored
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
   const [anonId, setAnonId] = useState(null);
@@ -391,7 +389,6 @@ export default function App() {
             db={db}
             coins={coins}
             setCoins={setCoins}
-            setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
             userId={anonId}
@@ -444,20 +441,6 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
-          />
-          <ProductModal
-            isVisible={productModalVisible}
-            setIsVisible={setProductModalVisible}
-            onClose={() => setProductModalVisible(false)}
-            products={products}
-            id={anonId}
-            db={db}
-            coins={coins}
-            setCoins={setCoins}
-            isPurchasingCoins={isPurchasingCoins}
-            setIsPurchasingCoins={setIsPurchasingCoins}
-            theme={theme}
-            themes={themes}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -478,11 +461,11 @@ export default function App() {
             db={db}
             coins={coins}
             setCoins={setCoins}
-            // setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
             userId={anonId}
             db={db}
+            products={products}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
             theme={theme}
@@ -531,20 +514,6 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
-          />
-          <ProductModal
-            isVisible={productModalVisible}
-            setIsVisible={setProductModalVisible}
-            onClose={() => setProductModalVisible(false)}
-            products={products}
-            id={anonId}
-            db={db}
-            coins={coins}
-            setCoins={setCoins}
-            isPurchasingCoins={isPurchasingCoins}
-            setIsPurchasingCoins={setIsPurchasingCoins}
-            theme={theme}
-            themes={themes}
           />
         </SafeAreaView>
       )}

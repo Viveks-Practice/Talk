@@ -20,7 +20,6 @@ const NeoHeader = ({
 }) => {
   const [productModalVisible, setProductModalVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [isPurchasingCoins, setIsPurchasingCoins] = useState(false);
 
   return (
     <View>
@@ -82,8 +81,6 @@ const NeoHeader = ({
         db={db} // passed in from App.js
         coins={coins} // passed in from App.js
         setCoins={setCoins} // passed in from App.js
-        isPurchasingCoins={isPurchasingCoins} // stored in this component's state
-        setIsPurchasingCoins={setIsPurchasingCoins} // stored in this component's state
         theme={theme} // passed in from App.js
         themes={themes} // passed in from App.js
       />

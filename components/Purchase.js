@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import SuccessModal from "./SuccessModal";
+import ProductModal from "./ProductModal";
 import { iapPersona } from "../iapFunctions";
 
 const Purchase = ({
@@ -17,18 +18,19 @@ const Purchase = ({
   purchasePersona,
   currentCoins,
   onClose,
-  onBuyCoins,
   themes,
   theme,
   userId,
   db,
+  products,
   options,
   setOptions,
+  coins,
   setCoins,
-  setShowPurchaseModal,
 }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isPurchasing, setIsPurchasing] = useState(false);
+  const [isPurchasing, setIsPurchasing] = useState(false); // rename to explain what is being purchased
+  const [productModalVisible, setProductModalVisible] = useState(false); // rename to explain this is a coins purchase modal
   // need one for setShowPurchaseModal once this component is migrated to be inside personaModal
 
   const cost = purchasePersona.price;
@@ -54,7 +56,9 @@ const Purchase = ({
                       themes["Neo - The Chat AI"].colorSchemes.sixth,
                   },
                 ]}
-                onPress={onBuyCoins}
+                onPress={() => {
+                  setProductModalVisible(true);
+                }}
               >
                 <Text style={styles.optionText}>Buy Coins</Text>
               </TouchableOpacity>
@@ -162,6 +166,18 @@ const Purchase = ({
           </View>
         )}
       </Modal>
+      <ProductModal
+        isVisible={productModalVisible} // stored in this component's state
+        setIsVisible={setProductModalVisible} // stored in this component's state
+        onClose={() => setProductModalVisible(false)} // stored in this component's state
+        products={products} // passed in from App.js
+        id={userId} // passed in from App.js
+        db={db} // passed in from App.js
+        coins={coins} // passed in from App.js
+        setCoins={setCoins} // passed in from App.js
+        theme={theme} // passed in from App.js
+        themes={themes} // passed in from App.js
+      />
       <SuccessModal
         isVisible={showSuccessModal}
         onAcknowledge={() => setShowSuccessModal(false)}
