@@ -1,4 +1,4 @@
-//revenueCat_purchasable_products branch
+//refactor_ProductModal branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
