@@ -1,28 +1,26 @@
 import React, { useState } from "react";
-import {
-  Pressable,
-  Text,
-  StyleSheet,
-  View,
-  Modal,
-  TextInput,
-  Button,
-} from "react-native";
+import { Pressable, Text, StyleSheet, View } from "react-native";
 import { Header } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
-import themes from "../themes.json";
 import LoginModal from "./LoginModal";
+import ProductModal from "./ProductModal";
 
 const NeoHeader = ({
   selectedOption,
   setModalVisible,
   theme,
+  themes,
   coins,
-  setProductModalVisible,
+  setCoins,
+  id,
+  db,
+  products,
 }) => {
+  const [productModalVisible, setProductModalVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
+  const [isPurchasingCoins, setIsPurchasingCoins] = useState(false);
 
   return (
     <View>
@@ -74,6 +72,20 @@ const NeoHeader = ({
           marginTop: Platform.OS === "ios" ? Constants.statusBarHeight : 0,
           paddingTop: Platform.OS == "android" ? 35 : null,
         }}
+      />
+      <ProductModal
+        isVisible={productModalVisible} // stored in this component's state
+        setIsVisible={setProductModalVisible} // stored in this component's state
+        onClose={() => setProductModalVisible(false)} // stored in this component's state
+        products={products} // passed in from App.js
+        id={id} // passed in from App.js
+        db={db} // passed in from App.js
+        coins={coins} // passed in from App.js
+        setCoins={setCoins} // passed in from App.js
+        isPurchasingCoins={isPurchasingCoins} // stored in this component's state
+        setIsPurchasingCoins={setIsPurchasingCoins} // stored in this component's state
+        theme={theme} // passed in from App.js
+        themes={themes} // passed in from App.js
       />
       <LoginModal
         isVisible={loginModalVisible}

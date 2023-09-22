@@ -102,8 +102,8 @@ const ProductModal = ({
                           }
                         } finally {
                           setIsPurchasingCoins(false);
-                          setIsVisible(false);
                           setShowSuccessModal(true);
+                          setIsVisible(false);
                         }
                       }}
                     >

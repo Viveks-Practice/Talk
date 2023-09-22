@@ -472,12 +472,13 @@ export default function App() {
             selectedOption={selectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            themes={themes}
             products={products}
             id={anonId}
             db={db}
             coins={coins}
             setCoins={setCoins}
-            setProductModalVisible={setProductModalVisible}
+            // setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
             userId={anonId}

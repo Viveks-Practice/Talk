@@ -182,11 +182,11 @@ const PersonaModal = ({
         options={options} // stored in App.js state
         setOptions={setOptions} // stored in App.js state
         setCoins={setCoins} // stored in App.js state
-        setShowPurchaseModal={setShowPurchaseModal} // (Clean - Good) stored in this comp
-        isVisible={showPurchaseModal} // (Clean - Good) stored in this comp
-        purchasePersona={purchasePersona} // (Clean - Good) stored in this comp
+        setShowPurchaseModal={setShowPurchaseModal} // stored in this comp
+        isVisible={showPurchaseModal} // stored in this comp
+        purchasePersona={purchasePersona} // stored in this comp
         currentCoins={coins} // stored in App.js state
-        onClose={() => setShowPurchaseModal(false)} // (Clean - Good) stored in this comp
+        onClose={() => setShowPurchaseModal(false)} // stored in this comp
         onBuyCoins={() => {
           setProductModalVisible(true); // stored in App.js comp (for the time being)
         }}
