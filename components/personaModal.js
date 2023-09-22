@@ -177,17 +177,15 @@ const PersonaModal = ({
         </Pressable>
       </Modal>
       <Purchase
+        isVisible={showPurchaseModal} // stored in this comp
+        currentCoins={coins} // stored in App.js state
         userId={userId} // stored in App.js state
         db={db} // stored in App.js state
         products={products} // stored in App.js state
-        coins={coins} // stored in App.js state
         options={options} // stored in App.js state
         setOptions={setOptions} // stored in App.js state
         setCoins={setCoins} // stored in App.js state
-        setShowPurchaseModal={setShowPurchaseModal} // stored in this comp
-        isVisible={showPurchaseModal} // stored in this comp
         purchasePersona={purchasePersona} // stored in this comp
-        currentCoins={coins} // stored in App.js state
         onClose={() => setShowPurchaseModal(false)} // stored in this comp
         theme={theme} // stored in App.js state
         themes={themes} // stored in App.js state

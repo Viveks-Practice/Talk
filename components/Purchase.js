@@ -15,23 +15,21 @@ import { iapPersona } from "../iapFunctions";
 
 const Purchase = ({
   isVisible,
-  purchasePersona,
   currentCoins,
-  onClose,
-  themes,
-  theme,
   userId,
   db,
   products,
   options,
   setOptions,
-  coins,
   setCoins,
+  purchasePersona,
+  onClose,
+  theme,
+  themes,
 }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPurchasing, setIsPurchasing] = useState(false); // rename to explain what is being purchased
   const [productModalVisible, setProductModalVisible] = useState(false); // rename to explain this is a coins purchase modal
-  // need one for setShowPurchaseModal once this component is migrated to be inside personaModal
 
   const cost = purchasePersona.price;
   const balance = currentCoins - cost;
@@ -173,7 +171,7 @@ const Purchase = ({
         products={products} // passed in from App.js
         id={userId} // passed in from App.js
         db={db} // passed in from App.js
-        coins={coins} // passed in from App.js
+        coins={currentCoins} // passed in from App.js
         setCoins={setCoins} // passed in from App.js
         theme={theme} // passed in from App.js
         themes={themes} // passed in from App.js
