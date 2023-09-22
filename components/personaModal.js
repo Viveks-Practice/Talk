@@ -15,8 +15,11 @@ import PersonSearch from "./PersonSearch";
 import Purchase from "./Purchase";
 
 const PersonaModal = ({
+  userId,
+  db,
   modalVisible,
   setModalVisible,
+  theme,
   themes,
   searchQuery,
   setSearchQuery,
@@ -28,9 +31,15 @@ const PersonaModal = ({
   selectedOption,
   coins,
   setCoins,
-  setPurchasePersona,
-  setShowPurchaseModal,
+  setProductModalVisible,
 }) => {
+  const [purchasePersona, setPurchasePersona] = useState({
+    name: "Harry Styles",
+    owned: false,
+    price: 200,
+  });
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+
   const searchPerson = async (query) => {
     try {
       const response = await axios.get(
@@ -94,77 +103,97 @@ const PersonaModal = ({
   };
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}
-    >
-      <Pressable
-        style={PersonaModalStyles.modalOverlay}
-        onPress={() => setModalVisible(false)}
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
       >
-        <View style={PersonaModalStyles.centeredView}>
-          <View
-            style={[
-              PersonaModalStyles.modalView,
-              {
-                backgroundColor: themes["Neo - The Chat AI"].colorSchemes.first,
-              },
-            ]}
-          >
-            <PersonSearch
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              searchPerson={searchPerson}
-            />
-            <FlatList
-              data={options}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={[
-                    PersonaModalStyles.optionButton,
-                    {
-                      backgroundColor:
-                        themes["Neo - The Chat AI"].colorSchemes.sixth,
-                    },
-                  ]}
-                  onPress={() => {
-                    if (!item.owned) {
-                      // Handle the purchase logic here, if needed
-                      setPurchasePersona(item);
-                      setShowPurchaseModal(true);
-                      return;
-                    }
-                    if (item.name !== selectedOption) {
-                      setSelectedOption(item.name);
-                      setTheme(item.name);
-                      setMessages(themes[item.name].initialMessages);
-                    }
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={PersonaModalStyles.optionText}>
-                    {item.name}
-                    {!item.owned && ` - ${item.price}`}
-                  </Text>
+        <Pressable
+          style={PersonaModalStyles.modalOverlay}
+          onPress={() => setModalVisible(false)}
+        >
+          <View style={PersonaModalStyles.centeredView}>
+            <View
+              style={[
+                PersonaModalStyles.modalView,
+                {
+                  backgroundColor:
+                    themes["Neo - The Chat AI"].colorSchemes.first,
+                },
+              ]}
+            >
+              <PersonSearch
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                searchPerson={searchPerson}
+              />
+              <FlatList
+                data={options}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={[
+                      PersonaModalStyles.optionButton,
+                      {
+                        backgroundColor:
+                          themes["Neo - The Chat AI"].colorSchemes.sixth,
+                      },
+                    ]}
+                    onPress={() => {
+                      if (!item.owned) {
+                        // Handle the purchase logic here, if needed
+                        setPurchasePersona(item);
+                        setShowPurchaseModal(true);
+                        return;
+                      }
+                      if (item.name !== selectedOption) {
+                        setSelectedOption(item.name);
+                        setTheme(item.name);
+                        setMessages(themes[item.name].initialMessages);
+                      }
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={PersonaModalStyles.optionText}>
+                      {item.name}
+                      {!item.owned && ` - ${item.price}`}
+                    </Text>
 
-                  {/* Conditional overlay */}
-                  {!item.owned && (
-                    <View style={PersonaModalStyles.overlay}></View>
-                  )}
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item) => item.name}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ flexGrow: 1 }}
-            />
+                    {/* Conditional overlay */}
+                    {!item.owned && (
+                      <View style={PersonaModalStyles.overlay}></View>
+                    )}
+                  </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item.name}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1 }}
+              />
+            </View>
           </View>
-        </View>
-      </Pressable>
-    </Modal>
+        </Pressable>
+      </Modal>
+      <Purchase
+        userId={userId} // stored in App.js state
+        db={db} // stored in App.js state
+        options={options} // stored in App.js state
+        setOptions={setOptions} // stored in App.js state
+        setCoins={setCoins} // stored in App.js state
+        setShowPurchaseModal={setShowPurchaseModal} // (Clean - Good) stored in this comp
+        isVisible={showPurchaseModal} // (Clean - Good) stored in this comp
+        purchasePersona={purchasePersona} // (Clean - Good) stored in this comp
+        currentCoins={coins} // stored in App.js state
+        onClose={() => setShowPurchaseModal(false)} // (Clean - Good) stored in this comp
+        onBuyCoins={() => {
+          setProductModalVisible(true); // stored in App.js comp (for the time being)
+        }}
+        theme={theme} // stored in App.js state
+        themes={themes} // stored in App.js state
+      />
+    </>
   );
 };
 

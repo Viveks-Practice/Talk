@@ -35,7 +35,6 @@ import {
   fetchCoins,
   fetchPersonas,
 } from "./firebaseFunctions/firebaseOperations";
-import { iapPersona } from "./iapFunctions";
 
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
@@ -46,7 +45,6 @@ import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
 import ProductModal from "./components/ProductModal";
-import Purchase from "./components/Purchase";
 
 let adUnitIdInterstitial = "";
 if (Platform.OS === "ios") {
@@ -122,12 +120,6 @@ export default function App() {
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
-  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const [purchasePersona, setPurchasePersona] = useState({
-    name: "Harry Styles",
-    owned: false,
-    price: 200,
-  });
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
@@ -402,8 +394,11 @@ export default function App() {
             setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
+            userId={anonId}
+            db={db}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
+            theme={theme}
             themes={themes}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -415,8 +410,8 @@ export default function App() {
             selectedOption={selectedOption}
             coins={coins}
             setCoins={setCoins}
-            setPurchasePersona={setPurchasePersona}
-            setShowPurchaseModal={setShowPurchaseModal}
+            setProductModalVisible={setProductModalVisible}
+            isPurchasing={isPurchasing}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -461,24 +456,6 @@ export default function App() {
             setCoins={setCoins}
             isPurchasingCoins={isPurchasingCoins}
             setIsPurchasingCoins={setIsPurchasingCoins}
-            theme={theme}
-            themes={themes}
-          />
-          <Purchase
-            userId={anonId}
-            db={db}
-            options={options}
-            setOptions={setOptions}
-            setCoins={setCoins}
-            setShowPurchaseModal={setShowPurchaseModal}
-            isVisible={showPurchaseModal}
-            purchasePersona={purchasePersona}
-            currentCoins={coins}
-            onClose={() => setShowPurchaseModal(false)}
-            onBuyCoins={() => {
-              setProductModalVisible(true);
-            }}
-            isPurchasing={isPurchasing}
             theme={theme}
             themes={themes}
           />
@@ -503,8 +480,11 @@ export default function App() {
             setProductModalVisible={setProductModalVisible}
           />
           <PersonaModal
+            userId={anonId}
+            db={db}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
+            theme={theme}
             themes={themes}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -516,8 +496,8 @@ export default function App() {
             selectedOption={selectedOption}
             coins={coins}
             setCoins={setCoins}
-            setPurchasePersona={setPurchasePersona}
-            setShowPurchaseModal={setShowPurchaseModal}
+            setProductModalVisible={setProductModalVisible}
+            isPurchasing={isPurchasing}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -562,24 +542,6 @@ export default function App() {
             setCoins={setCoins}
             isPurchasingCoins={isPurchasingCoins}
             setIsPurchasingCoins={setIsPurchasingCoins}
-            theme={theme}
-            themes={themes}
-          />
-          <Purchase
-            userId={anonId}
-            db={db}
-            options={options}
-            setOptions={setOptions}
-            setCoins={setCoins}
-            setShowPurchaseModal={setShowPurchaseModal}
-            isVisible={showPurchaseModal}
-            purchasePersona={purchasePersona}
-            currentCoins={coins}
-            onClose={() => setShowPurchaseModal(false)}
-            onBuyCoins={() => {
-              setProductModalVisible(true);
-            }}
-            isPurchasing={isPurchasing}
             theme={theme}
             themes={themes}
           />
