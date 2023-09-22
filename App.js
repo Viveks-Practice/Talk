@@ -173,9 +173,10 @@ export default function App() {
     // Purchases.setDebugLogsEnabled(true);
     Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
     if (Platform.OS === "android") {
-      Purchases.configure({ apiKey: "goog_RvHWMDGiJNVKTFuzggIhCVZkuuT" });
+      //process.env.FIREBASE_APP_ID
+      Purchases.configure({ apiKey: process.env.REVENUECAT_GOOGLE_API_KEY });
     } else {
-      Purchases.configure({ apiKey: "appl_cOTKWjftumcDCLCkeDTkeCmfKTs" });
+      Purchases.configure({ apiKey: process.env.REVENUECAT_APPLE_API_KEY });
     }
 
     // Retrieve the products from RevenueCat
