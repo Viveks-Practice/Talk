@@ -1,4 +1,4 @@
-//refactor_ProductModal branch
+//refactor_PersonaModal branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -22,7 +22,6 @@ import {
   orderBy,
   getDoc,
   query,
-  hasOwnProperty,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -40,7 +39,6 @@ import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 import themes from "./themes.json";
 import NeoHeader from "./components/Header";
-import PersonaModal from "./components/personaModal";
 import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
@@ -96,8 +94,6 @@ export default function App() {
   const [messageCount, setMessageCount] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
-  const [isPurchasing, setIsPurchasing] = useState(false); // remove once refactored
-  const [productModalVisible, setProductModalVisible] = useState(false); // remove once refactored
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
   const [anonId, setAnonId] = useState(null);
@@ -119,7 +115,6 @@ export default function App() {
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
   const [modalVisible, setModalVisible] = useState(false);
   const [theme, setTheme] = useState("Neo - The Chat AI");
-  const [searchQuery, setSearchQuery] = useState("");
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     { name: "Neo - The Chat AI", owned: true, price: null },
@@ -196,7 +191,6 @@ export default function App() {
       } catch (error) {
         console.log("Error in fetching products from RevenueCat: ", error);
       }
-      // setCurrentOffering(offerings.current);
     };
 
     fetchData().catch(console.log);
@@ -382,33 +376,19 @@ export default function App() {
         >
           <NeoHeader
             selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
+            themes={themes}
+            setTheme={setTheme}
+            setMessages={setMessages}
+            options={options}
+            setOptions={setOptions}
             products={products}
             id={anonId}
             db={db}
             coins={coins}
             setCoins={setCoins}
-          />
-          <PersonaModal
-            userId={anonId}
-            db={db}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            theme={theme}
-            themes={themes}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setSelectedOption={setSelectedOption}
-            setTheme={setTheme}
-            setMessages={setMessages}
-            options={options}
-            setOptions={setOptions}
-            selectedOption={selectedOption}
-            coins={coins}
-            setCoins={setCoins}
-            setProductModalVisible={setProductModalVisible}
-            isPurchasing={isPurchasing}
           />
           <Banner theme={theme} />
           <StatusBar
@@ -453,35 +433,19 @@ export default function App() {
         >
           <NeoHeader
             selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
             theme={theme}
             themes={themes}
+            setTheme={setTheme}
+            setMessages={setMessages}
+            options={options}
+            setOptions={setOptions}
             products={products}
             id={anonId}
             db={db}
             coins={coins}
             setCoins={setCoins}
-          />
-          <PersonaModal
-            userId={anonId}
-            db={db}
-            products={products}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            theme={theme}
-            themes={themes}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setSelectedOption={setSelectedOption}
-            setTheme={setTheme}
-            setMessages={setMessages}
-            options={options}
-            setOptions={setOptions}
-            selectedOption={selectedOption}
-            coins={coins}
-            setCoins={setCoins}
-            setProductModalVisible={setProductModalVisible}
-            isPurchasing={isPurchasing}
           />
           <Banner theme={theme} />
           <StatusBar

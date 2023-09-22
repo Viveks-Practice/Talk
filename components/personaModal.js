@@ -3,7 +3,6 @@ import {
   Modal,
   Pressable,
   View,
-  TextInput,
   FlatList,
   TouchableOpacity,
   Text,
@@ -18,8 +17,8 @@ const PersonaModal = ({
   userId,
   db,
   products,
-  modalVisible,
-  setModalVisible,
+  personaModalVisible,
+  setPersonaModalVisible,
   theme,
   themes,
   searchQuery,
@@ -107,14 +106,14 @@ const PersonaModal = ({
       <Modal
         animationType="fade"
         transparent={true}
-        visible={modalVisible}
+        visible={personaModalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setPersonaModalVisible(!personaModalVisible);
         }}
       >
         <Pressable
           style={PersonaModalStyles.modalOverlay}
-          onPress={() => setModalVisible(false)}
+          onPress={() => setPersonaModalVisible(false)}
         >
           <View style={PersonaModalStyles.centeredView}>
             <View
@@ -154,7 +153,7 @@ const PersonaModal = ({
                         setTheme(item.name);
                         setMessages(themes[item.name].initialMessages);
                       }
-                      setModalVisible(!modalVisible);
+                      setPersonaModalVisible(!personaModalVisible);
                     }}
                   >
                     <Text style={PersonaModalStyles.optionText}>

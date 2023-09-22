@@ -6,12 +6,17 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 import LoginModal from "./LoginModal";
 import ProductModal from "./ProductModal";
+import PersonaModal from "./personaModal";
 
 const NeoHeader = ({
   selectedOption,
-  setModalVisible,
+  setSelectedOption,
   theme,
   themes,
+  setTheme,
+  setMessages,
+  options,
+  setOptions,
   coins,
   setCoins,
   id,
@@ -20,6 +25,8 @@ const NeoHeader = ({
 }) => {
   const [productModalVisible, setProductModalVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
+  const [personaModalVisible, setPersonaModalVisible] = useState(false);
+  const [personaSearchQuery, setPersonaSearchQuery] = useState("");
 
   return (
     <View>
@@ -38,7 +45,7 @@ const NeoHeader = ({
               </Text>
               <Ionicons name="wallet-outline" size={24} color="#fff" />
             </Pressable>
-            <Pressable onPress={() => setModalVisible(true)}>
+            <Pressable onPress={() => setPersonaModalVisible(true)}>
               <Text style={[styles.headerTitle]}>
                 {selectedOption}
                 <Ionicons name="chevron-down-outline" size={18} color="#fff" />
@@ -87,6 +94,25 @@ const NeoHeader = ({
       <LoginModal
         isVisible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
+      />
+      <PersonaModal
+        userId={id}
+        db={db}
+        products={products}
+        personaModalVisible={personaModalVisible}
+        setPersonaModalVisible={setPersonaModalVisible}
+        theme={theme}
+        themes={themes}
+        searchQuery={personaSearchQuery}
+        setSearchQuery={setPersonaSearchQuery}
+        setSelectedOption={setSelectedOption}
+        setTheme={setTheme}
+        setMessages={setMessages}
+        options={options}
+        setOptions={setOptions}
+        selectedOption={selectedOption}
+        coins={coins}
+        setCoins={setCoins}
       />
     </View>
   );
