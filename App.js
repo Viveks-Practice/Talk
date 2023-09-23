@@ -1,4 +1,4 @@
-//renaming_props branch
+//character_image branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
