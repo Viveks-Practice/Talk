@@ -113,7 +113,6 @@ export default function App() {
     },
   ]);
   const [selectedOption, setSelectedOption] = useState("Neo - The Chat AI");
-  const [modalVisible, setModalVisible] = useState(false);
   const [theme, setTheme] = useState("Neo - The Chat AI");
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
@@ -378,7 +377,6 @@ export default function App() {
           <NeoHeader
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
-            setModalVisible={setModalVisible}
             theme={theme}
             themes={themes}
             setTheme={setTheme}
@@ -432,7 +430,6 @@ export default function App() {
           <NeoHeader
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
-            setModalVisible={setModalVisible}
             theme={theme}
             themes={themes}
             setTheme={setTheme}

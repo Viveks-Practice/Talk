@@ -17,11 +17,11 @@ const NeoHeader = ({
   setMessages,
   options,
   setOptions,
-  coins,
-  setCoins,
+  products,
   id,
   db,
-  products,
+  coins,
+  setCoins,
 }) => {
   const [productModalVisible, setProductModalVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
