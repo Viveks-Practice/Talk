@@ -11,12 +11,11 @@ import {
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
 import SuccessModal from "./SuccessModal";
-import { fetchCoins } from "../firebaseFunctions/firebaseOperations";
 import productIdToCoins from "../productIdToCoins.json";
 
 const ProductModal = ({
-  isVisible,
-  setIsVisible,
+  productModalVisible,
+  setProductModalVisible,
   onClose,
   products,
   id,
@@ -35,7 +34,7 @@ const ProductModal = ({
       <Modal
         animationType="fade"
         transparent={true}
-        visible={isVisible}
+        visible={productModalVisible}
         onRequestClose={onClose}
       >
         <Pressable style={styles.modalOverlay} onPress={onClose}>
@@ -102,7 +101,7 @@ const ProductModal = ({
                         } finally {
                           setIsPurchasingCoins(false);
                           setShowSuccessModal(true);
-                          setIsVisible(false);
+                          setProductModalVisible(false);
                         }
                       }}
                     >

@@ -80,8 +80,8 @@ const NeoHeader = ({
         }}
       />
       <ProductModal
-        isVisible={productModalVisible} // stored in this component's state
-        setIsVisible={setProductModalVisible} // stored in this component's state
+        productModalVisible={productModalVisible} // stored in this component's state
+        setProductModalVisible={setProductModalVisible} // stored in this component's state
         onClose={() => setProductModalVisible(false)} // stored in this component's state
         products={products} // passed in from App.js
         id={id} // passed in from App.js
