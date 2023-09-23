@@ -38,7 +38,7 @@ import {
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 import themes from "./themes.json";
-import Header from "./components/Header";
+import NeoHeader from "./components/Header";
 import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
@@ -92,7 +92,7 @@ const db = getFirestore(app);
 
 export default function App() {
   const [messageCount, setMessageCount] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [interstitialAdLoaded, setInterstitialAdLoaded] = useState(false);
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
@@ -150,14 +150,14 @@ export default function App() {
   const flatListRef = useRef(null);
   //advertisement interstitial
   useEffect(() => {
-    if (loaded === true && messageCount % 4 == 3) {
+    if (interstitialAdLoaded === true && messageCount % 4 == 3) {
       interstitial.show();
     }
     const unsubscribe = interstitial.addAdEventListener(
       AdEventType.LOADED,
       () => {
-        setLoaded(true);
-        // console.log("Interstitial ad loaded!");
+        setInterstitialAdLoaded(true);
+        console.log("Interstitial ad loaded!");
       }
     );
 
@@ -375,7 +375,7 @@ export default function App() {
             { backgroundColor: themes[theme].colorSchemes.seventh },
           ]}
         >
-          <Header
+          <NeoHeader
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
@@ -414,11 +414,8 @@ export default function App() {
             messageCount={messageCount}
             setAdIndex={setAdIndex}
             adIndex={adIndex}
-            loaded={loaded}
             anonId={anonId}
-            app={app}
             db={db}
-            auth={auth}
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
@@ -432,7 +429,7 @@ export default function App() {
             { backgroundColor: themes[theme].colorSchemes.seventh },
           ]}
         >
-          <Header
+          <NeoHeader
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
@@ -471,7 +468,7 @@ export default function App() {
             messageCount={messageCount}
             setAdIndex={setAdIndex}
             adIndex={adIndex}
-            loaded={loaded}
+            loaded={interstitialAdLoaded}
             anonId={anonId}
             app={app}
             db={db}

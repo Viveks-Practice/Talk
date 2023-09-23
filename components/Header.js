@@ -8,7 +8,7 @@ import LoginModal from "./LoginModal";
 import ProductModal from "./ProductModal";
 import PersonaModal from "./personaModal";
 
-const Header = ({
+const NeoHeader = ({
   selectedOption,
   setSelectedOption,
   theme,
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default NeoHeader;

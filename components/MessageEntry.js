@@ -27,17 +27,14 @@ const MessageEntry = ({
   messageCount,
   setAdIndex,
   adIndex,
-  loaded,
   anonId,
-  app,
   db,
-  auth,
   firebaseDataLoading,
   context,
   setContext,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
-  const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
+  // const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
 
   const url = "https://api.openai.com/v1/chat/completions";
 
