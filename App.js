@@ -96,9 +96,9 @@ export default function App() {
   const [firebaseDataLoading, setFirebaseDataLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [coins, setCoins] = useState(0);
-  const [anonId, setAnonId] = useState(null);
-  const [context, setContext] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [anonId, setAnonId] = useState(null); // This is just the userId (current the user is anonymous)
+  const [context, setContext] = useState(0); // How long the chat is in messages counted (relevant for the OpenAI API)
+  const [products, setProducts] = useState([]); // Retrieved from RevenueCat
   const [messages, setMessages] = useState([
     {
       role: "system",

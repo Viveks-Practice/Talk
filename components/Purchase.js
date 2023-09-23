@@ -14,7 +14,7 @@ import ProductModal from "./ProductModal";
 import { iapPersona } from "../iapFunctions";
 
 const Purchase = ({
-  isVisible,
+  showPurchaseModal,
   currentCoins,
   userId,
   db,
@@ -39,7 +39,7 @@ const Purchase = ({
       <Modal
         animationType="fade"
         transparent={true}
-        visible={isVisible}
+        visible={showPurchaseModal}
         onRequestClose={onClose}
       >
         <Pressable style={styles.modalOverlay} onPress={onClose}>

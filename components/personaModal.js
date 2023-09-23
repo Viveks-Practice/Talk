@@ -176,7 +176,7 @@ const PersonaModal = ({
         </Pressable>
       </Modal>
       <Purchase
-        isVisible={showPurchaseModal} // stored in this comp
+        showPurchaseModal={showPurchaseModal} // stored in this comp
         currentCoins={coins} // stored in App.js state
         userId={userId} // stored in App.js state
         db={db} // stored in App.js state
