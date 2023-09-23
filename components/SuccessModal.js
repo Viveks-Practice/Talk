@@ -1,12 +1,17 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const SuccessModal = ({ isVisible, onAcknowledge, purchasedItem, themes }) => {
+const SuccessModal = ({
+  showSuccessModal,
+  onAcknowledge,
+  purchasedItem,
+  themes,
+}) => {
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={isVisible}
+      visible={showSuccessModal}
       onRequestClose={onAcknowledge}
     >
       <View style={styles.centeredView}>

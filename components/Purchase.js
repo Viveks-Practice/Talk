@@ -177,7 +177,7 @@ const Purchase = ({
         themes={themes} // passed in from App.js
       />
       <SuccessModal
-        isVisible={showSuccessModal}
+        showSuccessModal={showSuccessModal}
         onAcknowledge={() => setShowSuccessModal(false)}
         purchasedItem={purchasePersona.name}
         themes={themes}

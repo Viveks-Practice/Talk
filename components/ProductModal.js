@@ -124,7 +124,7 @@ const ProductModal = ({
         )}
       </Modal>
       <SuccessModal
-        isVisible={showSuccessModal}
+        showSuccessModal={showSuccessModal}
         onAcknowledge={() => setShowSuccessModal(false)}
         purchasedItem={selectedCoins}
         themes={themes}
