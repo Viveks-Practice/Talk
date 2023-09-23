@@ -38,7 +38,7 @@ import {
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 
 import themes from "./themes.json";
-import NeoHeader from "./components/Header";
+import Header from "./components/Header";
 import Banner from "./components/Banner";
 import ChatWindow from "./components/ChatWindow";
 import MessageEntry from "./components/MessageEntry";
@@ -375,7 +375,7 @@ export default function App() {
             { backgroundColor: themes[theme].colorSchemes.seventh },
           ]}
         >
-          <NeoHeader
+          <Header
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
@@ -432,7 +432,7 @@ export default function App() {
             { backgroundColor: themes[theme].colorSchemes.seventh },
           ]}
         >
-          <NeoHeader
+          <Header
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
             setModalVisible={setModalVisible}
