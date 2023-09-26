@@ -10,6 +10,7 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import axios from "axios";
 import PersonSearch from "./PersonSearch";
@@ -173,9 +174,25 @@ const PersonaModal = ({
                         <Text style={PersonaModalStyles.overlayText}>
                           {item.name}
                         </Text>
-                        <Text style={PersonaModalStyles.costText}>
-                          {!item.owned && `${item.price} Coins`}
-                        </Text>
+                        {!item.owned && (
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Ionicons
+                              name="wallet-outline"
+                              size={24}
+                              color="#e3c562"
+                              paddingBottom={8}
+                            />
+                            <Text style={PersonaModalStyles.costText}>
+                              {`${item.price} Coins`}
+                            </Text>
+                          </View>
+                        )}
                       </ImageBackground>
                     ) : (
                       <View style={PersonaModalStyles.centerImage}>
@@ -185,8 +202,6 @@ const PersonaModal = ({
                         </Text>
                       </View>
                     )}
-
-                    {/* Conditional overlay */}
                     {!item.owned && (
                       <View style={PersonaModalStyles.overlay}></View>
                     )}
