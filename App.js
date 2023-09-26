@@ -1,4 +1,4 @@
-//character_image branch
+//image_purchase_modal branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
