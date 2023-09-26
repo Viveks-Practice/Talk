@@ -167,9 +167,13 @@ const PersonaModal = ({
                         }}
                         style={PersonaModalStyles.centerImage}
                       >
-                        <Text style={PersonaModalStyles.optionText}>
+                        <View style={PersonaModalStyles.dimOverlay}></View>
+                        {/*// This is the dim overlay*/}
+                        <Text style={PersonaModalStyles.overlayText}>
                           {item.name}
-                          {!item.owned && ` - ${item.price}`}
+                        </Text>
+                        <Text style={PersonaModalStyles.costText}>
+                          {!item.owned && `${item.price} Coins`}
                         </Text>
                       </ImageBackground>
                     ) : (
@@ -256,8 +260,7 @@ const PersonaModalStyles = StyleSheet.create({
   },
   largeOptionButton: {
     ...this.optionButton, // This will spread all properties of optionButton
-    height: 400, // As calculated
-    // width: 150,
+    height: 400,
   },
   optionText: {
     color: "white",
@@ -270,13 +273,47 @@ const PersonaModalStyles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the alpha value as needed
+    backgroundColor: "rgba(0, 0, 0, 0.0)", // Adjust the alpha value as needed
   },
   centerImage: {
     flex: 1,
     width: "100%",
     height: "100%",
+    borderRadius: 10,
+    overflow: "hidden",
     justifyContent: "flex-end", // This ensures the text aligns at the bottom of the image
+  },
+  overlayText: {
+    color: "white",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional, if you want a background for better readability
+    paddingHorizontal: 5,
+    textAlign: "center",
+    paddingBottom: 10, // Increased padding from bottom
+    textShadowColor: "rgba(0, 0, 0, 1)", // Black shadow
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 30,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  costText: {
+    color: "#e3c562",
+    // backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional, if you want a background for better readability
+    paddingHorizontal: 5,
+    textAlign: "center",
+    paddingBottom: 10, // Increased padding from bottom
+    textShadowColor: "rgba(0, 0, 0, 1)", // Black shadow
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 30,
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  dimOverlay: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // 0.5 is the opacity level, you can adjust this
   },
 });
 
