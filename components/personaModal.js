@@ -167,8 +167,9 @@ const PersonaModal = ({
                         }}
                         style={PersonaModalStyles.centerImage}
                       >
-                        <View style={PersonaModalStyles.dimOverlay}></View>
-                        {/*// This is the dim overlay*/}
+                        {!item.owned && (
+                          <View style={PersonaModalStyles.dimOverlay}></View>
+                        )}
                         <Text style={PersonaModalStyles.overlayText}>
                           {item.name}
                         </Text>
