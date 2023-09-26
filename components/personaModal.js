@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  Image,
+  ImageBackground,
 } from "react-native";
 import Constants from "expo-constants";
 import axios from "axios";
@@ -136,6 +138,8 @@ const PersonaModal = ({
                   <TouchableOpacity
                     style={[
                       PersonaModalStyles.optionButton,
+                      item.price !== null &&
+                        PersonaModalStyles.largeOptionButton,
                       {
                         backgroundColor:
                           themes["Neo - The Chat AI"].colorSchemes.sixth,
@@ -156,10 +160,26 @@ const PersonaModal = ({
                       setPersonaModalVisible(!personaModalVisible);
                     }}
                   >
-                    <Text style={PersonaModalStyles.optionText}>
-                      {item.name}
-                      {!item.owned && ` - ${item.price}`}
-                    </Text>
+                    {item.price !== null ? (
+                      <ImageBackground
+                        source={{
+                          uri: "http://34.149.134.224/Harry Styles/harry-styles-romantic-date-4.png",
+                        }}
+                        style={PersonaModalStyles.centerImage}
+                      >
+                        <Text style={PersonaModalStyles.optionText}>
+                          {item.name}
+                          {!item.owned && ` - ${item.price}`}
+                        </Text>
+                      </ImageBackground>
+                    ) : (
+                      <View style={PersonaModalStyles.centerImage}>
+                        <Text style={PersonaModalStyles.optionText}>
+                          {item.name}
+                          {!item.owned && ` - ${item.price}`}
+                        </Text>
+                      </View>
+                    )}
 
                     {/* Conditional overlay */}
                     {!item.owned && (
@@ -234,6 +254,11 @@ const PersonaModalStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#2196F3",
   },
+  largeOptionButton: {
+    ...this.optionButton, // This will spread all properties of optionButton
+    height: 400, // As calculated
+    // width: 150,
+  },
   optionText: {
     color: "white",
     fontWeight: "bold",
@@ -246,6 +271,12 @@ const PersonaModalStyles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the alpha value as needed
+  },
+  centerImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-end", // This ensures the text aligns at the bottom of the image
   },
 });
 
