@@ -8,6 +8,8 @@ import {
   Pressable,
   TouchableOpacity,
   ActivityIndicator,
+  ImageBackground,
+  Image,
 } from "react-native";
 import SuccessModal from "./SuccessModal";
 import ProductModal from "./ProductModal";
@@ -64,6 +66,22 @@ const Purchase = ({
                 <Text style={styles.title}>
                   Purchase {purchasePersona.name}
                 </Text>
+              </View>
+              <View
+                style={[
+                  styles.imageContainer,
+                  {
+                    borderColor: themes["Neo - The Chat AI"].colorSchemes.sixth,
+                  },
+                ]}
+              >
+                <Image
+                  source={{
+                    uri: "http://34.149.134.224/Harry%20Styles/harry-styles-romantic-date-4.png",
+                  }}
+                  style={styles.backgroundImage}
+                  resizeMode="contain"
+                />
               </View>
               <View style={styles.table}>
                 <Text style={styles.tableLabel}>Current Coins:</Text>
@@ -271,8 +289,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 20, // Spacing below the title
+    marginBottom: 0, // Spacing below the title
     marginTop: 20,
+    justifyContent: "center", // Centers the button horizontally within its wrapper
+    alignItems: "center", // Centers the button vertically within its wrapper
   },
   buyCoinsButton: {
     position: "absolute",
@@ -289,6 +309,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 5,
+    // marginTop: 5,
   },
   tableLabel: {
     fontSize: 14,
@@ -317,6 +338,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2,
+  },
+  backgroundImage: {
+    width: 190,
+    height: 190,
+    borderRadius: 95,
+  },
+  imageContainer: {
+    borderWidth: 10, // Thickness of the border
+    borderColor: "black", // Color of the border, change this to your desired color
+    borderRadius: 110, // If you want rounded corners, you can adjust this value
+    marginBottom: 20,
   },
 });
 
