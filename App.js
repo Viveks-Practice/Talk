@@ -1,4 +1,4 @@
-//image_purchase_modal branch
+//image_chat_window branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
