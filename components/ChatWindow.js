@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
   PanResponder,
+  Animated,
 } from "react-native";
 
 const ChatWindow = ({
@@ -20,6 +21,7 @@ const ChatWindow = ({
   const [listOpacity, setListOpacity] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [imageIndex, setImageIndex] = useState(1);
+  const [imageOpacity, setImageOpacity] = useState(new Animated.Value(1));
 
   // Create a variable to store the modified theme
   const formattedTheme = theme.toLowerCase().replace(/ /g, "-");
@@ -43,13 +45,24 @@ const ChatWindow = ({
   ).current;
 
   function renderRandomImage() {
-    // Generate a random decimal number between 0 and 1
-    const randomDecimal = Math.random();
+    // First, fade out the current image
+    Animated.timing(imageOpacity, {
+      toValue: 0,
+      duration: 500, // Fade-out duration. Adjust as needed.
+      useNativeDriver: true,
+    }).start(() => {
+      // Once the image has faded out, change its source
+      const randomDecimal = Math.random();
+      const randomNumber = Math.floor(randomDecimal * 10) + 1;
+      setImageIndex(randomNumber);
 
-    // Scale the random decimal to a number between 1 and 10 inclusive
-    const randomNumber = Math.floor(randomDecimal * 10) + 1;
-
-    setImageIndex(randomNumber);
+      // Then, fade the image back in
+      Animated.timing(imageOpacity, {
+        toValue: 1,
+        duration: 500, // Fade-in duration. Adjust as needed.
+        useNativeDriver: true,
+      }).start();
+    });
   }
 
   useEffect(() => {
@@ -76,7 +89,7 @@ const ChatWindow = ({
         ]}
       >
         {/* Background Image with absolute positioning */}
-        <Image
+        <Animated.Image
           source={{
             uri: `http://34.149.134.224/Harry Styles/${formattedTheme}-${imageIndex}.png`,
           }}
@@ -84,7 +97,10 @@ const ChatWindow = ({
             ChatWindowStyles.centerImage,
             {
               position: "absolute",
-              opacity: listOpacity < 1 ? 1 : 0.2,
+              opacity: Animated.multiply(
+                imageOpacity,
+                listOpacity < 1 ? 1 : 0.2
+              ),
             },
           ]}
           resizeMode="cover"
