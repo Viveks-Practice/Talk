@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   ImageBackground,
   Image,
+  PanResponder,
 } from "react-native";
 
 const ChatWindow = ({
@@ -17,6 +18,39 @@ const ChatWindow = ({
   firebaseDataLoading,
 }) => {
   const [listOpacity, setListOpacity] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [imageIndex, setImageIndex] = useState(1);
+
+  // Create a variable to store the modified theme
+  const formattedTheme = theme.toLowerCase().replace(/ /g, "-");
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        setIsDragging(false);
+      },
+      onPanResponderMove: () => {
+        setIsDragging(true);
+      },
+      onPanResponderRelease: () => {
+        if (!isDragging) {
+          setListOpacity((prevOpacity) => (prevOpacity < 1 ? 1 : 0.01));
+        }
+      },
+      onPanResponderTerminate: () => {}, // Optionally handle termination
+    })
+  ).current;
+
+  function renderRandomImage() {
+    // Generate a random decimal number between 0 and 1
+    const randomDecimal = Math.random();
+
+    // Scale the random decimal to a number between 1 and 10 inclusive
+    const randomNumber = Math.floor(randomDecimal * 10) + 1;
+
+    setImageIndex(randomNumber);
+  }
 
   useEffect(() => {
     if (
@@ -26,14 +60,15 @@ const ChatWindow = ({
         messages[messages.length - 1].content
       )
     ) {
-      setListOpacity(0.3); // Almost invisible
+      setListOpacity(0.01); // Almost invisible
+      renderRandomImage();
     } else {
       setListOpacity(1);
     }
   }, [messages, theme]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }} {...panResponder.panHandlers}>
       <View
         style={[
           ChatWindowStyles.messages,
@@ -43,7 +78,7 @@ const ChatWindow = ({
         {/* Background Image with absolute positioning */}
         <Image
           source={{
-            uri: "http://34.149.134.224/Harry Styles/harry-styles-romantic-date-4.png",
+            uri: `http://34.149.134.224/Harry Styles/${formattedTheme}-${imageIndex}.png`,
           }}
           style={[
             ChatWindowStyles.centerImage,
@@ -147,7 +182,7 @@ const ChatWindow = ({
 const ChatWindowStyles = StyleSheet.create({
   messages: {
     flex: 1,
-    padding: 5,
+    // padding: 10,
     backgroundColor: "#13293D",
   },
   message: {
@@ -161,7 +196,7 @@ const ChatWindowStyles = StyleSheet.create({
   assistantMessage: {
     alignSelf: "flex-end",
     backgroundColor: "#3e6088",
-    opacity: 0.9,
+    opacity: 1,
   },
   userMessage: {
     alignSelf: "flex-start",
@@ -191,13 +226,17 @@ const ChatWindowStyles = StyleSheet.create({
     zIndex: 2,
   },
   centerImage: {
-    position: "absolute",
+    // position: "absolute",
     flex: 1,
     width: "100%",
     height: "100%",
-    borderRadius: 5,
+    borderRadius: 15,
     overflow: "hidden",
-    margin: 10,
+    // margin: 10,
+    // marginBottom: 20,
+    // marginTop: 20,
+    // marginLeft: 20,
+    // marginRight: 20,
   },
 });
 

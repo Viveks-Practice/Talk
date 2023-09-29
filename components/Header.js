@@ -54,23 +54,23 @@ const NeoHeader = ({
             <View style={{ width: 24, marginLeft: 50 }} />
           </View>
         }
-        rightComponent={
-          <View style={styles.loginButtonContainer}>
-            <Pressable
-              style={[
-                styles.loginButton,
-                {
-                  backgroundColor: themes[theme].colorSchemes.sixth,
-                  shadowColor: themes[theme].colorSchemes.first,
-                  borderColor: themes[theme].colorSchemes.fourth,
-                },
-              ]}
-              onPress={() => setLoginModalVisible(true)}
-            >
-              <Text style={styles.loginButtonText}>Log In</Text>
-            </Pressable>
-          </View>
-        }
+        // rightComponent={
+        //   <View style={styles.loginButtonContainer}>
+        //     <Pressable
+        //       style={[
+        //         styles.loginButton,
+        //         {
+        //           backgroundColor: themes[theme].colorSchemes.sixth,
+        //           shadowColor: themes[theme].colorSchemes.first,
+        //           borderColor: themes[theme].colorSchemes.fourth,
+        //         },
+        //       ]}
+        //       onPress={() => setLoginModalVisible(true)}
+        //     >
+        //       <Text style={styles.loginButtonText}>Log In</Text>
+        //     </Pressable>
+        //   </View>
+        // }
         containerStyle={{
           backgroundColor: themes[theme].colorSchemes.seventh,
           borderBottomColor: themes[theme].colorSchemes.eighth,

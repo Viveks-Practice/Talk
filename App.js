@@ -389,7 +389,7 @@ export default function App() {
             coins={coins}
             setCoins={setCoins}
           />
-          <Banner theme={theme} />
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
@@ -442,7 +442,7 @@ export default function App() {
             coins={coins}
             setCoins={setCoins}
           />
-          <Banner theme={theme} />
+          {/* <Banner theme={theme} /> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={themes[theme].colorSchemes.sixth}
