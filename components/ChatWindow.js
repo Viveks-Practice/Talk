@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,12 +15,21 @@ const ChatWindow = ({
   themes,
   firebaseDataLoading,
 }) => {
-  const lastMessage = messages[messages.length - 1];
+  const [listOpacity, setListOpacity] = useState(1);
 
-  const isLastMessageAssistant =
-    lastMessage &&
-    lastMessage.role === "assistant" &&
-    !themes[theme].emptyResponses.includes(lastMessage.content);
+  useEffect(() => {
+    if (
+      messages.length > 0 &&
+      messages[messages.length - 1].role === "assistant" &&
+      !themes[theme].emptyResponses.includes(
+        messages[messages.length - 1].content
+      )
+    ) {
+      setListOpacity(0.2); // Almost invisible
+    } else {
+      setListOpacity(1);
+    }
+  }, [messages, theme]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -36,83 +45,82 @@ const ChatWindow = ({
           }}
           style={ChatWindowStyles.centerImage}
         >
-          {isLastMessageAssistant ? (
-            <View
-              style={[
-                ChatWindowStyles.message,
-                ChatWindowStyles.assistantMessage,
-                {
-                  backgroundColor: themes[theme].colorSchemes.second,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  ChatWindowStyles.assistantTitle,
-                  { color: themes[theme].colorSchemes.fourth },
-                ]}
-              >
-                {themes[theme].Title}
-              </Text>
-              <Text style={ChatWindowStyles.messageText} selectable>
-                {messages[messages.length - 1].content}
-              </Text>
-            </View>
-          ) : (
-            messages.length > 0 && (
-              <FlatList
-                data={messages.filter((msg) => msg.role !== "system")}
-                renderItem={({ item }) => (
-                  <>
-                    <View
-                      style={[
-                        {
-                          ...ChatWindowStyles.message,
+          <FlatList
+            data={messages.filter((msg) => msg.role !== "system")}
+            renderItem={({ item }) => (
+              <>
+                <View
+                  style={[
+                    {
+                      ...ChatWindowStyles.message,
+                      backgroundColor: themes[theme].colorSchemes.second,
+                    },
+                    item.role === "assistant"
+                      ? {
+                          ...ChatWindowStyles.assistantMessage,
                           backgroundColor: themes[theme].colorSchemes.second,
+                        }
+                      : {
+                          ...ChatWindowStyles.userMessage,
+                          backgroundColor: themes[theme].colorSchemes.third,
                         },
-                        item.role === "assistant"
-                          ? {
-                              ...ChatWindowStyles.assistantMessage,
-                              backgroundColor:
-                                themes[theme].colorSchemes.second,
-                            }
-                          : {
-                              ...ChatWindowStyles.userMessage,
-                              backgroundColor: themes[theme].colorSchemes.third,
-                            },
+                  ]}
+                >
+                  {item.role === "assistant" && (
+                    <Text
+                      style={[
+                        ChatWindowStyles.assistantTitle,
+                        { color: themes[theme].colorSchemes.fourth },
                       ]}
                     >
-                      {item.role === "assistant" && (
-                        <Text
-                          style={[
-                            ChatWindowStyles.assistantTitle,
-                            { color: themes[theme].colorSchemes.fourth },
-                          ]}
-                        >
-                          {themes[theme].Title}
-                        </Text>
-                      )}
-                      {item.role === "user" && (
-                        <Text
-                          style={[
-                            ChatWindowStyles.userTitle,
-                            { color: themes[theme].colorSchemes.fifth },
-                          ]}
-                        >
-                          You
-                        </Text>
-                      )}
-                      <Text style={ChatWindowStyles.messageText} selectable>
-                        {item.content}
-                      </Text>
-                    </View>
-                  </>
-                )}
-                keyExtractor={(item) => item.id}
-                ref={flatListRef}
-              />
-            )
-          )}
+                      {themes[theme].Title}
+                    </Text>
+                  )}
+                  {item.role === "user" && (
+                    <Text
+                      style={[
+                        ChatWindowStyles.userTitle,
+                        { color: themes[theme].colorSchemes.fifth },
+                      ]}
+                    >
+                      You
+                    </Text>
+                  )}
+                  <Text style={ChatWindowStyles.messageText} selectable>
+                    {item.content}
+                  </Text>
+                </View>
+              </>
+            )}
+            style={{ opacity: listOpacity }} // Applying opacity here
+            keyExtractor={(item) => item.id}
+            ref={flatListRef}
+          />
+          {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
+            messages.length > 0 &&
+            messages[messages.length - 1].role === "assistant" && (
+              <View
+                style={[
+                  ChatWindowStyles.message,
+                  ChatWindowStyles.assistantMessage,
+                  {
+                    backgroundColor: themes[theme].colorSchemes.second,
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    ChatWindowStyles.assistantTitle,
+                    { color: themes[theme].colorSchemes.fourth },
+                  ]}
+                >
+                  {themes[theme].Title}
+                </Text>
+                <Text style={ChatWindowStyles.messageText} selectable>
+                  {messages[messages.length - 1].content}
+                </Text>
+              </View>
+            )}
         </ImageBackground>
       </View>
 
