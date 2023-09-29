@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 
 const ChatWindow = ({
@@ -14,6 +15,13 @@ const ChatWindow = ({
   themes,
   firebaseDataLoading,
 }) => {
+  const lastMessage = messages[messages.length - 1];
+
+  const isLastMessageAssistant =
+    lastMessage &&
+    lastMessage.role === "assistant" &&
+    !themes[theme].emptyResponses.includes(lastMessage.content);
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -22,62 +30,90 @@ const ChatWindow = ({
           { backgroundColor: themes[theme].colorSchemes.first },
         ]}
       >
-        {messages.length > 0 && (
-          <FlatList
-            data={messages.filter((msg) => msg.role !== "system")}
-            renderItem={({ item }) => (
-              <>
-                <View
-                  style={[
-                    {
-                      ...ChatWindowStyles.message,
-                      backgroundColor: themes[theme].colorSchemes.second,
-                    },
-                    item.role === "assistant"
-                      ? {
-                          ...ChatWindowStyles.assistantMessage,
+        <ImageBackground
+          source={{
+            uri: "http://34.149.134.224/Harry Styles/harry-styles-romantic-date-4.png",
+          }}
+          style={ChatWindowStyles.centerImage}
+        >
+          {isLastMessageAssistant ? (
+            <View
+              style={[
+                ChatWindowStyles.message,
+                ChatWindowStyles.assistantMessage,
+                {
+                  backgroundColor: themes[theme].colorSchemes.second,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  ChatWindowStyles.assistantTitle,
+                  { color: themes[theme].colorSchemes.fourth },
+                ]}
+              >
+                {themes[theme].Title}
+              </Text>
+              <Text style={ChatWindowStyles.messageText} selectable>
+                {messages[messages.length - 1].content}
+              </Text>
+            </View>
+          ) : (
+            messages.length > 0 && (
+              <FlatList
+                data={messages.filter((msg) => msg.role !== "system")}
+                renderItem={({ item }) => (
+                  <>
+                    <View
+                      style={[
+                        {
+                          ...ChatWindowStyles.message,
                           backgroundColor: themes[theme].colorSchemes.second,
-                        }
-                      : {
-                          ...ChatWindowStyles.userMessage,
-                          backgroundColor: themes[theme].colorSchemes.third,
                         },
-                  ]}
-                >
-                  {item.role === "assistant" && (
-                    <Text
-                      style={[
-                        ChatWindowStyles.assistantTitle,
-                        { color: themes[theme].colorSchemes.fourth },
+                        item.role === "assistant"
+                          ? {
+                              ...ChatWindowStyles.assistantMessage,
+                              backgroundColor:
+                                themes[theme].colorSchemes.second,
+                            }
+                          : {
+                              ...ChatWindowStyles.userMessage,
+                              backgroundColor: themes[theme].colorSchemes.third,
+                            },
                       ]}
                     >
-                      {themes[theme].Title}
-                    </Text>
-                  )}
-                  {item.role === "user" && (
-                    <Text
-                      style={[
-                        ChatWindowStyles.userTitle,
-                        { color: themes[theme].colorSchemes.fifth },
-                      ]}
-                    >
-                      You
-                    </Text>
-                  )}
-                  <Text style={ChatWindowStyles.messageText} selectable>
-                    {item.content}
-                  </Text>
-                </View>
-              </>
-            )}
-            keyExtractor={(item) => item.id}
-            ref={flatListRef}
-            // onContentSizeChange={() =>
-            //   flatListRef.current.scrollToEnd({ animated: true })
-            // }
-            // onLayout={() => flatListRef.current.scrollToEnd({ animated: true })}
-          />
-        )}
+                      {item.role === "assistant" && (
+                        <Text
+                          style={[
+                            ChatWindowStyles.assistantTitle,
+                            { color: themes[theme].colorSchemes.fourth },
+                          ]}
+                        >
+                          {themes[theme].Title}
+                        </Text>
+                      )}
+                      {item.role === "user" && (
+                        <Text
+                          style={[
+                            ChatWindowStyles.userTitle,
+                            { color: themes[theme].colorSchemes.fifth },
+                          ]}
+                        >
+                          You
+                        </Text>
+                      )}
+                      <Text style={ChatWindowStyles.messageText} selectable>
+                        {item.content}
+                      </Text>
+                    </View>
+                  </>
+                )}
+                keyExtractor={(item) => item.id}
+                ref={flatListRef}
+              />
+            )
+          )}
+        </ImageBackground>
       </View>
 
       {firebaseDataLoading && (
@@ -136,6 +172,14 @@ const ChatWindowStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2,
+  },
+  centerImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    borderRadius: 5,
+    overflow: "hidden",
+    justifyContent: "flex-end", // This ensures the text aligns at the bottom of the image
   },
 });
 
