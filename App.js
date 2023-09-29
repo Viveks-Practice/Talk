@@ -1,4 +1,4 @@
-//image_chat_window branch
+//chat_window_dynamic_image branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
