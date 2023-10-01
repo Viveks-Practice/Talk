@@ -36,6 +36,10 @@ const Purchase = ({
   const cost = purchasePersona.price;
   const balance = currentCoins - cost;
 
+  const databaseFriendlyName = (name) => {
+    return name.toLowerCase().replace(/ /g, "-");
+  };
+
   return (
     <>
       <Modal
@@ -77,7 +81,9 @@ const Purchase = ({
               >
                 <Image
                   source={{
-                    uri: "http://34.149.134.224/Harry%20Styles/harry-styles-romantic-date-4.png",
+                    uri: `http://34.149.134.224/${
+                      purchasePersona.name
+                    }/${databaseFriendlyName(purchasePersona.name)}-1.png`,
                   }}
                   style={styles.backgroundImage}
                   resizeMode="contain"

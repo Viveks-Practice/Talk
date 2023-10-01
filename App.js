@@ -117,7 +117,9 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     { name: "Neo - The Chat AI", owned: true, price: null },
+    { name: "Princess Zelda Royal", owned: false, price: 1000 },
     { name: "Harry Styles", owned: false, price: 200 },
+    { name: "Mario", owned: false, price: 300 },
     { name: "Gigachad", owned: true, price: null },
     { name: "David Goggins", owned: true, price: null },
     { name: "Link", owned: true, price: null },
@@ -401,6 +403,7 @@ export default function App() {
             flatListRef={flatListRef}
             themes={themes}
             firebaseDataLoading={firebaseDataLoading}
+            options={options}
           />
           <MessageEntry
             theme={theme}
@@ -454,6 +457,7 @@ export default function App() {
             flatListRef={flatListRef}
             themes={themes}
             firebaseDataLoading={firebaseDataLoading}
+            options={options}
           />
           <MessageEntry
             theme={theme}

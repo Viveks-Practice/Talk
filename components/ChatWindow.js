@@ -91,7 +91,7 @@ const ChatWindow = ({
         {/* Background Image with absolute positioning */}
         <Animated.Image
           source={{
-            uri: `http://34.149.134.224/Harry Styles/${formattedTheme}-${imageIndex}.png`,
+            uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
           }}
           style={[
             ChatWindowStyles.centerImage,

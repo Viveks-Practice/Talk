@@ -42,6 +42,10 @@ const PersonaModal = ({
   });
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
 
+  const databaseFriendlyName = (name) => {
+    return name.toLowerCase().replace(/ /g, "-");
+  };
+
   const searchPerson = async (query) => {
     try {
       const response = await axios.get(
@@ -95,7 +99,14 @@ const PersonaModal = ({
           },
           inputPlaceholder: "Type your message...",
         };
-        setOptions((prevOptions) => [name, ...prevOptions]);
+        setOptions((prevOptions) => [
+          {
+            name: name,
+            owned: true,
+            price: null,
+          },
+          ...prevOptions,
+        ]);
       } else {
         alert("A person with that name/description was not found. Try again");
       }
@@ -164,7 +175,9 @@ const PersonaModal = ({
                     {item.price !== null ? (
                       <ImageBackground
                         source={{
-                          uri: "http://34.149.134.224/Harry Styles/harry-styles-romantic-date-4.png",
+                          uri: `http://34.149.134.224/${
+                            item.name
+                          }/${databaseFriendlyName(item.name)}-1.png`,
                         }}
                         style={PersonaModalStyles.centerImage}
                       >
