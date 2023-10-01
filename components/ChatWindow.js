@@ -17,11 +17,18 @@ const ChatWindow = ({
   flatListRef,
   themes,
   firebaseDataLoading,
+  options,
 }) => {
   const [listOpacity, setListOpacity] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [imageIndex, setImageIndex] = useState(1);
   const [imageOpacity, setImageOpacity] = useState(new Animated.Value(1));
+  const [stateVariable, setStateVariable] = useState(1);
+
+  // 1. Find the item from the options prop
+  const selectedItem = options.find((item) => item.name === theme);
+  // 2. Check if the price field of this item is null
+  const isPriceNull = selectedItem?.price === null;
 
   // Create a variable to store the modified theme
   const formattedTheme = theme.toLowerCase().replace(/ /g, "-");
@@ -82,82 +89,166 @@ const ChatWindow = ({
   }, [messages, theme]);
 
   return (
-    <View style={{ flex: 1 }} {...panResponder.panHandlers}>
-      <View
-        style={[
-          ChatWindowStyles.messages,
-          { backgroundColor: themes[theme].colorSchemes.first },
-        ]}
-      >
-        {/* Background Image with absolute positioning */}
-        <Animated.Image
-          source={{
-            uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
-          }}
-          style={[
-            ChatWindowStyles.centerImage,
-            {
-              position: "absolute",
-              // opacity: Animated.multiply(
-              //   imageOpacity,
-              //   listOpacity < 1 ? 1 : 0.2
-              // ),
-            },
-          ]}
-          resizeMode="cover"
-        />
-        <FlatList
-          data={messages.filter((msg) => msg.role !== "system")}
-          renderItem={({ item }) => (
-            <>
-              <View
-                style={[
-                  {
-                    ...ChatWindowStyles.message,
-                    backgroundColor: themes[theme].colorSchemes.second,
-                  },
-                  item.role === "assistant"
-                    ? {
-                        ...ChatWindowStyles.assistantMessage,
+    <>
+      {isPriceNull && (
+        // JSX for the condition when price is null - there are no images
+        <View style={{ flex: 1 }}>
+          <View
+            style={[
+              ChatWindowStyles.messages,
+              {
+                backgroundColor: themes[theme].colorSchemes.first,
+                flex: 1,
+                padding: 10,
+              },
+            ]}
+          >
+            <FlatList
+              data={messages.filter((msg) => msg.role !== "system")}
+              renderItem={({ item }) => (
+                <>
+                  <View
+                    style={[
+                      {
+                        ...ChatWindowStyles.message,
                         backgroundColor: themes[theme].colorSchemes.second,
-                      }
-                    : {
-                        ...ChatWindowStyles.userMessage,
-                        backgroundColor: themes[theme].colorSchemes.third,
                       },
-                ]}
-              >
-                {item.role === "assistant" && (
-                  <Text
-                    style={[
-                      ChatWindowStyles.assistantTitle,
-                      { color: themes[theme].colorSchemes.fourth },
+                      item.role === "assistant"
+                        ? {
+                            ...ChatWindowStyles.assistantMessage,
+                            backgroundColor: themes[theme].colorSchemes.second,
+                          }
+                        : {
+                            ...ChatWindowStyles.userMessage,
+                            backgroundColor: themes[theme].colorSchemes.third,
+                          },
                     ]}
                   >
-                    {themes[theme].Title}
-                  </Text>
-                )}
-                {item.role === "user" && (
-                  <Text
-                    style={[
-                      ChatWindowStyles.userTitle,
-                      { color: themes[theme].colorSchemes.fifth },
-                    ]}
-                  >
-                    You
-                  </Text>
-                )}
-                <Text style={ChatWindowStyles.messageText} selectable>
-                  {item.content}
-                </Text>
-              </View>
-            </>
+                    {item.role === "assistant" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.assistantTitle,
+                          { color: themes[theme].colorSchemes.fourth },
+                        ]}
+                      >
+                        {themes[theme].Title}
+                      </Text>
+                    )}
+                    {item.role === "user" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.userTitle,
+                          { color: themes[theme].colorSchemes.fifth },
+                        ]}
+                      >
+                        You
+                      </Text>
+                    )}
+                    <Text style={ChatWindowStyles.messageText} selectable>
+                      {item.content}
+                    </Text>
+                  </View>
+                </>
+              )}
+              keyExtractor={(item) => item.id}
+              ref={flatListRef}
+            />
+          </View>
+          {firebaseDataLoading && (
+            <View style={ChatWindowStyles.loadingOverlay}>
+              <ActivityIndicator
+                size="large"
+                color={themes[theme].colorSchemes.fourth}
+              />
+            </View>
           )}
-          style={{ opacity: listOpacity }} // Applying opacity here
-          keyExtractor={(item) => item.id}
-          ref={flatListRef}
-        />
-        {/* {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
+        </View>
+      )}
+
+      {!isPriceNull && stateVariable === 1 && (
+        // JSX for the condition when price is NOT null and stateVariable is 2
+
+        <View
+          style={{ flex: 1 }}
+          // {...panResponder.panHandlers}
+        >
+          <View style={{ flex: 0.6 }}>
+            {/* Background Image with absolute positioning */}
+            <Animated.Image
+              source={{
+                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+              }}
+              style={[
+                ChatWindowStyles.centerImage,
+                {
+                  position: "absolute",
+                  opacity: imageOpacity,
+                },
+              ]}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={[
+              ChatWindowStyles.messages,
+              { backgroundColor: themes[theme].colorSchemes.first },
+            ]}
+          >
+            <FlatList
+              data={messages.filter((msg) => msg.role !== "system")}
+              renderItem={({ item }) => (
+                <>
+                  <View
+                    style={[
+                      {
+                        ...ChatWindowStyles.message,
+                        backgroundColor: themes[theme].colorSchemes.second,
+                      },
+                      item.role === "assistant"
+                        ? {
+                            ...ChatWindowStyles.assistantMessage,
+                            backgroundColor: themes[theme].colorSchemes.second,
+                          }
+                        : {
+                            ...ChatWindowStyles.userMessage,
+                            backgroundColor: themes[theme].colorSchemes.third,
+                          },
+                    ]}
+                  >
+                    {item.role === "assistant" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.assistantTitle,
+                          { color: themes[theme].colorSchemes.fourth },
+                        ]}
+                      >
+                        {themes[theme].Title}
+                      </Text>
+                    )}
+                    {item.role === "user" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.userTitle,
+                          { color: themes[theme].colorSchemes.fifth },
+                        ]}
+                      >
+                        You
+                      </Text>
+                    )}
+                    <Text style={ChatWindowStyles.messageText} selectable>
+                      {item.content}
+                    </Text>
+                  </View>
+                </>
+              )}
+              style={{
+                opacity: listOpacity,
+                // height: "100%"
+              }} // Applying opacity here
+              keyExtractor={(item) => item.id}
+              ref={flatListRef}
+            />
+            {/* {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
           messages.length > 0 &&
           messages[messages.length - 1].role === "assistant" && (
             <View
@@ -182,23 +273,264 @@ const ChatWindow = ({
               </Text>
             </View>
           )} */}
-      </View>
-
-      {firebaseDataLoading && (
-        <View style={ChatWindowStyles.loadingOverlay}>
-          <ActivityIndicator
-            size="large"
-            color={themes[theme].colorSchemes.fourth}
-          />
+          </View>
+          {firebaseDataLoading && (
+            <View style={ChatWindowStyles.loadingOverlay}>
+              <ActivityIndicator
+                size="large"
+                color={themes[theme].colorSchemes.fourth}
+              />
+            </View>
+          )}
         </View>
       )}
-    </View>
+
+      {!isPriceNull && stateVariable === 2 && (
+        // JSX for the condition when stateVariable is 3, irrespective of the price value
+
+        <View
+          style={{ flex: 1 }}
+          // {...panResponder.panHandlers}
+        >
+          <View style={{ flex: 0.6 }}>
+            {/* Background Image with absolute positioning */}
+            <Animated.Image
+              source={{
+                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+              }}
+              style={[
+                ChatWindowStyles.centerImage,
+                {
+                  position: "absolute",
+                  opacity: imageOpacity,
+                },
+              ]}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={[
+              ChatWindowStyles.messages,
+              { backgroundColor: themes[theme].colorSchemes.first },
+            ]}
+          >
+            <FlatList
+              data={messages.filter((msg) => msg.role !== "system")}
+              renderItem={({ item }) => (
+                <>
+                  <View
+                    style={[
+                      {
+                        ...ChatWindowStyles.message,
+                        backgroundColor: themes[theme].colorSchemes.second,
+                      },
+                      item.role === "assistant"
+                        ? {
+                            ...ChatWindowStyles.assistantMessage,
+                            backgroundColor: themes[theme].colorSchemes.second,
+                          }
+                        : {
+                            ...ChatWindowStyles.userMessage,
+                            backgroundColor: themes[theme].colorSchemes.third,
+                          },
+                    ]}
+                  >
+                    {item.role === "assistant" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.assistantTitle,
+                          { color: themes[theme].colorSchemes.fourth },
+                        ]}
+                      >
+                        {themes[theme].Title}
+                      </Text>
+                    )}
+                    {item.role === "user" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.userTitle,
+                          { color: themes[theme].colorSchemes.fifth },
+                        ]}
+                      >
+                        You
+                      </Text>
+                    )}
+                    <Text style={ChatWindowStyles.messageText} selectable>
+                      {item.content}
+                    </Text>
+                  </View>
+                </>
+              )}
+              style={{
+                opacity: listOpacity,
+                // height: "100%"
+              }} // Applying opacity here
+              keyExtractor={(item) => item.id}
+              ref={flatListRef}
+            />
+            {/* {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
+          messages.length > 0 &&
+          messages[messages.length - 1].role === "assistant" && (
+            <View
+              style={[
+                ChatWindowStyles.message,
+                ChatWindowStyles.assistantMessage,
+                {
+                  backgroundColor: themes[theme].colorSchemes.second,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  ChatWindowStyles.assistantTitle,
+                  { color: themes[theme].colorSchemes.fourth },
+                ]}
+              >
+                {themes[theme].Title}
+              </Text>
+              <Text style={ChatWindowStyles.messageText} selectable>
+                {messages[messages.length - 1].content}
+              </Text>
+            </View>
+          )} */}
+          </View>
+          {firebaseDataLoading && (
+            <View style={ChatWindowStyles.loadingOverlay}>
+              <ActivityIndicator
+                size="large"
+                color={themes[theme].colorSchemes.fourth}
+              />
+            </View>
+          )}
+        </View>
+      )}
+
+      {!isPriceNull && stateVariable === 3 && (
+        // JSX for the condition when stateVariable is 3, irrespective of the price value
+
+        <View
+          style={{ flex: 1 }}
+          // {...panResponder.panHandlers}
+        >
+          <View style={{ flex: 0.6 }}>
+            {/* Background Image with absolute positioning */}
+            <Animated.Image
+              source={{
+                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+              }}
+              style={[
+                ChatWindowStyles.centerImage,
+                {
+                  position: "absolute",
+                  opacity: imageOpacity,
+                },
+              ]}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={[
+              ChatWindowStyles.messages,
+              { backgroundColor: themes[theme].colorSchemes.first },
+            ]}
+          >
+            <FlatList
+              data={messages.filter((msg) => msg.role !== "system")}
+              renderItem={({ item }) => (
+                <>
+                  <View
+                    style={[
+                      {
+                        ...ChatWindowStyles.message,
+                        backgroundColor: themes[theme].colorSchemes.second,
+                      },
+                      item.role === "assistant"
+                        ? {
+                            ...ChatWindowStyles.assistantMessage,
+                            backgroundColor: themes[theme].colorSchemes.second,
+                          }
+                        : {
+                            ...ChatWindowStyles.userMessage,
+                            backgroundColor: themes[theme].colorSchemes.third,
+                          },
+                    ]}
+                  >
+                    {item.role === "assistant" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.assistantTitle,
+                          { color: themes[theme].colorSchemes.fourth },
+                        ]}
+                      >
+                        {themes[theme].Title}
+                      </Text>
+                    )}
+                    {item.role === "user" && (
+                      <Text
+                        style={[
+                          ChatWindowStyles.userTitle,
+                          { color: themes[theme].colorSchemes.fifth },
+                        ]}
+                      >
+                        You
+                      </Text>
+                    )}
+                    <Text style={ChatWindowStyles.messageText} selectable>
+                      {item.content}
+                    </Text>
+                  </View>
+                </>
+              )}
+              style={{
+                opacity: listOpacity,
+                // height: "100%"
+              }} // Applying opacity here
+              keyExtractor={(item) => item.id}
+              ref={flatListRef}
+            />
+            {/* {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
+          messages.length > 0 &&
+          messages[messages.length - 1].role === "assistant" && (
+            <View
+              style={[
+                ChatWindowStyles.message,
+                ChatWindowStyles.assistantMessage,
+                {
+                  backgroundColor: themes[theme].colorSchemes.second,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  ChatWindowStyles.assistantTitle,
+                  { color: themes[theme].colorSchemes.fourth },
+                ]}
+              >
+                {themes[theme].Title}
+              </Text>
+              <Text style={ChatWindowStyles.messageText} selectable>
+                {messages[messages.length - 1].content}
+              </Text>
+            </View>
+          )} */}
+          </View>
+          {firebaseDataLoading && (
+            <View style={ChatWindowStyles.loadingOverlay}>
+              <ActivityIndicator
+                size="large"
+                color={themes[theme].colorSchemes.fourth}
+              />
+            </View>
+          )}
+        </View>
+      )}
+    </>
   );
 };
 
 const ChatWindowStyles = StyleSheet.create({
   messages: {
-    flex: 1,
+    flex: 0.4,
     // padding: 10,
     backgroundColor: "#13293D",
   },
@@ -249,11 +581,6 @@ const ChatWindowStyles = StyleSheet.create({
     height: "100%",
     borderRadius: 15,
     overflow: "hidden",
-    // margin: 10,
-    // marginBottom: 20,
-    // marginTop: 20,
-    // marginLeft: 20,
-    // marginRight: 20,
   },
 });
 
