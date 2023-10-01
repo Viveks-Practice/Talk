@@ -26,24 +26,25 @@ const ChatWindow = ({
   // Create a variable to store the modified theme
   const formattedTheme = theme.toLowerCase().replace(/ /g, "-");
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        setIsDragging(false);
-      },
-      onPanResponderMove: () => {
-        setIsDragging(true);
-      },
-      onPanResponderRelease: () => {
-        if (!isDragging) {
-          setListOpacity((prevOpacity) => (prevOpacity < 1 ? 1 : 0.01));
-        }
-      },
-      onPanResponderTerminate: () => {}, // Optionally handle termination
-    })
-  ).current;
+  // const panResponder = useRef(
+  //   PanResponder.create({
+  //     onStartShouldSetPanResponder: () => true,
+  //     onPanResponderGrant: () => {
+  //       setIsDragging(false);
+  //     },
+  //     onPanResponderMove: () => {
+  //       setIsDragging(true);
+  //     },
+  //     onPanResponderRelease: () => {
+  //       if (!isDragging) {
+  //         setListOpacity((prevOpacity) => (prevOpacity < 1 ? 1 : 0.01));
+  //       }
+  //     },
+  //     onPanResponderTerminate: () => {}, // Optionally handle termination
+  //   })
+  // ).current;
 
+  // function for fading images in and out
   function renderRandomImage() {
     // First, fade out the current image
     Animated.timing(imageOpacity, {
@@ -73,10 +74,10 @@ const ChatWindow = ({
         messages[messages.length - 1].content
       )
     ) {
-      setListOpacity(0.01); // Almost invisible
+      // setListOpacity(0.01); // Almost invisible
       renderRandomImage();
     } else {
-      setListOpacity(1);
+      // setListOpacity(1);
     }
   }, [messages, theme]);
 
@@ -97,10 +98,10 @@ const ChatWindow = ({
             ChatWindowStyles.centerImage,
             {
               position: "absolute",
-              opacity: Animated.multiply(
-                imageOpacity,
-                listOpacity < 1 ? 1 : 0.2
-              ),
+              // opacity: Animated.multiply(
+              //   imageOpacity,
+              //   listOpacity < 1 ? 1 : 0.2
+              // ),
             },
           ]}
           resizeMode="cover"
@@ -156,7 +157,7 @@ const ChatWindow = ({
           keyExtractor={(item) => item.id}
           ref={flatListRef}
         />
-        {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
+        {/* {listOpacity < 0.5 && // Using 0.5 as a threshold. Adjust as per your preference.
           messages.length > 0 &&
           messages[messages.length - 1].role === "assistant" && (
             <View
@@ -180,7 +181,7 @@ const ChatWindow = ({
                 {messages[messages.length - 1].content}
               </Text>
             </View>
-          )}
+          )} */}
       </View>
 
       {firebaseDataLoading && (
