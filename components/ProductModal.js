@@ -101,7 +101,7 @@ const ProductModal = ({
                       }
                     }}
                   >
-                    <View style={styles.productContainer}>
+                    <View style={styles.purchasableItemStyle}>
                       <ImageBackground
                         source={{
                           uri: `http://34.149.134.224/coins/coins-1.png`,
@@ -189,8 +189,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingBottom: 5,
-    width: 200,
+    width: "100%",
     alignItems: "center",
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: "#dbb98c",
   },
   productTitle: {
     color: "#dbb98c",
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
   },
   backgroundImageContainer: {
     width: "100%", // or your desired width
-    height: 200, // adjust according to your UI/UX design
+    height: 300, // adjust according to your UI/UX design
   },
   backgroundImage: {
     resizeMode: "cover", // Ensure image covers the entire space
@@ -259,6 +262,13 @@ const styles = StyleSheet.create({
   pressableStyle: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  purchasableItemStyle: {
+    margin: 5,
+    flex: 1,
+    justifyContent: "flex-end",
+    width: "100%",
+    alignItems: "center",
   },
 });
 
