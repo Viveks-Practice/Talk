@@ -8,6 +8,7 @@ import {
   FlatList,
   ActivityIndicator,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
@@ -50,6 +51,7 @@ const ProductModal = ({
                 keyExtractor={(item) => item.identifier}
                 renderItem={({ item }) => (
                   <Pressable
+                    style={styles.pressableStyle}
                     onPress={async () => {
                       setSelectedCoins(
                         productIdToCoins[item.identifier] + " Coins"
@@ -121,6 +123,11 @@ const ProductModal = ({
                     </View>
                   </Pressable>
                 )}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  justifyContent: "center",
+                  // alignItems: "center",
+                }}
               />
             </View>
           </View>
@@ -150,6 +157,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
+    width: "100%", // Ensures the modal takes the full width of its container
+    height: "100%",
+    padding: 10,
   },
   modalOverlay: {
     flex: 1,
@@ -158,13 +168,10 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.8)",
   },
   modalView: {
-    margin: 20,
+    margin: 20, // Ensures a light padding around the modal
+    padding: 20, // Inner padding for modal content
     backgroundColor: "#161d27",
     borderRadius: 20,
-    paddingBottom: 35,
-    paddingLeft: 20,
-    paddingRight: 20,
-    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -173,11 +180,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width: "100%", // Ensures the modal takes the full width of its container
+    height: "100%", // Ensures the modal takes the full height of its container
+    justifyContent: "flex-start", // Center content vertically
+    flexDirection: "column", // Arrange modal content vertically, instead of horizontally
   },
   productContainer: {
     flex: 1,
     justifyContent: "flex-end",
-    alignItems: "center",
     paddingBottom: 5,
     width: 200,
     alignItems: "center",
@@ -245,6 +255,10 @@ const styles = StyleSheet.create({
     fontSize: 18, // Adjust as per your UI needs
     color: "white",
     fontWeight: "bold",
+  },
+  pressableStyle: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
