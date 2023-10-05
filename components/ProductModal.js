@@ -7,6 +7,7 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import Purchases from "react-native-purchases";
 import { deliverContent } from "../iapFunctions";
@@ -37,77 +38,88 @@ const ProductModal = ({
         visible={productModalVisible}
         onRequestClose={onClose}
       >
-        <Pressable style={styles.modalOverlay} onPress={onClose}>
+        <Pressable style={styles.modalOverlay}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              <Pressable style={styles.closeButton} onPress={onClose}>
+                <Text style={styles.closeButtonText}>X</Text>
+              </Pressable>
+              <Text style={styles.modalTitle}>Purchase Coins</Text>
               <FlatList
                 data={products}
                 keyExtractor={(item) => item.identifier}
                 renderItem={({ item }) => (
-                  <View style={styles.productContainer}>
-                    <Text style={styles.productTitle}>
-                      {item.product.title}
-                    </Text>
-                    <Text style={styles.productDescription}>
-                      {item.product.description}
-                    </Text>
-                    <Text style={styles.productPrice}>
-                      {item.product.price}
-                    </Text>
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={async () => {
-                        setSelectedCoins(
-                          productIdToCoins[item.identifier] + " Coins"
+                  <Pressable
+                    onPress={async () => {
+                      setSelectedCoins(
+                        productIdToCoins[item.identifier] + " Coins"
+                      );
+                      setIsPurchasingCoins(true);
+                      try {
+                        // const { customerInfo, productIdentifier } =
+                        const purchaseResponse =
+                          await Purchases.purchasePackage(item);
+                        // Deliver purchased content
+                        deliverContent(purchaseResponse, id, db, item)
+                          .then((result) => {
+                            // successfully delivered purchased content
+                            console.log(
+                              "(#3 deliverContent) - The content has been delivered successfully!",
+                              result
+                            );
+                            // increase coin count
+                            const coinsToAdd =
+                              productIdToCoins[item.identifier];
+                            const newCoins = coins + coinsToAdd;
+                            setCoins(newCoins);
+                            console.log(
+                              "New coin count after delivering the coins!",
+                              newCoins
+                            );
+                          })
+                          .catch((error) => {
+                            // failed to deliver purchased content
+                            console.log(
+                              "(#3 deliverContent) - The content has failed to deliver!",
+                              error
+                            );
+                          });
+                      } catch (error) {
+                        console.log(
+                          "Error with trying to make a purchase with RevenueCat",
+                          error
                         );
-                        setIsPurchasingCoins(true);
-                        try {
-                          // const { customerInfo, productIdentifier } =
-                          const purchaseResponse =
-                            await Purchases.purchasePackage(item);
-                          // Deliver purchased content
-                          deliverContent(purchaseResponse, id, db, item)
-                            .then((result) => {
-                              // successfully delivered purchased content
-                              console.log(
-                                "(#3 deliverContent) - The content has been delivered successfully!",
-                                result
-                              );
-                              // increase coin count
-                              const coinsToAdd =
-                                productIdToCoins[item.identifier];
-                              const newCoins = coins + coinsToAdd;
-                              setCoins(newCoins);
-                              console.log(
-                                "New coin count after delivering the coins!",
-                                newCoins
-                              );
-                            })
-                            .catch((error) => {
-                              // failed to deliver purchased content
-                              console.log(
-                                "(#3 deliverContent) - The content has failed to deliver!",
-                                error
-                              );
-                            });
-                        } catch (error) {
-                          console.log(
-                            "Error with trying to make a purchase with RevenueCat",
-                            error
-                          );
-                          if (!error.userCancelled) {
-                            // Alert.alert("Error purchasing package", e.message);
-                          }
-                        } finally {
-                          setIsPurchasingCoins(false);
-                          setShowSuccessModal(true);
-                          setProductModalVisible(false);
+                        if (!error.userCancelled) {
+                          // Alert.alert("Error purchasing package", e.message);
                         }
-                      }}
-                    >
-                      <Text style={styles.textStyle}>Buy</Text>
-                    </Pressable>
-                  </View>
+                      } finally {
+                        setIsPurchasingCoins(false);
+                        setShowSuccessModal(true);
+                        setProductModalVisible(false);
+                      }
+                    }}
+                  >
+                    <View style={styles.productContainer}>
+                      <ImageBackground
+                        source={{
+                          uri: `http://34.149.134.224/coins/coins-1.png`,
+                        }}
+                        style={styles.backgroundImageContainer}
+                        imageStyle={styles.backgroundImage}
+                      >
+                        <View style={styles.productContainer}>
+                          <Text style={styles.productTitle}>
+                            {item.product.title.split(" ")[0] + " Coins"}
+                          </Text>
+                          <Text style={styles.productPrice}>
+                            {item.product.priceString +
+                              " " +
+                              item.product.currencyCode}
+                          </Text>
+                        </View>
+                      </ImageBackground>
+                    </View>
+                  </Pressable>
                 )}
               />
             </View>
@@ -137,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    marginTop: 10,
   },
   modalOverlay: {
     flex: 1,
@@ -149,7 +161,9 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "#161d27",
     borderRadius: 20,
-    padding: 35,
+    paddingBottom: 35,
+    paddingLeft: 20,
+    paddingRight: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -161,12 +175,19 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   productContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: 5,
     width: 200,
-    marginBottom: 20,
+    alignItems: "center",
   },
   productTitle: {
-    color: "white",
+    color: "#dbb98c",
     fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 12,
   },
   productDescription: {
     color: "white",
@@ -196,6 +217,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2,
+  },
+  backgroundImageContainer: {
+    width: "100%", // or your desired width
+    height: 200, // adjust according to your UI/UX design
+  },
+  backgroundImage: {
+    resizeMode: "cover", // Ensure image covers the entire space
+    borderRadius: 20,
+  },
+  modalTitle: {
+    color: "white",
+    fontSize: 24, // or whatever size you prefer
+    fontWeight: "bold",
+    marginTop: 10, // or adjust as needed to position the title appropriately
+    marginBottom: 20, // optional, adjust as needed
+    alignSelf: "center",
+  },
+  closeButton: {
+    position: "absolute", // This takes your button out of the document flow
+    top: 10, // Adjust as per your UI needs
+    right: 10, // Adjust as per your UI needs
+    padding: 10, // Provides space around the 'X', making it easier to tap
+    zIndex: 2, // Ensure the button is above other UI elements
+  },
+  closeButtonText: {
+    fontSize: 18, // Adjust as per your UI needs
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
