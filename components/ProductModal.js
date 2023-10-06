@@ -78,6 +78,8 @@ const ProductModal = ({
                               "New coin count after delivering the coins!",
                               newCoins
                             );
+                            setShowSuccessModal(true);
+                            setProductModalVisible(false);
                           })
                           .catch((error) => {
                             // failed to deliver purchased content
@@ -96,15 +98,13 @@ const ProductModal = ({
                         }
                       } finally {
                         setIsPurchasingCoins(false);
-                        setShowSuccessModal(true);
-                        setProductModalVisible(false);
                       }
                     }}
                   >
                     <View style={styles.purchasableItemStyle}>
                       <ImageBackground
                         source={{
-                          uri: `http://34.149.134.224/coins/coins-1.png`,
+                          uri: `http://34.149.134.224/coins/coins-2.png`,
                         }}
                         style={styles.backgroundImageContainer}
                         imageStyle={styles.backgroundImage}
@@ -194,18 +194,27 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 20,
     borderColor: "#dbb98c",
+    // borderColor: "#c4a756",
   },
   productTitle: {
-    color: "#dbb98c",
+    color: "#c4a756",
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    borderRadius: 12,
-  },
-  productDescription: {
-    color: "white",
+    fontSize: 22,
+    backgroundColor: "rgba(22, 29, 39, 0.6)",
+    borderRadius: 8,
+    padding: 5,
   },
   productPrice: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "rgba(22, 29, 39, 0.6)",
+    borderRadius: 8,
+    padding: 5,
+  },
+  productDescription: {
     color: "white",
   },
   button: {
