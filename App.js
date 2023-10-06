@@ -1,4 +1,4 @@
-//test_before_iap_release branch
+//release_final_checks branch
 
 import React, { useState, useRef, useEffect } from "react";
 import {
