@@ -65,47 +65,47 @@ export async function deliverContent(purchase, id, db, selectedProductDetails) {
     const purchaseTimeDate = new Date(purchase.customerInfo.requestDate); // Convert Unix timestamp to JavaScript Date
     const purchaseTimeTimestamp = Timestamp.fromDate(purchaseTimeDate); // Convert Date to Firestore Timestamp
 
-    //Create a new purchase document in the 'purchases' collection
-    const purchasesCollectionRef = collection(userRef, "purchases");
-    const newPurchaseRef = doc(purchasesCollectionRef); // Let Firestore auto-generate an ID for the new purchase
-    batch.set(
-      newPurchaseRef,
-      {
-        createdAt: new Date(),
-        purchaseType: "currencyPurchase",
-        coinsAmount: additionalCoins,
-        offeringIdentifier: selectedProductDetails.offeringIdentifier,
-        currency: selectedProductDetails.product.currencyCode,
-        description: selectedProductDetails.product.description,
-        price: selectedProductDetails.product.price || 0, // The  real-world money cost
-        productCategory: selectedProductDetails.product.productCategory || "",
-        productType: selectedProductDetails.product.productType || "",
-        title: selectedProductDetails.product.title,
-        subscriptionPeriod: selectedProductDetails.subscriptionPeriod || "",
-        productId: purchase.productIdentifier,
-        purchaseTime: purchaseTimeTimestamp,
+    const purchaseData = {
+      createdAt: new Date(),
+      purchaseType: "currencyPurchase",
+      coinsAmount: additionalCoins,
+      offeringIdentifier: selectedProductDetails.offeringIdentifier,
+      currency: selectedProductDetails.product.currencyCode,
+      description: selectedProductDetails.product.description,
+      price: selectedProductDetails.product.price || 0,
+      productCategory: selectedProductDetails.product.productCategory || "",
+      productType: selectedProductDetails.product.productType || "",
+      title: selectedProductDetails.product.title,
+      subscriptionPeriod: selectedProductDetails.subscriptionPeriod || "",
+      productId: purchase.productIdentifier,
+      purchaseTime: purchaseTimeTimestamp,
+      userId: id,
+      // platform-specific fields
+      ...(Platform.OS === "android"
+        ? {
+            platform: "android",
+          }
+        : {}),
+      ...(Platform.OS === "ios"
+        ? {
+            platform: "ios",
+          }
+        : {}),
+    };
 
-        // platform-specific fields
-        ...(Platform.OS === "android"
-          ? {
-              //   packageName: purchase.packageName || "", //fallback to empty string if undefined
-              //   purchaseToken: purchase.purchaseToken || "", //fallback to empty string if undefined
-              platform: "android",
-            }
-          : {}), // include fields for Android
-        ...(Platform.OS === "ios"
-          ? {
-              //   transactionReceipt: purchase.transactionReceipt || "", //fallback to empty string if undefined
-              //   originalPurchaseTime: purchase.originalPurchaseTime || "", //fallback to empty string if undefined
-              //   originalOrderId: purchase.originalOrderId || "", //fallback to empty string if undefined
-              platform: "ios",
+    // Create a new purchase document in the 'purchases' sub-collection of the user
+    const userPurchasesCollectionRef = collection(userRef, "purchases");
+    const newUserPurchaseRef = doc(userPurchasesCollectionRef);
 
-              // other iOS-specific fields here
-            }
-          : {}), // include fields for iOS
-      },
-      { merge: true }
-    );
+    batch.set(newUserPurchaseRef, purchaseData, { merge: true });
+
+    // Create a reference to the top-level 'purchases' collection
+    const topPurchasesCollectionRef = collection(db, "purchases");
+    const topNewPurchaseRef = doc(topPurchasesCollectionRef);
+
+    // Add the same purchase data to the top-level 'purchases' collection
+    batch.set(topNewPurchaseRef, purchaseData, { merge: true });
+
     await batch.commit();
 
     console.log("(#3 deliverContent) - Purchase completed successfully!");

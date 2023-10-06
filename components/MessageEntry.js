@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   updateFirestoreChat,
   updateFirestoreContext,
+  incrementCoins,
 } from "../firebaseFunctions/firebaseOperations";
 
 const MessageEntry = ({
@@ -32,54 +33,13 @@ const MessageEntry = ({
   firebaseDataLoading,
   context,
   setContext,
+  setCoins,
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
-  // const [messageLimitExceeded, setMessageLimitExceeded] = useState(false);
 
   const url = "https://api.openai.com/v1/chat/completions";
 
   const sendMessage = async () => {
-    // Check message limit and timestamp before sending
-    // if (messageCount >= 150) {
-    //   if (!firstMessageTime) {
-    //     setFirstMessageTime(new Date());
-    //   } else {
-    //     const currentTime = new Date();
-    //     const timeDifference = currentTime - firstMessageTime;
-    //     const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
-    //     if (timeDifferenceInHours >= 24) {
-    //       // More than 24 hours have passed, reset the counter
-    //       setMessageCount(0);
-    //       setFirstMessageTime(null);
-    //       await AsyncStorage.setItem("messageCount", "0");
-    //       await AsyncStorage.removeItem("firstMessageTime");
-    //     } else {
-    //       setMessageLimitExceeded(true);
-    //       // Calculate the time remaining
-    //       const timeRemaining = 24 * 60 * 60 * 1000 - timeDifference; // in milliseconds
-    //       const hoursRemaining = Math.floor(timeRemaining / (1000 * 60 * 60));
-    //       const minutesRemaining = Math.floor(
-    //         (timeRemaining - hoursRemaining * 1000 * 60 * 60) / (1000 * 60)
-    //       );
-    //       const secondsRemaining = Math.floor(
-    //         (timeRemaining -
-    //           hoursRemaining * 1000 * 60 * 60 -
-    //           minutesRemaining * 1000 * 60) /
-    //           1000
-    //       );
-
-    //       // Display a message to the user that they have reached their limit
-    //       alert(
-    //         `You have reached the daily limit of 150 messages. Please try again in ${hoursRemaining} hours, ${minutesRemaining} minutes and ${secondsRemaining} seconds.`
-    //       );
-
-    //       return;
-    //     }
-    //   }
-    // }
-
-    //proceed with the rest of the send message code
-
     let contextSize = context;
     let userFirestoreOperation, aiFirestoreOperation;
 
@@ -198,6 +158,8 @@ const MessageEntry = ({
         setFirstMessageTime(now);
         await AsyncStorage.setItem("firstMessageTime", now.toISOString());
       }
+
+      await incrementCoins(db, anonId, setCoins);
     } catch (error) {
       console.error("Error:", error);
       alert("There was an error processing your message. Please try again.");

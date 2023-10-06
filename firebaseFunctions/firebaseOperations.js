@@ -146,3 +146,33 @@ export const fetchPersonas = async (db, userId) => {
     throw error;
   }
 };
+
+// used to update the user's coins in the database whenever the app starts, or when the user makes a purchase
+export const incrementCoins = async (db, userId, setCoins) => {
+  try {
+    // Increment coin count in local state
+    setCoins((currentCoins) => currentCoins + 1);
+
+    // Reference to the user document
+    const userRef = doc(db, "users", userId);
+
+    // Get the user document
+    const userDoc = await getDoc(userRef);
+
+    // Check if the document exists
+    if (!userDoc.exists()) {
+      // Handle error (e.g., create the document, log an error, etc.)
+      console.error("Error: Document does not exist!");
+    } else {
+      // If it exists, just update the coin count
+      const currentCoins = userDoc.data().coins || 0;
+      await updateDoc(userRef, {
+        coins: currentCoins + 1,
+      });
+    }
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+    alert("There was an error updating coins. Please try again.");
+  }
+};

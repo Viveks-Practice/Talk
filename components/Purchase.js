@@ -81,7 +81,7 @@ const Purchase = ({
               >
                 <Image
                   source={{
-                    uri: `http://34.149.134.224/${
+                    uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${
                       purchasePersona.name
                     }/${databaseFriendlyName(purchasePersona.name)}-1.png`,
                   }}

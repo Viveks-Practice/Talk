@@ -169,7 +169,7 @@ const ChatWindow = ({
           >
             <Animated.Image
               source={{
-                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+                uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${theme}/${formattedTheme}-${imageIndex}.png`,
               }}
               style={{
                 position: "absolute",
@@ -301,7 +301,7 @@ const ChatWindow = ({
           >
             <Animated.Image
               source={{
-                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+                uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${theme}/${formattedTheme}-${imageIndex}.png`,
               }}
               style={{
                 position: "absolute",
@@ -410,7 +410,7 @@ const ChatWindow = ({
           >
             <Animated.Image
               source={{
-                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+                uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${theme}/${formattedTheme}-${imageIndex}.png`,
               }}
               style={{
                 position: "absolute",
@@ -580,7 +580,7 @@ const ChatWindow = ({
           >
             <Animated.Image
               source={{
-                uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+                uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${theme}/${formattedTheme}-${imageIndex}.png`,
               }}
               style={{
                 position: "absolute",
@@ -628,7 +628,7 @@ const ChatWindow = ({
             >
               <Animated.Image
                 source={{
-                  uri: `http://34.149.134.224/${theme}/${formattedTheme}-${imageIndex}.png`,
+                  uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/${theme}/${formattedTheme}-${imageIndex}.png`,
                 }}
                 style={{
                   position: "absolute",

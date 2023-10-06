@@ -104,7 +104,7 @@ const ProductModal = ({
                     <View style={styles.purchasableItemStyle}>
                       <ImageBackground
                         source={{
-                          uri: `http://34.149.134.224/coins/coins-2.png`,
+                          uri: `http://${process.env.GCS_LOAD_BALANCER_CDN_IP}/coins/coins-2.png`,
                         }}
                         style={styles.backgroundImageContainer}
                         imageStyle={styles.backgroundImage}

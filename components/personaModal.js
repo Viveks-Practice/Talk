@@ -175,9 +175,11 @@ const PersonaModal = ({
                     {item.price !== null ? (
                       <ImageBackground
                         source={{
-                          uri: `http://34.149.134.224/${
+                          uri: `http://${
+                            process.env.GCS_LOAD_BALANCER_CDN_IP
+                          }/${item.name}/${databaseFriendlyName(
                             item.name
-                          }/${databaseFriendlyName(item.name)}-1.png`,
+                          )}-1.png`,
                         }}
                         style={PersonaModalStyles.centerImage}
                       >

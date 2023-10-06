@@ -150,24 +150,24 @@ export default function App() {
 
   const flatListRef = useRef(null);
   //advertisement interstitial
-  useEffect(() => {
-    if (interstitialAdLoaded === true && messageCount % 4 == 3) {
-      interstitial.show();
-    }
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setInterstitialAdLoaded(true);
-        console.log("Interstitial ad loaded!");
-      }
-    );
+  // useEffect(() => {
+  //   if (interstitialAdLoaded === true && messageCount % 4 == 3) {
+  //     interstitial.show();
+  //   }
+  //   const unsubscribe = interstitial.addAdEventListener(
+  //     AdEventType.LOADED,
+  //     () => {
+  //       setInterstitialAdLoaded(true);
+  //       console.log("Interstitial ad loaded!");
+  //     }
+  //   );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+  //   // Start loading the interstitial straight away
+  //   interstitial.load();
 
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, [messageCount]);
+  //   // Unsubscribe from events on unmount
+  //   return unsubscribe;
+  // }, [messageCount]);
 
   // Initialize the RevenueCat SDK
   useEffect(() => {
@@ -420,6 +420,7 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
+            setCoins={setCoins}
           />
         </KeyboardAvoidingView>
       ) : (
@@ -477,6 +478,7 @@ export default function App() {
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
+            setCoins={setCoins}
           />
         </SafeAreaView>
       )}
