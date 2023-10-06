@@ -179,7 +179,7 @@ export async function iapPersona(id, db, selectedPersonaDetails) {
       coins: newCoins,
     });
 
-    // Second database update: add the purchased persona to the 'ownedProducts' subcollection
+    // Second database update: add the purchased persona to the purchases subcollection
     // Create a new purchase document in the 'purchases' collection
     const purchasesCollectionRef = collection(userRef, "purchases");
     const newPurchaseRef = doc(purchasesCollectionRef);
@@ -202,7 +202,29 @@ export async function iapPersona(id, db, selectedPersonaDetails) {
       { merge: true }
     );
 
-    // Third database update: add the purchased persona to the 'ownedProducts' subcollection
+    // Third database update: Add the purchase details to the top-level 'purchases' collection.
+    const topPurchasesCollectionRef = collection(db, "purchases");
+    const newTopPurchaseRef = doc(topPurchasesCollectionRef); // Auto-generate ID
+    batch.set(
+      newTopPurchaseRef,
+      {
+        createdAt: new Date(),
+        purchaseType: "coinsPurchase",
+        price: selectedPersonaDetails.price,
+        platform: Platform.OS,
+        productCategory: "persona",
+        productId: selectedPersonaDetails.name,
+        productType: "PERMANENT", // PERMANENT || CONSUMABLE || SUBSCRIPTION
+        purchaseTime: Timestamp.fromDate(new Date()),
+        userId: id, // Including the user ID in top-level purchases collection can be useful for querying/filtering
+        // platform-specific fields (similar to your template)
+        ...(Platform.OS === "android" ? { platform: "android" } : {}),
+        ...(Platform.OS === "ios" ? { platform: "ios" } : {}),
+      },
+      { merge: true }
+    );
+
+    // Fourth database update: add the purchased persona to the 'ownedProducts' subcollection
     // Add the purchased persona to the 'ownedProducts' subcollection
     const ownedProductsCollectionRef = collection(userRef, "ownedProducts");
     const newOwnedProductRef = doc(ownedProductsCollectionRef);
