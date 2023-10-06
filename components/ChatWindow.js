@@ -24,7 +24,7 @@ const ChatWindow = ({
   const [isDragging, setIsDragging] = useState(false);
   const [imageIndex, setImageIndex] = useState(1);
   const [imageOpacity, setImageOpacity] = useState(new Animated.Value(1));
-  const [chatWindowStyleState, setChatWindowStyleState] = useState(5);
+  const [chatWindowStyleState, setChatWindowStyleState] = useState(2);
 
   // 1. Find the item from the options prop
   const selectedItem = options.find((item) => item.name === theme);

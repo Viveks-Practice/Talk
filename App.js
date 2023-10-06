@@ -118,7 +118,7 @@ export default function App() {
   const [options, setOptions] = useState([
     { name: "Neo - The Chat AI", owned: true, price: null },
     { name: "Princess Zelda Royal", owned: false, price: 1000 },
-    { name: "Harry Styles", owned: false, price: 200 },
+    { name: "Harry Styles Date Night", owned: false, price: 200 },
     { name: "Mario", owned: false, price: 300 },
     { name: "Gigachad", owned: true, price: null },
     { name: "David Goggins", owned: true, price: null },
