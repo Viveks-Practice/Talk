@@ -164,7 +164,7 @@ export async function iapPersona(id, db, selectedPersonaDetails) {
 
     // Check Persona Cost & User's Coin Balance
     const personaCost = selectedPersonaDetails.price; // Fetch the cost of the persona in coins
-    if (!personaCost || personaCost > currentCoins) {
+    if (personaCost === null || personaCost > currentCoins) {
       console.log(
         `Either the persona cost is unknown or user doesn't have enough coins. The button should have been disabled and greyed out`
       );
