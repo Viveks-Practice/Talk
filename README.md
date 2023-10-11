@@ -1,9 +1,9 @@
 # Neo - The Chat AI
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="300" alt="Neo1" />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-2.jpeg" width="300" alt="ZeldaRoyalChat2" />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/harry-styles-date-night-1.jpeg" width="300" alt="HarryStylesDateNight1"  />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="200" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-2.jpeg" width="200" alt="ZeldaRoyalChat2" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/harry-styles-date-night-1.jpeg" width="200" alt="HarryStylesDateNight1"  />
 </p>
 <br clear="all" />
 
@@ -51,9 +51,9 @@ and I would be happy to show you!
 There are items for sale in the app: Personas with images that change as you message
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="300" alt="BuyPersona1"  />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="300" alt="ZeldaRoyalPurchase1" />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="300" alt="ZeldaRoyalChat1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="200" alt="BuyPersona1"  />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="200" alt="ZeldaRoyalPurchase1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="200" alt="ZeldaRoyalChat1" />
 </p>
 
 These personas are considered premium products and they must be purchased with the in app currency called **"Coins"**!
