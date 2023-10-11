@@ -69,8 +69,10 @@ Coins are the in app currency that are used to make purchases in the app.
 - Chatting with any of your favourite personas
   - Earn coins for every message you send
 - Alternatively, **Coins** may be purchased with your real money! Select the wallet icon in the top left corner of any chat window to review your purchase options!
-  <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/coins-1.jpeg" width="300" alt="Coins1" />
-  Purchases are finalized using the App Store (iOS) or the Google Play Store (Android)
+
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/coins-1.jpeg" width="300" alt="Coins1" />
+
+Purchases are finalized using the App Store (iOS) or the Google Play Store (Android)
 
 ## Downloads
 
