@@ -1,9 +1,9 @@
 # Neo - The Chat AI
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/neo-1.jpeg" width="300" alt="Neo1" />
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/zelda-royal-chat-2.jpeg" width="300" alt="ZeldaRoyalChat2" />
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/harry-styles-date-night-1.jpeg" width="300" alt="HarryStylesDateNight1"  />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/neo-1.jpeg" width="300" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/zelda-royal-chat-2.jpeg" width="300" alt="ZeldaRoyalChat2" />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/harry-styles-date-night-1.jpeg" width="300" alt="HarryStylesDateNight1"  />
 </p>
 <br clear="all" />
 
@@ -51,9 +51,9 @@ and I would be happy to show you!
 There are items for sale in the app: Personas with images that change as you message
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/buy-persona-1.jpeg" width="300" alt="BuyPersona1"  />
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/zelda-royal-purchase-1.jpeg" width="300" alt="ZeldaRoyalPurchase1" />
-<img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/zelda-royal-chat-1.jpeg" width="300" alt="ZeldaRoyalChat1" />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/buy-persona-1.jpeg" width="300" alt="BuyPersona1"  />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/zelda-royal-purchase-1.jpeg" width="300" alt="ZeldaRoyalPurchase1" />
+<img src="https://github.com/Viveks-Practice/Neo/blob/main/images/zelda-royal-chat-1.jpeg" width="300" alt="ZeldaRoyalChat1" />
 </p>
 
 These personas are considered premium products and they must be purchased with the in app currency called **"Coins"**!
@@ -69,7 +69,7 @@ Coins are the in app currency that are used to make purchases in the app.
 - Chatting with any of your favourite personas
   - Earn coins for every message you send
 - Alternatively, **Coins** may be purchased with your real money! Select the wallet icon in the top left corner of any chat window to review your purchase options!
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/coins-1.jpeg" width="300" alt="Coins1" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/coins-1.jpeg" width="300" alt="Coins1" />
   Purchases are finalized using the App Store (iOS) or the Google Play Store (Android)
 
 ## Downloads
@@ -84,15 +84,15 @@ These are some examples that illustrate what is possible with Neo:
 
 <div>
   <p float="left">
-    <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/neo-1.jpeg" width="400" alt="Neo1" />
+    <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/neo-1.jpeg" width="400" alt="Neo1" />
   </p>
 </div>
 <p float="left">
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/darth-vader-1.jpeg" width="400" alt="DarthVader1" />
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/darth-vader-2.jpeg" width="300" alt="DarthVader2" />
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/persona-modal-1.jpeg" width="300" alt="PersonaModal1" />
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/persona-modal-2.jpeg" width="300" alt="PersonaModal2" />
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/mario-chat-1.jpeg" width="250" alt="MarioChat1" align="right" />
-  <img src="https://github.com/Viveks-Practice/Neo/blob/main/neo_demo_images/mario-chat-2.jpeg" width="250" alt="MarioChat2" align="right" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/darth-vader-1.jpeg" width="400" alt="DarthVader1" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/darth-vader-2.jpeg" width="300" alt="DarthVader2" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/persona-modal-1.jpeg" width="300" alt="PersonaModal1" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/persona-modal-2.jpeg" width="300" alt="PersonaModal2" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/mario-chat-1.jpeg" width="250" alt="MarioChat1" align="right" />
+  <img src="https://github.com/Viveks-Practice/Neo/blob/main/images/mario-chat-2.jpeg" width="250" alt="MarioChat2" align="right" />
   
 </p>
