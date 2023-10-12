@@ -23,9 +23,6 @@ There are a set number of celebrity and game character personas available in the
     <li><a href="#neo---the-chat-ai">Neo - The Chat AI</a>
       <ul>
         <li><a href="#overview">Overview</a>
-          <ul>
-            <li><a href="#note">Note</a></li>
-          </ul>
         </li>
         <li><a href="#purchases">Purchases</a>
           <ul>
