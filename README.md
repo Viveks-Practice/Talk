@@ -68,6 +68,8 @@ Clicking a persona from the dropdown will take you back to the chat window (if o
 </p>
 <br clear="all" />
 
+To change to another persona again, select the title of the current persona from the center of the header of the chat window (same as previously done).
+
 ## Purchases
 
 There are items for sale in the app: Personas with images that change as you message
