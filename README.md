@@ -103,6 +103,8 @@ You may then chat with the purchased persona.
 
 If you have insufficient funds to successfully purchase the item, you may select **Buy Coins** from the top right corner of the purchase window.
 
+Alternatively, selecting the wallet icon in the top left corner of any chat window will reveal the **Buy Coins** window!
+
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="320" alt="ZeldaRoyalPurchase1" />
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/coins-1.jpeg" width="320" alt="Coins1" />
