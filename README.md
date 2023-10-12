@@ -18,23 +18,35 @@ There are a set number of celebrity and game character personas available in the
 <br clear="all" />
 
 <p align="left">
-  <h2>Table of Contents</h2>
-  <ul>
+<h2>Table of Contents</h2>
+
+<ul>
     <li><a href="#neo---the-chat-ai">Neo - The Chat AI</a>
-      <ul>
-        <li><a href="#overview">Overview</a>
-        </li>
-        <li><a href="#purchases">Purchases</a>
-          <ul>
-            <li><a href="#coins-in-app-currency">Coins (In App Currency)</a></li>
-            <li><a href="#obtaining-coins">Obtaining <b>Coins</b></a></li>
-          </ul>
-        </li>
-        <li><a href="#downloads">Downloads</a></li>
-        <li><a href="#examples">Examples</a></li>
-      </ul>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#chatting">Chatting</a>
+                <ul>
+                    <li><a href="#persona-selection">Persona Selection</a></li>
+                    <li><a href="#persona-change">Persona Change</a></li>
+                </ul>
+            </li>
+            <li><a href="#purchases">Purchases</a>
+                <ul>
+                    <li><a href="#making-a-purchase">Making a Purchase</a></li>
+                    <li><a href="#successful-purchase">Successful Purchase!</a></li>
+                    <li><a href="#insufficient-funds">Insufficient Funds</a></li>
+                </ul>
+            </li>
+            <li><a href="#coins-in-app-currency">Coins (In App Currency)</a>
+                <ul>
+                    <li><a href="#obtaining-coins">Obtaining <b>Coins</b></a></li>
+                </ul>
+            </li>
+            <li><a href="#how-to-installdownload">How to Install/Download</a></li>
+        </ul>
     </li>
-  </ul>
+</ul>
+
 </p>
 <br clear="all" />
 
