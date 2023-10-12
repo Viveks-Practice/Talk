@@ -132,7 +132,7 @@ Google Play Store (Android): https://play.google.com/store/apps/details?id=com.v
 
 App Store (iOS): https://apps.apple.com/us/app/neo-the-chat-ai/id6446654685
 
-## Examples
+<!-- ## Examples
 
 These are some examples that illustrate what is possible with Neo:
 
@@ -148,5 +148,29 @@ These are some examples that illustrate what is possible with Neo:
   <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-modal-2.jpeg" width="300" alt="PersonaModal2" />
   <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/mario-chat-1.jpeg" width="250" alt="MarioChat1" align="right" />
   <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/mario-chat-2.jpeg" width="250" alt="MarioChat2" align="right" />
-  
-</p>
+
+</p> -->
+
+<!-- ## Technical challenges/implementations
+
+Firebase Firestore Database
+Firebase Authentication (anonymous)
+RevenueCat In App Purchases
+Google Play Console (Android) In App Purchases Configured
+App Store (iOS) In App Purchases Configured
+Designed custom in app currency system and purchasing flow
+
+- in app purchases (buy coins)
+- use coins to purchase in app products
+- in app product pricing
+  Storing images on GCS
+- image platform
+- load balancer
+- CDN
+  Chat GPT API integration
+  Interfaces in the app
+- chat window (freemium/premium)
+- coins purchase window
+- persona purchase windows
+- persona modal
+- google search to AI character -->
