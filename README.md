@@ -94,7 +94,7 @@ If you have sufficient funds in **Coins** and you make the purchase. The persona
 You may then chat with the purchased persona.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="200" alt="ZeldaRoyalChat1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="320" alt="ZeldaRoyalChat1" />
 </p>
 
 ### Insufficient Funds
