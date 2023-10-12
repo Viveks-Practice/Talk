@@ -39,13 +39,6 @@ This is a mobile app (iOS & Android) application that allows you to have a chat 
 
 There are a set number of celebrity and game character personas available in the app. New personas are added each week!
 
-### Note
-
-The code for this project is private as this is currently a live product. If you wish to review my codebase, please reach out to me at
-viveks_@hotmail.com
-
-and I would be happy to show you!
-
 ## Purchases
 
 There are items for sale in the app: Personas with images that change as you message
