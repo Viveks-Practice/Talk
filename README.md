@@ -1,5 +1,13 @@
 # Neo - The Chat AI
 
+## Overview
+
+Use Neo to chat with your favourite celebrity or game character!
+
+This is a mobile app (iOS & Android) application that allows you to have a chat with your favourite character, on your mobile iOS or Android device.
+
+There are a set number of celebrity and game character personas available in the app. New personas are added each week!
+
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="200" alt="Neo1" />
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-2.jpeg" width="200" alt="ZeldaRoyalChat2" />
@@ -30,14 +38,6 @@
   </ul>
 </p>
 <br clear="all" />
-
-## Overview
-
-Use Neo to chat with your favourite celebrity or game character!
-
-This is a mobile app (iOS & Android) application that allows you to have a chat with your favourite character, on your mobile iOS or Android device.
-
-There are a set number of celebrity and game character personas available in the app. New personas are added each week!
 
 ## Chatting
 
@@ -72,7 +72,9 @@ To change to another persona again, select the title of the current persona from
 
 ## Purchases
 
-There are items for sale in the app: Personas with images that change as you message
+There are items for sale in the app: Personas with images that change as you message.
+
+For example the persona named **Princess Zelda Royal**.
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="200" alt="BuyPersona1"  />
