@@ -102,9 +102,8 @@ You may then chat with the purchased persona.
 If you have insufficient funds to successfully purchase the item, you may select **Buy Coins** from the top right corner of the purchase window.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="200" alt="BuyPersona1"  />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="200" alt="ZeldaRoyalPurchase1" />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="200" alt="ZeldaRoyalChat1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="320" alt="ZeldaRoyalPurchase1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/coins-1.jpeg" width="320" alt="Coins1" />
 </p>
 
 These personas are considered premium products and they must be purchased with the in app currency called **"Coins"**!
