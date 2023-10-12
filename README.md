@@ -76,7 +76,7 @@ There are items for sale in the app: Personas with images that change as you mes
 For example the persona named **Princess Zelda Royal**.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="200" alt="BuyPersona1"  />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="320" alt="BuyPersona1"  />
 </p>
 
 ### Making a Purchase
@@ -84,7 +84,7 @@ For example the persona named **Princess Zelda Royal**.
 When an unowned persona is selected, a purchase window will appear. This will show your coins balance before and after the purchase, as well as the cost of the item selected.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="200" alt="ZeldaRoyalPurchase1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="320" alt="ZeldaRoyalPurchase1" />
 </p>
 
 ### Insufficient Funds
