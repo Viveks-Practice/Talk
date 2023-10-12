@@ -53,9 +53,8 @@ The first page of the app is the default Neo AI chat window. Neo is a general pu
 Click on the name of the app with the down arrow (in the center of the header of the app interface "Neo - The Chat AI"), and this will show the persona selection window.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-1.jpeg"width="300" alt="Neo2" />
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-2.jpeg"width="300" alt="Neo3" />
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-3.jpeg"width="300" alt="Neo4" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-1.jpeg"width="300" alt="Neo2" />
 
 </p>
 <br clear="all" />
