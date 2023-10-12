@@ -39,6 +39,15 @@ This is a mobile app (iOS & Android) application that allows you to have a chat 
 
 There are a set number of celebrity and game character personas available in the app. New personas are added each week!
 
+## Chatting
+
+The first page of the app is the default Neo AI chat window.
+
+<p align="center">
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="200" alt="Neo1" />
+</p>
+<br clear="all" />
+
 ## Purchases
 
 There are items for sale in the app: Personas with images that change as you message
