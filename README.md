@@ -60,7 +60,7 @@ Click on the name of the app with the down arrow (in the center of the header of
 
 ### Persona Change
 
-Click a persona (if owned) from the dropdown take you back to the chat window, but slightly altered. The colours may or may not change, but the persona you chat with will be altered to be the one you have selected.
+Clicking a persona from the dropdown will take you back to the chat window (if owned), but slightly altered. The colours may or may not change, but the persona you chat with will be altered to be the one you have selected.
 
 <p align="center">
   <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/darth-vader-1.jpeg" width="300" alt="DarthVader1" />
