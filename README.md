@@ -79,6 +79,8 @@ For example the persona named **Princess Zelda Royal**, currently priced at 1000
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="320" alt="BuyPersona1"  />
 </p>
 
+These personas are considered premium products and they must be purchased with the in app currency called **"Coins"**!
+
 ### Making a Purchase
 
 When an unowned persona is selected, a purchase window will appear. This will show your coins balance before and after the purchase, as well as the cost of the item selected.
@@ -105,8 +107,6 @@ If you have insufficient funds to successfully purchase the item, you may select
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="320" alt="ZeldaRoyalPurchase1" />
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/coins-1.jpeg" width="320" alt="Coins1" />
 </p>
-
-These personas are considered premium products and they must be purchased with the in app currency called **"Coins"**!
 
 ## Coins (In App Currency)
 
