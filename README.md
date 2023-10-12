@@ -10,7 +10,9 @@ There are a set number of celebrity and game character personas available in the
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="200" alt="Neo1" />
+
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-2.jpeg" width="200" alt="ZeldaRoyalChat2" />
+
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/harry-styles-date-night-1.jpeg" width="200" alt="HarryStylesDateNight1"  />
 </p>
 <br clear="all" />
