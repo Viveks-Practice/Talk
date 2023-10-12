@@ -73,7 +73,7 @@ To change to another persona again, select the title of the current persona from
 
 There are items for sale in the app: Personas with images that change as you message.
 
-For example the persona named **Princess Zelda Royal**.
+For example the persona named **Princess Zelda Royal**, currently priced at 1000 **Coins**.
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/buy-persona-1.jpeg" width="320" alt="BuyPersona1"  />
@@ -85,6 +85,16 @@ When an unowned persona is selected, a purchase window will appear. This will sh
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-purchase-1.jpeg" width="320" alt="ZeldaRoyalPurchase1" />
+</p>
+
+### Successful Purchase!
+
+If you have sufficient funds in **Coins** and you make the purchase. The persona will be available to select from the menu.
+
+You may then chat with the purchased persona.
+
+<p align="center">
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/zelda-royal-chat-1.jpeg" width="200" alt="ZeldaRoyalChat1" />
 </p>
 
 ### Insufficient Funds
