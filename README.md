@@ -41,7 +41,7 @@ There are a set number of celebrity and game character personas available in the
 
 ## Chatting
 
-The first page of the app is the default Neo AI chat window.
+The first page of the app is the default Neo AI chat window. Neo is a general purpose chat AI assistant. Ask it whatever you wish and have fun. It does not have any special persona associated with it.
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="300" alt="Neo1" />
