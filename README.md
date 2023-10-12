@@ -126,7 +126,9 @@ Coins are the in app currency that are used to make purchases in the app.
 
 Purchases are finalized using the App Store (iOS) or the Google Play Store (Android)
 
-## Downloads
+## How to Install/Download
+
+The app is currently live and available on the App Store (iOS) & Google Play Store (Android). Go to these links to try the app!
 
 Google Play Store (Android): https://play.google.com/store/apps/details?id=com.viveks_7764.talk
 
@@ -150,6 +152,8 @@ These are some examples that illustrate what is possible with Neo:
   <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/mario-chat-2.jpeg" width="250" alt="MarioChat2" align="right" />
 
 </p> -->
+
+<!-- ## Chat Examples -->
 
 <!-- ## Technical challenges/implementations
 
