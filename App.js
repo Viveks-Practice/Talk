@@ -415,8 +415,11 @@ export default function App() {
             messageCount={messageCount}
             setAdIndex={setAdIndex}
             adIndex={adIndex}
+            loaded={interstitialAdLoaded}
             anonId={anonId}
+            app={app}
             db={db}
+            auth={auth}
             firebaseDataLoading={firebaseDataLoading}
             context={context}
             setContext={setContext}
