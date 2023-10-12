@@ -44,7 +44,7 @@ There are a set number of celebrity and game character personas available in the
 The first page of the app is the default Neo AI chat window.
 
 <p align="center">
-<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="200" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="300" alt="Neo1" />
 </p>
 <br clear="all" />
 
