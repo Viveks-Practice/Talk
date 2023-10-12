@@ -45,6 +45,9 @@ The first page of the app is the default Neo AI chat window. Neo is a general pu
 
 <p align="center">
 <img src="https://github.com/Viveks-Practice/Talk/blob/main/images/neo-1.jpeg" width="300" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-1.jpeg" width="300" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-2.jpeg" width="300" alt="Neo1" />
+<img src="https://github.com/Viveks-Practice/Talk/blob/main/images/persona-list-3.jpeg" width="300" alt="Neo1" />
 </p>
 <br clear="all" />
 
