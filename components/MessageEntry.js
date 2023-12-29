@@ -37,7 +37,8 @@ const MessageEntry = ({
 }) => {
   const [firstMessageTime, setFirstMessageTime] = useState(null);
 
-  const url = "https://api.openai.com/v1/chat/completions";
+  const gcfUrl =
+    "https://us-central1-chat-window-widget.cloudfunctions.net/openai-gpt-request-neo";
 
   const sendMessage = async () => {
     let contextSize = context;
@@ -93,11 +94,12 @@ const MessageEntry = ({
     let tokenCount = 0;
 
     try {
-      const response = await fetch(url, {
+      // Make a call to your Google Cloud Function
+      const response = await fetch(gcfUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ` + process.env.OPENAI_API_KEY,
+          // Other headers your Cloud Function may need
         },
         body: JSON.stringify(requestData),
       });
