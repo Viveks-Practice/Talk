@@ -117,9 +117,9 @@ export default function App() {
   const [adIndex, setAdIndex] = useState(1);
   const [options, setOptions] = useState([
     { name: "Neo - The Chat AI", owned: true, price: null },
-    { name: "Mario", owned: false, price: 0 },
-    { name: "Princess Zelda Royal", owned: false, price: 1000 },
-    { name: "Harry Styles Date Night", owned: false, price: 200 },
+    // { name: "Mario", owned: false, price: 0 },
+    // { name: "Princess Zelda Royal", owned: false, price: 1000 },
+    // { name: "Harry Styles Date Night", owned: false, price: 200 },
     { name: "Gigachad", owned: true, price: null },
     { name: "David Goggins", owned: true, price: null },
     { name: "Link", owned: true, price: null },
